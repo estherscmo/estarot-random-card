@@ -5,13 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Estarot 隨機塔羅抽卡</title>
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GH0JYP6E4H"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-GH0JYP6E4H');
+
+    function loadGoogleAnalytics() {
+      if (window.estarotGoogleAnalyticsLoaded) return;
+      window.estarotGoogleAnalyticsLoaded = true;
+
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://www.googletagmanager.com/gtag/js?id=G-GH0JYP6E4H";
+      document.head.appendChild(script);
+
+      gtag("js", new Date());
+      gtag("config", "G-GH0JYP6E4H");
+    }
   </script>
 
   <style>
@@ -569,6 +578,65 @@
       text-underline-offset: 4px;
     }
 
+    .cookie-banner {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      width: min(680px, calc(100% - 28px));
+      background: rgba(255, 250, 240, 0.98);
+      color: var(--ink);
+      border: 2px solid rgba(215, 179, 106, 0.72);
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.22);
+      z-index: 999;
+      display: none;
+    }
+
+    .cookie-banner.show {
+      display: block;
+    }
+
+    .cookie-banner h3 {
+      margin: 0 0 8px;
+      color: var(--plum);
+      font-size: 1.1rem;
+    }
+
+    .cookie-banner p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 0.92rem;
+    }
+
+    .cookie-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .cookie-btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 16px;
+      font-family: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .cookie-accept {
+      background: var(--plum);
+      color: var(--paper);
+    }
+
+    .cookie-reject {
+      background: #eee2cc;
+      color: var(--plum);
+    }
+
     @media (max-width: 620px) {
       .contact-buttons { grid-template-columns: 1fr; }
     }
@@ -784,6 +852,14 @@
       <div><a class="footer-link" href="#disclaimer" data-zh="免責聲明" data-en="Disclaimer">免責聲明</a></div>
       <div class="since">Estarot since 2013</div>
     </footer>
+    <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie preferences">
+      <h3 data-zh="Cookie 偏好設定" data-en="Cookie Preferences">Cookie 偏好設定</h3>
+      <p data-zh="本網站只會使用必要功能記錄抽卡限制。如你同意，我們亦會使用 Google Analytics 了解網站人流及改善內容。" data-en="This website uses essential storage for the card draw limit. With your consent, we also use Google Analytics to understand website traffic and improve the site.">本網站只會使用必要功能記錄抽卡限制。如你同意，我們亦會使用 Google Analytics 了解網站人流及改善內容。</p>
+      <div class="cookie-actions">
+        <button id="rejectCookies" class="cookie-btn cookie-reject" type="button" data-zh="拒絕非必要 Cookies" data-en="Reject non-essential cookies">拒絕非必要 Cookies</button>
+        <button id="acceptCookies" class="cookie-btn cookie-accept" type="button" data-zh="接受 Analytics Cookies" data-en="Accept analytics cookies">接受 Analytics Cookies</button>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -879,10 +955,14 @@
       const menuButton = document.getElementById("menuButton");
       const dropdownMenu = document.getElementById("dropdownMenu");
       const langButtons = document.querySelectorAll("[data-set-lang]");
+      const cookieBanner = document.getElementById("cookieBanner");
+      const acceptCookies = document.getElementById("acceptCookies");
+      const rejectCookies = document.getElementById("rejectCookies");
 
       const STORAGE_KEY = "estarot_random_tarot_last_draw";
       const CARD_KEY = "estarot_random_tarot_last_card";
       const LANG_KEY = "estarot_language";
+      const COOKIE_KEY = "estarot_cookie_preference";
       const ONE_HOUR = 60 * 60 * 1000;
       let currentLang = safeGetItem(LANG_KEY) || "zh";
 
@@ -932,6 +1012,34 @@
         updateButtonText();
         updatePageState();
       }
+
+      function initialiseCookiePreferences() {
+        const preference = safeGetItem(COOKIE_KEY);
+
+        if (preference === "accepted") {
+          loadGoogleAnalytics();
+          cookieBanner.classList.remove("show");
+          return;
+        }
+
+        if (preference === "rejected") {
+          cookieBanner.classList.remove("show");
+          return;
+        }
+
+        cookieBanner.classList.add("show");
+      }
+
+      acceptCookies.addEventListener("click", function () {
+        safeSetItem(COOKIE_KEY, "accepted");
+        cookieBanner.classList.remove("show");
+        loadGoogleAnalytics();
+      });
+
+      rejectCookies.addEventListener("click", function () {
+        safeSetItem(COOKIE_KEY, "rejected");
+        cookieBanner.classList.remove("show");
+      });
 
       function getCardDisplayName(card) {
         if (!card) return "";
@@ -1020,6 +1128,7 @@
       });
 
       applyLanguage(currentLang);
+      initialiseCookiePreferences();
       setInterval(updatePageState, 1000);
     });
   </script>

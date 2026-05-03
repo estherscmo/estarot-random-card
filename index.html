@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GH0JYP6E4H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GH0JYP6E4H');
+</script>
+
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Estarot 隨機塔羅抽卡</title>
@@ -65,6 +77,957 @@
       top: 0;
       z-index: 20;
     }
+
+    .language-toggle {
+      justify-self: start;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #f7efe0;
+      border: 1px solid rgba(215, 179, 106, 0.45);
+      border-radius: 999px;
+      padding: 4px;
+    }
+
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      color: var(--plum);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .lang-btn.active {
+      background: var(--plum);
+      color: var(--paper);
+    }
+
+    .logo {
+      max-width: 84px;
+      width: 22vw;
+      height: auto;
+      display: block;
+    }
+
+    .menu-wrap {
+      justify-self: end;
+      position: relative;
+    }
+
+    .menu-button {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(215, 179, 106, 0.5);
+      border-radius: 50%;
+      background: #f7efe0;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .menu-button span {
+      width: 18px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--plum);
+      display: block;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 52px;
+      right: 0;
+      width: 220px;
+      padding: 10px;
+      border-radius: 18px;
+      background: var(--white);
+      border: 1px solid rgba(215, 179, 106, 0.55);
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.16);
+      display: none;
+    }
+
+    .dropdown-menu.show { display: block; }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 12px;
+      color: var(--plum);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    .dropdown-menu a:hover { background: #f7efe0; }
+
+    .hero {
+      width: min(760px, 92%);
+      margin: 0 auto;
+      padding: 44px 0 34px;
+      text-align: center;
+    }
+
+    .main-image-frame {
+      position: relative;
+      background: rgba(255, 247, 232, 0.95);
+      padding: 12px;
+      border-radius: 32px;
+      border: 2px solid rgba(215, 179, 106, 0.75);
+      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.28);
+      transform: rotate(-0.8deg);
+      margin-bottom: 32px;
+    }
+
+    .main-image-frame::before,
+    .main-image-frame::after {
+      content: "";
+      position: absolute;
+      width: 82px;
+      height: 24px;
+      background: rgba(217, 166, 183, 0.88);
+      top: -10px;
+      border-radius: 5px;
+      opacity: 0.95;
+    }
+
+    .main-image-frame::before { left: 28px; transform: rotate(-8deg); }
+    .main-image-frame::after { right: 28px; transform: rotate(8deg); }
+
+    .main-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 24px;
+    }
+
+    h1, h2, h3, h4, p { margin-top: 0; }
+
+    h1 {
+      font-size: clamp(2.35rem, 8vw, 4.5rem);
+      line-height: 1.1;
+      letter-spacing: 0.06em;
+      margin-bottom: 18px;
+      color: var(--paper);
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
+    }
+
+    .hero-copy {
+      width: min(640px, 100%);
+      margin: 0 auto;
+      font-size: clamp(1.05rem, 3vw, 1.28rem);
+      line-height: 1.9;
+      color: rgba(255, 247, 232, 0.92);
+    }
+
+    .hour-limit {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 7px 16px;
+      border-radius: 999px;
+      background: rgba(255, 247, 232, 0.9);
+      color: var(--plum);
+      border: 1px solid rgba(215, 179, 106, 0.65);
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+    }
+
+    .draw-section, .services-section {
+      width: min(900px, 92%);
+      margin: 20px auto 0;
+      padding: 34px 22px 44px;
+      text-align: center;
+      background: rgba(255, 247, 232, 0.94);
+      color: var(--ink);
+      border-radius: 34px;
+      border: 2px solid rgba(215, 179, 106, 0.72);
+      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.25);
+      position: relative;
+    }
+
+    .draw-section::before {
+      content: "✦ tarot journal ✦";
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-1deg);
+      background: var(--rose);
+      color: var(--ink);
+      padding: 6px 18px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+
+    h2 {
+      font-size: clamp(1.65rem, 5vw, 2.35rem);
+      color: var(--plum);
+      margin-bottom: 12px;
+      letter-spacing: 0.06em;
+    }
+
+    .section-copy {
+      width: min(680px, 100%);
+      margin: 0 auto 26px;
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: 0.98rem;
+    }
+
+    .draw-button, .primary-link {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 15px 26px;
+      background: linear-gradient(135deg, var(--plum), #25162f);
+      color: var(--paper);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 12px 24px rgba(74, 47, 88, 0.25);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease;
+    }
+
+    .draw-button:hover:not(:disabled), .primary-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 28px rgba(74, 47, 88, 0.3);
+    }
+
+    .draw-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.58;
+      box-shadow: none;
+    }
+
+    .shuffle-area {
+      height: 110px;
+      margin: 24px auto 10px;
+      position: relative;
+      display: none;
+      width: min(320px, 100%);
+    }
+
+    .shuffle-area.show { display: block; }
+
+    .mini-card {
+      position: absolute;
+      left: 50%;
+      top: 14px;
+      width: 62px;
+      height: 90px;
+      margin-left: -31px;
+      border-radius: 8px;
+      border: 4px solid var(--paper-deep);
+      background: linear-gradient(160deg, var(--plum), #201328);
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.18);
+      animation: shuffle 0.85s ease-in-out infinite;
+    }
+
+    .mini-card:nth-child(2) { animation-delay: 0.12s; }
+    .mini-card:nth-child(3) { animation-delay: 0.24s; }
+
+    @keyframes shuffle {
+      0% { transform: translateX(-72px) rotate(-12deg); }
+      35% { transform: translateX(0) rotate(4deg); }
+      70% { transform: translateX(72px) rotate(12deg); }
+      100% { transform: translateX(-72px) rotate(-12deg); }
+    }
+
+    .result-area {
+      margin: 28px auto 0;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .result-area.show { display: flex; }
+
+    .tarot-result-card {
+      width: min(280px, 76vw);
+      background: #fffdf6;
+      border-radius: 18px;
+      padding: 10px;
+      border: 2px solid var(--gold);
+      box-shadow: 0 18px 32px rgba(51, 35, 58, 0.2);
+      transform: rotate(0.7deg);
+      animation: reveal 0.55s ease both;
+    }
+
+    @keyframes reveal {
+      from { opacity: 0; transform: translateY(18px) scale(0.95) rotate(0.7deg); }
+      to { opacity: 1; transform: translateY(0) scale(1) rotate(0.7deg); }
+    }
+
+    .tarot-result-card img {
+      width: 100%;
+      display: block;
+      border-radius: 12px;
+      background: var(--paper-deep);
+    }
+
+    .card-name {
+      margin: 18px 0 10px;
+      font-size: clamp(1.25rem, 5vw, 1.75rem);
+      color: var(--plum);
+      letter-spacing: 0.04em;
+      font-weight: 800;
+    }
+
+    .whatsapp-link {
+      display: none;
+      margin-top: 12px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 13px 20px;
+      background: var(--whatsapp);
+      color: white;
+      text-decoration: none;
+      font-weight: 800;
+      box-shadow: 0 10px 18px rgba(37, 211, 102, 0.22);
+    }
+
+    .whatsapp-link.show { display: inline-flex; }
+
+    .countdown {
+      min-height: 28px;
+      margin-top: 16px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .services-section {
+      margin-top: 34px;
+      text-align: left;
+      scroll-margin-top: 18px;
+    }
+
+    .about-section,
+    .contact-section,
+    .disclaimer-section {
+      width: min(900px, 92%);
+      margin: 34px auto 0;
+      padding: 34px 22px 44px;
+      text-align: center;
+      background: rgba(255, 247, 232, 0.94);
+      color: var(--ink);
+      border-radius: 34px;
+      border: 2px solid rgba(215, 179, 106, 0.72);
+      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.25);
+      scroll-margin-top: 84px;
+    }
+
+    .services-section h2, .services-intro, .about-section h2, .contact-section h2, .disclaimer-section h2 { text-align: center; }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 26px;
+    }
+
+    .service-card, .price-card {
+      background: var(--paper-soft);
+      border: 1px solid rgba(215, 179, 106, 0.55);
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: 0 10px 20px rgba(51, 35, 58, 0.08);
+    }
+
+    .service-card h3, .price-card h3 {
+      color: var(--plum);
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+    }
+
+    .service-price {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: var(--plum);
+      background: #f4dfbd;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-weight: 800;
+      font-size: 0.88rem;
+    }
+
+    .service-card p, .price-card p, .price-card li {
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 0;
+      font-size: 0.95rem;
+    }
+
+    .price-list {
+      display: grid;
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .price-card ul {
+      padding-left: 18px;
+      margin: 8px 0 0;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px dashed rgba(74, 47, 88, 0.18);
+      padding: 9px 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .price-row strong { color: var(--plum); text-align: right; }
+
+    .journey-box {
+      margin-top: 24px;
+      padding: 22px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(217, 166, 183, 0.26), rgba(215, 179, 106, 0.2));
+      text-align: center;
+    }
+
+    .about-card,
+    .contact-card,
+    .disclaimer-card {
+      width: min(720px, 100%);
+      margin: 22px auto 0;
+      padding: 24px;
+      border-radius: 26px;
+      background: var(--paper-soft);
+      border: 1px solid rgba(215, 179, 106, 0.55);
+      box-shadow: 0 10px 20px rgba(51, 35, 58, 0.08);
+      text-align: left;
+    }
+
+    .about-card p,
+    .contact-card p,
+    .disclaimer-card p,
+    .disclaimer-card li {
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: 0.98rem;
+      margin-bottom: 16px;
+    }
+
+    .about-card p:last-child,
+    .contact-card p:last-child,
+    .disclaimer-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .contact-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .email-link,
+    .contact-buttons .whatsapp-link {
+      min-height: 52px;
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 13px 20px;
+      text-decoration: none;
+      font-weight: 800;
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .email-link {
+      background: linear-gradient(135deg, var(--gold), #f0d79b);
+      color: var(--plum);
+      box-shadow: 0 10px 18px rgba(215, 179, 106, 0.2);
+    }
+
+    .back-link {
+      margin-top: 22px;
+    }
+
+    .footer-link {
+      color: var(--plum);
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    @media (max-width: 620px) {
+      .contact-buttons { grid-template-columns: 1fr; }
+    }
+
+    footer {
+      width: min(900px, 92%);
+      margin: 28px auto 48px;
+      padding: 24px 20px 34px;
+      text-align: center;
+      background: rgba(255, 247, 232, 0.9);
+      color: var(--muted);
+      border: 2px solid rgba(215, 179, 106, 0.72);
+      border-radius: 34px;
+      line-height: 1.8;
+      font-size: 0.86rem;
+    }
+
+    .since {
+      margin-top: 16px;
+      color: var(--plum);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 720px) {
+      .service-grid { grid-template-columns: 1fr; }
+      .price-row { flex-direction: column; gap: 2px; }
+      .price-row strong { text-align: left; }
+    }
+
+    @media (max-width: 560px) {
+      header { padding: 8px 12px; }
+      .logo { max-width: 76px; width: 24vw; }
+      .lang-btn { padding: 6px 8px; font-size: 0.72rem; }
+      .hero { padding-top: 30px; }
+      .draw-section, .services-section { padding: 34px 16px 40px; }
+      .dropdown-menu { right: -4px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="top" class="site">
+    <header>
+      <div class="language-toggle" aria-label="Language switcher">
+        <button class="lang-btn active" type="button" data-set-lang="zh">繁中</button>
+        <button class="lang-btn" type="button" data-set-lang="en">EN</button>
+      </div>
+
+      <img class="logo" src="https://www.image2url.com/r2/default/images/1777749562213-b49198f9-98f4-41fe-b700-168a18b58cd2.png" alt="Estarot logo" />
+
+      <div class="menu-wrap">
+        <button id="menuButton" class="menu-button" type="button" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+        <nav id="dropdownMenu" class="dropdown-menu">
+          <a href="#draw" data-zh="隨機抽塔羅卡" data-en="Random Tarot Draw">隨機抽塔羅卡</a>
+          <a href="#services" data-zh="服務詳情及收費" data-en="Services & Pricing">服務詳情及收費</a>
+          <a href="#about" data-zh="關於我" data-en="About Me">關於我</a>
+          <a href="#contact" data-zh="查詢" data-en="Contact">查詢</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-label="Estarot 隨機塔羅抽卡主頁">
+        <div class="main-image-frame">
+          <img class="main-image" src="https://www.image2url.com/r2/default/images/1777749488848-573813ee-29aa-4670-865f-97cb2f27a873.jpg" alt="塔羅少女主圖" />
+        </div>
+
+        <h1 data-zh="Estarot<br />隨機塔羅抽卡" data-en="Estarot<br />Random Tarot Draw">Estarot<br />隨機塔羅抽卡</h1>
+        <h3 class="hero-copy" data-zh="靜一靜心，想着你此刻最想知道的事情。<br />然後抽出屬於你的塔羅卡。" data-en="Take a quiet moment and think of what you wish to know.<br />Then draw the tarot card that belongs to you today.">靜一靜心，想着你此刻最想知道的事情。<br />然後抽出屬於你的塔羅卡。</h3>
+        <div class="hour-limit" data-zh="每小時限抽一張" data-en="One card per hour">每小時限抽一張</div>
+      </section>
+
+      <section id="draw" class="draw-section" aria-label="請抽一張塔羅牌">
+        <h2 data-zh="請抽一張塔羅牌" data-en="Draw One Tarot Card">請抽一張塔羅牌</h2>
+        <p class="section-copy" data-zh="這裡只會顯示你抽到的塔羅卡，不提供即時解讀。若你想知道卡牌背後的訊息，可以直接 WhatsApp 查詢詳細解讀。" data-en="This page only shows the tarot card you draw and does not provide an instant reading. If you would like to understand the message behind your card, please contact me on WhatsApp for a detailed reading.">這裡只會顯示你抽到的塔羅卡，不提供即時解讀。若你想知道卡牌背後的訊息，可以直接 WhatsApp 查詢詳細解讀。</p>
+
+        <button id="drawButton" class="draw-button" type="button" data-ready-zh="我準備好抽我的塔羅卡" data-ready-en="I am ready to draw my tarot card" data-shuffle-zh="正在洗牌⋯⋯" data-shuffle-en="Shuffling..." data-locked-zh="暫時不能再抽卡" data-locked-en="You cannot draw another card yet">我準備好抽我的塔羅卡</button>
+
+        <div id="shuffleArea" class="shuffle-area" aria-hidden="true">
+          <div class="mini-card"></div><div class="mini-card"></div><div class="mini-card"></div>
+        </div>
+
+        <div id="resultArea" class="result-area">
+          <div class="tarot-result-card">
+            <img id="cardImage" src="" alt="抽到的塔羅卡" />
+          </div>
+          <div id="cardName" class="card-name"></div>
+        </div>
+
+        <a id="whatsappLink" class="whatsapp-link" href="https://api.whatsapp.com/send?phone=447585548525&text=%E9%9A%A8%E6%A9%9F%E5%A1%94%E7%BE%85%E7%89%8C%E8%A7%A3%E8%AE%80" target="_blank" rel="noopener" data-phone="447585548525" data-text-zh="隨機塔羅牌解讀" data-text-en="Random tarot card reading" data-zh="WhatsApp 查詢詳細解讀" data-en="WhatsApp for a Detailed Reading">WhatsApp 查詢詳細解讀</a>
+        <div id="countdown" class="countdown"></div>
+      </section>
+
+      <section id="services" class="services-section" aria-label="服務詳情及收費">
+        <h2 data-zh="服務詳情及收費" data-en="Services & Pricing">服務詳情及收費</h2>
+        <p class="section-copy services-intro" data-zh="如果你想知道剛才抽到的牌對你現況、感情、事業或人生方向有甚麼訊息，可以參考以下服務，選擇最適合你的解讀方式。" data-en="If you would like to understand what your drawn card means for your current situation, love life, career, or life direction, you can explore the services below and choose the reading that best supports you.">如果你想知道剛才抽到的牌對你現況、感情、事業或人生方向有甚麼訊息，可以參考以下服務，選擇最適合你的解讀方式。</p>
+
+        <div class="service-grid">
+          <article class="service-card">
+            <h3 data-zh="塔羅占卜" data-en="Tarot Reading">塔羅占卜</h3>
+            <span class="service-price" data-zh="From GBP 30 | HKD 300 起" data-en="From GBP 30 | HKD 300">From GBP 30 | HKD 300 起</span>
+            <p data-zh="塔羅占卜可以為你提供指引，幫助你作出更明智嘅決定。無論係感情、事業，定係人生中重要問題，我哋嘅塔羅占卜將令你對目前嘅道路有更深入嘅了解。" data-en="Tarot readings provide insights and guidance to help you make informed decisions. Whether you need clarity in love, career, or life’s big questions, our tarot readings offer a deeper understanding of your current path.">塔羅占卜可以為你提供指引，幫助你作出更明智嘅決定。無論係感情、事業，定係人生中重要問題，我哋嘅塔羅占卜將令你對目前嘅道路有更深入嘅了解。</p>
+          </article>
+
+          <article class="service-card">
+            <h3 data-zh="靈性回應療法 (SRT)" data-en="Spiritual Response Therapy (SRT)">靈性回應療法 (SRT)</h3>
+            <span class="service-price" data-zh="From GBP 55 | HKD 550 起" data-en="From GBP 55 | HKD 550">From GBP 55 | HKD 550 起</span>
+            <p data-zh="靈性回應療法幫助釋放你靈性同情感生活中嘅障礙同限制性信念。透過靈性溝通嘅過程，我哋可以識別同清除任何負面模式或未解決嘅問題，幫助你走出困境。" data-en="SRT helps release blocks and limiting beliefs in your spiritual and emotional life. Through a process of spiritual communication, we identify and clear any negative patterns or unresolved issues that may be affecting your life.">靈性回應療法幫助釋放你靈性同情感生活中嘅障礙同限制性信念。透過靈性溝通嘅過程，我哋可以識別同清除任何負面模式或未解決嘅問題，幫助你走出困境。</p>
+          </article>
+
+          <article class="service-card">
+            <h3 data-zh="靈擺調頻" data-en="Pendulum Alignment">靈擺調頻</h3>
+            <span class="service-price" data-zh="From GBP 30 | HKD 300 起" data-en="From GBP 30 | HKD 300">From GBP 30 | HKD 300 起</span>
+            <p data-zh="靈擺調頻幫助你與高我連接，調整你的能量頻率。透過改變你的頻率，你可以吸引到合適嘅人、機會同情境，幫助你達成目標。" data-en="Pendulum energy alignment helps you connect with your higher self to adjust your frequency. By shifting your energy, you can attract the right people, opportunities, and circumstances to help you achieve your goals.">靈擺調頻幫助你與高我連接，調整你的能量頻率。透過改變你的頻率，你可以吸引到合適嘅人、機會同情境，幫助你達成目標。</p>
+          </article>
+
+          <article class="service-card">
+            <h3 data-zh="寵物傳心" data-en="Pet Communication">寵物傳心</h3>
+            <span class="service-price" data-zh="From GBP 20 | HKD 200 起" data-en="From GBP 20 | HKD 200">From GBP 20 | HKD 200 起</span>
+            <p data-zh="我們提供直覺式嘅寵物溝通服務，幫助你了解你嘅寵物需要嘅東西、佢哋嘅感受，甚至係佢哋想傳達俾你嘅訊息。呢項服務能夠加深你同寵物之間嘅聯繫，並帶來更多清晰同和諧。" data-en="We offer intuitive communication with your pets to understand their needs, feelings, and messages they may have for you. This service helps strengthen the bond between you and your pet, bringing clarity and peace to your relationship.">我們提供直覺式嘅寵物溝通服務，幫助你了解你嘅寵物需要嘅東西、佢哋嘅感受，甚至係佢哋想傳達俾你嘅訊息。呢項服務能夠加深你同寵物之間嘅聯繫，並帶來更多清晰同和諧。</p>
+          </article>
+        </div>
+
+        <div class="price-list">
+          <div class="price-card">
+            <h3 data-zh="塔羅占卜｜價目表" data-en="Tarot Reading | Price List">塔羅占卜｜價目表</h3>
+            <div class="price-row"><span data-zh="皇牌戀情分析" data-en="Love Analysis"></span><strong>GBP 40 | HKD 400</strong></div>
+            <div class="price-row"><span data-zh="事業分析" data-en="Career Analysis"></span><strong>GBP 40 | HKD 400</strong></div>
+            <div class="price-row"><span data-zh="二選一方向分析" data-en="Choose One Direction between Two Analysis"></span><strong>GBP 30 | HKD 300</strong></div>
+            <div class="price-row"><span data-zh="15分鐘" data-en="15 mins"></span><strong>GBP 30 | HKD 300</strong></div>
+            <div class="price-row"><span data-zh="30分鐘" data-en="30 mins"></span><strong>GBP 50 | HKD 500</strong></div>
+            <div class="price-row"><span data-zh="45分鐘" data-en="45 mins"></span><strong>GBP 70 | HKD 700</strong></div>
+            <div class="price-row"><span data-zh="60分鐘" data-en="60 mins"></span><strong>GBP 90 | HKD 900</strong></div>
+          </div>
+
+          <div class="price-card">
+            <h3 data-zh="靈性回應療法 (SRT)" data-en="Spiritual Response Therapy (SRT)">靈性回應療法 (SRT)</h3>
+            <div class="price-row"><span data-zh="全面清理（約1.5小時）<br />→ 建議首次體驗者或希望深入清理多個層面人士。" data-en="Full Clearing (approx. 1.5 hrs)<br />→ Recommended for first-time clients or those wanting to clear multiple layers."></span><strong data-zh="Limited Offer 限時特價 GBP 99 | HKD 990<br />原價 GBP 120 | HKD 1200" data-en="Limited Offer GBP 99 | HKD 990<br />Original Price GBP 120 | HKD 1200"></strong></div>
+            <div class="price-row"><span data-zh="主題療癒（約45分鐘）<br />→ 集中處理一個核心議題（例如金錢阻塞、人際業力、自我價值等）。" data-en="Thematic Healing (approx. 45 mins)<br />→ Focused session for one core issue (e.g. money blocks, relationship karma, self-worth)."></span><strong>GBP 55 | HKD 550</strong></div>
+            <div class="price-row"><span data-zh="詳細報告（可加購）<br />→ 一份完整記錄，詳列清理內容、療程中接收到嘅訊息與感受，並提供個人化整合建議。" data-en="Detailed Written Report (optional add-on)<br />→ A comprehensive report outlining what was cleared, intuitive impressions during the session, and personalised guidance for integration."></span><strong>+ GBP 20 | + HKD 200</strong></div>
+            <p data-zh="* 所有療癒客戶均會獲得簡易報告摘要。" data-en="* A brief summary will still be provided for all clients.">* 所有療癒客戶均會獲得簡易報告摘要。</p>
+          </div>
+
+          <div class="price-card">
+            <h3 data-zh="靈擺調頻" data-en="Pendulum Energy Alignment">靈擺調頻</h3>
+            <p data-zh="自選6個項目調頻<br />→ 可自選6個範疇作頻率調整（例如：自信、專注力、吸引力、行動力、人際關係等）" data-en="Custom 6-Point Alignment<br />→ You may choose 6 areas to align your energy (e.g. confidence, focus, attraction, motivation, relationships, etc.)">自選6個項目調頻<br />→ 可自選6個範疇作頻率調整（例如：自信、專注力、吸引力、行動力、人際關係等）</p>
+            <div class="price-row"><span data-zh="每次" data-en="/ session"></span><strong>GBP 40 | HKD 400</strong></div>
+            <div class="price-row"><span data-zh="3 次" data-en="/ 3 sessions"></span><strong>GBP 100 | HKD 1,000</strong></div>
+            <div class="price-row"><span data-zh="5次" data-en="/ 5 sessions"></span><strong>GBP 150 | HKD 1,500</strong></div>
+            <p data-zh="* 如需額外調頻項目，每項加 GBP 5 / HKD 50" data-en="* Additional item: GBP 5 / HKD 50 each">* 如需額外調頻項目，每項加 GBP 5 / HKD 50</p>
+          </div>
+
+          <div class="price-card">
+            <h3 data-zh="動物傳心（只限貓犬）" data-en="Pet Communication (Cats & Dogs Only)">動物傳心（只限貓犬）</h3>
+            <p data-zh="透過心靈感應方式，連結寵物內心的想法與情緒。" data-en="Connect with your pet’s thoughts and emotions through telepathic communication.">透過心靈感應方式，連結寵物內心的想法與情緒。</p>
+            <div class="price-row"><span data-zh="2 個問題" data-en="2 questions"></span><strong>GBP 20 | HKD 200</strong></div>
+            <div class="price-row"><span data-zh="5 個問題" data-en="5 questions"></span><strong>GBP 40 | HKD 400</strong></div>
+            <div class="price-row"><span data-zh="12 個問題" data-en="12 questions"></span><strong>GBP 80 | HKD 800</strong></div>
+            <p data-zh="* 問題內容可涵蓋其情緒狀態、個人喜好、行為背後原因，或其他心理／情感層面之需要。" data-en="* Questions can be about their feelings, preferences, behaviours, or emotional needs.">* 問題內容可涵蓋其情緒狀態、個人喜好、行為背後原因，或其他心理／情感層面之需要。</p>
+          </div>
+        </div>
+
+        <div class="journey-box">
+          <h3 data-zh="開始你的靈性之旅" data-en="Let’s Begin Your Journey">開始你的靈性之旅</h3>
+          <p data-zh="我在這裡幫助你找到清晰、平衡和個人成長。無論是塔羅占卜、靈擺調頻、靈性回應療法（SRT）還是寵物傳心，我的服務旨在幫助你應對人生挑戰，調整能量，實現積極改變。我們一同努力，發掘你嘅潛力，邁向你應得的生活。" data-en="I’m here to guide you towards clarity, balance, and personal growth. Whether through Tarot readings, Pendulum Energy Alignment, SRT, or Pet Communication, my services are designed to support you in navigating life’s challenges and aligning your energy for positive change. Let’s work together to unlock your potential and bring you closer to the life you deserve.">我在這裡幫助你找到清晰、平衡和個人成長。無論是塔羅占卜、靈擺調頻、靈性回應療法（SRT）還是寵物傳心，我的服務旨在幫助你應對人生挑戰，調整能量，實現積極改變。我們一同努力，發掘你嘅潛力，邁向你應得的生活。</p>
+          <a class="primary-link" href="https://api.whatsapp.com/send?phone=447585548525&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84Estarot%E6%9C%8D%E5%8B%99" target="_blank" rel="noopener" data-phone="447585548525" data-text-zh="我想預約Estarot服務" data-text-en="I would like to book an Estarot service" data-zh="WhatsApp 預約服務" data-en="Book via WhatsApp">WhatsApp 預約服務</a>
+        </div>
+      </section>
+
+      <section id="about" class="about-section" aria-label="關於我">
+        <h2 data-zh="關於我" data-en="About Me">關於我</h2>
+        <div class="about-card">
+          <p data-zh="你好，我是 Esther，一位現居倫敦的香港塔羅師。我自 2013 年開始提供塔羅占卜服務，專注於直覺塔羅解讀，尤其擅長感情分析與事業分析，協助客人更清晰地了解未來方向，並作出合適的改變，逐步走向自己所渴望的未來。" data-en="Hi, I’m Esther, a Hong Kong-born Tarot reader based in London. I’ve been practicing Tarot since 2013, specialising in intuitive readings. My expertise lies in love and career analysis, where I help my clients gain clear insights into their future, empowering them to make the right changes to create the life they truly desire.">你好，我是 Esther，一位現居倫敦的香港塔羅師。我自 2013 年開始提供塔羅占卜服務，專注於直覺塔羅解讀，尤其擅長感情分析與事業分析，協助客人更清晰地了解未來方向，並作出合適的改變，逐步走向自己所渴望的未來。</p>
+
+          <p data-zh="多年來，我亦持續擴展自己的靈性療癒工具，並學習了靈性回應療法（SRT）、靈擺調頻及寵物傳心等不同範疇。每一種服務都讓我能夠以更全面的方式提供療癒與指引，協助你在生命中不同層面獲得清晰、平衡與能量調整。" data-en="Over the years, I’ve expanded my skills and explored other areas of spiritual guidance, including Spiritual Response Therapy (SRT), Pendulum Energy Alignment, and Pet Communication. Each of these modalities allows me to provide a holistic approach to healing and transformation, helping you achieve clarity, balance, and alignment in every area of your life.">多年來，我亦持續擴展自己的靈性療癒工具，並學習了靈性回應療法（SRT）、靈擺調頻及寵物傳心等不同範疇。每一種服務都讓我能夠以更全面的方式提供療癒與指引，協助你在生命中不同層面獲得清晰、平衡與能量調整。</p>
+
+          <p data-zh="我深信，透過理解並調整自身的能量，每個人都能釋放內在潛能，並逐步實現心中所嚮往的未來。願我能成為你在自我探索與轉變旅程中的指引與支持。" data-en="I believe that through understanding and adjusting your energy, you can unlock your full potential and manifest the future you envision. Let me guide you on this journey of self-discovery and transformation.">我深信，透過理解並調整自身的能量，每個人都能釋放內在潛能，並逐步實現心中所嚮往的未來。願我能成為你在自我探索與轉變旅程中的指引與支持。</p>
+        </div>
+      </section>
+
+      <section id="contact" class="contact-section" aria-label="查詢">
+        <h2 data-zh="查詢" data-en="Contact">查詢</h2>
+        <p class="section-copy" data-zh="如你想了解哪一項服務最適合你，或想預約塔羅占卜、SRT、靈擺調頻或寵物傳心，歡迎用以下方式聯絡我。" data-en="If you would like to know which service is most suitable for you, or if you would like to book a Tarot reading, SRT, Pendulum Energy Alignment, or Pet Communication, please contact me below.">如你想了解哪一項服務最適合你，或想預約塔羅占卜、SRT、靈擺調頻或寵物傳心，歡迎用以下方式聯絡我。</p>
+
+        <div class="contact-card">
+          <p data-zh="你可以選擇用電郵或 WhatsApp 查詢。我會根據你的情況，介紹最適合你的服務方式。" data-en="You can contact me by email or WhatsApp. I will recommend the most suitable service based on your situation.">你可以選擇用電郵或 WhatsApp 查詢。我會根據你的情況，介紹最適合你的服務方式。</p>
+          <div class="contact-buttons">
+            <a class="email-link" href="mailto:booking@estarot.uk?subject=Estarot%E6%9C%8D%E5%8B%99%E6%9F%A5%E8%A9%A2&body=%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2Estarot%E6%9C%8D%E5%8B%99" data-email="booking@estarot.uk" data-mail-subject-zh="Estarot服務查詢" data-mail-subject-en="Estarot Service Enquiry" data-mail-body-zh="我想查詢Estarot服務" data-mail-body-en="I would like to enquire about Estarot services" data-zh="電郵查詢" data-en="Email Enquiry">電郵查詢</a>
+            <a class="whatsapp-link show" href="https://api.whatsapp.com/send?phone=447585548525&text=%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2Estarot%E6%9C%8D%E5%8B%99" target="_blank" rel="noopener" data-phone="447585548525" data-text-zh="我想查詢Estarot服務" data-text-en="I would like to enquire about Estarot services" data-zh="WhatsApp 查詢" data-en="WhatsApp Enquiry">WhatsApp 查詢</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="disclaimer" class="disclaimer-section" aria-label="免責聲明">
+        <h2 data-zh="免責聲明" data-en="Disclaimer">免責聲明</h2>
+        <div class="disclaimer-card">
+          <p data-zh="Estarot 提供的塔羅占卜、SRT、靈擺調頻、寵物傳心及相關靈性服務，均屬於靈性指引、個人成長及自我探索用途。所有內容只供參考，並不構成法律、醫療、心理治療、財務、投資或其他專業意見。" data-en="Tarot readings, SRT, Pendulum Energy Alignment, Pet Communication, and related spiritual services provided by Estarot are for spiritual guidance, personal growth, and self-reflection purposes only. All content is for reference only and does not constitute legal, medical, psychological, financial, investment, or other professional advice.">Estarot 提供的塔羅占卜、SRT、靈擺調頻、寵物傳心及相關靈性服務，均屬於靈性指引、個人成長及自我探索用途。所有內容只供參考，並不構成法律、醫療、心理治療、財務、投資或其他專業意見。</p>
+
+          <p data-zh="任何解讀、訊息或能量服務均不能保證特定結果。你仍然需要為自己的選擇、行動及決定承擔全部責任。如你正面對健康、法律、財務或心理健康相關問題，請尋求合資格專業人士協助。" data-en="No reading, message, or energy service can guarantee any specific outcome. You remain fully responsible for your own choices, actions, and decisions. If you are dealing with health, legal, financial, or mental health matters, please seek support from a qualified professional.">任何解讀、訊息或能量服務均不能保證特定結果。你仍然需要為自己的選擇、行動及決定承擔全部責任。如你正面對健康、法律、財務或心理健康相關問題，請尋求合資格專業人士協助。</p>
+
+          <p data-zh="使用本網站及預約任何服務，即代表你理解並同意以上免責聲明。" data-en="By using this website and booking any service, you acknowledge and agree to this disclaimer.">使用本網站及預約任何服務，即代表你理解並同意以上免責聲明。</p>
+        </div>
+        <a class="primary-link back-link" href="#top" data-zh="返回主頁" data-en="Back to Main Page">返回主頁</a>
+      </section>
+    </main>
+
+    <footer>
+      <div data-zh="* 本抽卡頁面只作隨機抽牌用途，不包含任何牌義或解讀內容。" data-en="* This card draw page is for random card selection only and does not include card meanings or reading content.">* 本抽卡頁面只作隨機抽牌用途，不包含任何牌義或解讀內容。</div>
+      <div data-zh="* 限制以同一裝置及瀏覽器記錄為準。" data-en="* The one-card-per-hour limit is based on the same device and browser record.">* 限制以同一裝置及瀏覽器記錄為準。</div>
+      <div><a class="footer-link" href="#disclaimer" data-zh="免責聲明" data-en="Disclaimer">免責聲明</a></div>
+      <div class="since">Estarot since 2013</div>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const tarotDeck = [
+        { en: "The Fool", zh: "愚者", img: "https://upload.wikimedia.org/wikipedia/commons/9/90/RWS_Tarot_00_Fool.jpg" },
+        { en: "The Magician", zh: "魔術師", img: "https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg" },
+        { en: "The High Priestess", zh: "女祭司", img: "https://upload.wikimedia.org/wikipedia/commons/8/88/RWS_Tarot_02_High_Priestess.jpg" },
+        { en: "The Empress", zh: "皇后", img: "https://upload.wikimedia.org/wikipedia/commons/d/d2/RWS_Tarot_03_Empress.jpg" },
+        { en: "The Emperor", zh: "皇帝", img: "https://upload.wikimedia.org/wikipedia/commons/c/c3/RWS_Tarot_04_Emperor.jpg" },
+        { en: "The Hierophant", zh: "教皇", img: "https://upload.wikimedia.org/wikipedia/commons/8/8d/RWS_Tarot_05_Hierophant.jpg" },
+        { en: "The Lovers", zh: "戀人", img: "https://upload.wikimedia.org/wikipedia/commons/3/3a/TheLovers.jpg" },
+        { en: "The Chariot", zh: "戰車", img: "https://upload.wikimedia.org/wikipedia/commons/3/3f/RWS_Tarot_07_Chariot.jpg" },
+        { en: "Strength", zh: "力量", img: "https://upload.wikimedia.org/wikipedia/commons/f/f5/RWS_Tarot_08_Strength.jpg" },
+        { en: "The Hermit", zh: "隱者", img: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RWS_Tarot_09_Hermit.jpg" },
+        { en: "Wheel of Fortune", zh: "命運之輪", img: "https://upload.wikimedia.org/wikipedia/commons/3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg" },
+        { en: "Justice", zh: "正義", img: "https://upload.wikimedia.org/wikipedia/commons/e/e0/RWS_Tarot_11_Justice.jpg" },
+        { en: "The Hanged Man", zh: "吊人", img: "https://upload.wikimedia.org/wikipedia/commons/2/2b/RWS_Tarot_12_Hanged_Man.jpg" },
+        { en: "Death", zh: "死神", img: "https://upload.wikimedia.org/wikipedia/commons/d/d7/RWS_Tarot_13_Death.jpg" },
+        { en: "Temperance", zh: "節制", img: "https://upload.wikimedia.org/wikipedia/commons/f/f8/RWS_Tarot_14_Temperance.jpg" },
+        { en: "The Devil", zh: "惡魔", img: "https://upload.wikimedia.org/wikipedia/commons/5/55/RWS_Tarot_15_Devil.jpg" },
+        { en: "The Tower", zh: "高塔", img: "https://upload.wikimedia.org/wikipedia/commons/5/53/RWS_Tarot_16_Tower.jpg" },
+        { en: "The Star", zh: "星星", img: "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_17_Star.jpg" },
+        { en: "The Moon", zh: "月亮", img: "https://upload.wikimedia.org/wikipedia/commons/7/7f/RWS_Tarot_18_Moon.jpg" },
+        { en: "The Sun", zh: "太陽", img: "https://upload.wikimedia.org/wikipedia/commons/1/17/RWS_Tarot_19_Sun.jpg" },
+        { en: "Judgement", zh: "審判", img: "https://upload.wikimedia.org/wikipedia/commons/d/dd/RWS_Tarot_20_Judgement.jpg" },
+        { en: "The World", zh: "世界", img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg" },
+        { en: "Ace of Wands", zh: "權杖一", img: "https://upload.wikimedia.org/wikipedia/commons/1/11/Wands01.jpg" },
+        { en: "Two of Wands", zh: "權杖二", img: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Wands02.jpg" },
+        { en: "Three of Wands", zh: "權杖三", img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/Wands03.jpg" },
+        { en: "Four of Wands", zh: "權杖四", img: "https://upload.wikimedia.org/wikipedia/commons/a/a4/Wands04.jpg" },
+        { en: "Five of Wands", zh: "權杖五", img: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Wands05.jpg" },
+        { en: "Six of Wands", zh: "權杖六", img: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Wands06.jpg" },
+        { en: "Seven of Wands", zh: "權杖七", img: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Wands07.jpg" },
+        { en: "Eight of Wands", zh: "權杖八", img: "https://upload.wikimedia.org/wikipedia/commons/6/6b/Wands08.jpg" },
+        { en: "Nine of Wands", zh: "權杖九", img: "https://upload.wikimedia.org/wikipedia/commons/4/4d/Tarot_Nine_of_Wands.jpg" },
+        { en: "Ten of Wands", zh: "權杖十", img: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Wands10.jpg" },
+        { en: "Page of Wands", zh: "權杖侍者", img: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Wands11.jpg" },
+        { en: "Knight of Wands", zh: "權杖騎士", img: "https://upload.wikimedia.org/wikipedia/commons/1/16/Wands12.jpg" },
+        { en: "Queen of Wands", zh: "權杖皇后", img: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Wands13.jpg" },
+        { en: "King of Wands", zh: "權杖國王", img: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Wands14.jpg" },
+        { en: "Ace of Cups", zh: "聖杯一", img: "https://upload.wikimedia.org/wikipedia/commons/3/36/Cups01.jpg" },
+        { en: "Two of Cups", zh: "聖杯二", img: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Cups02.jpg" },
+        { en: "Three of Cups", zh: "聖杯三", img: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Cups03.jpg" },
+        { en: "Four of Cups", zh: "聖杯四", img: "https://upload.wikimedia.org/wikipedia/commons/3/35/Cups04.jpg" },
+        { en: "Five of Cups", zh: "聖杯五", img: "https://upload.wikimedia.org/wikipedia/commons/d/d7/Cups05.jpg" },
+        { en: "Six of Cups", zh: "聖杯六", img: "https://upload.wikimedia.org/wikipedia/commons/1/17/Cups06.jpg" },
+        { en: "Seven of Cups", zh: "聖杯七", img: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Cups07.jpg" },
+        { en: "Eight of Cups", zh: "聖杯八", img: "https://upload.wikimedia.org/wikipedia/commons/6/60/Cups08.jpg" },
+        { en: "Nine of Cups", zh: "聖杯九", img: "https://upload.wikimedia.org/wikipedia/commons/2/24/Cups09.jpg" },
+        { en: "Ten of Cups", zh: "聖杯十", img: "https://upload.wikimedia.org/wikipedia/commons/8/84/Cups10.jpg" },
+        { en: "Page of Cups", zh: "聖杯侍者", img: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Cups11.jpg" },
+        { en: "Knight of Cups", zh: "聖杯騎士", img: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Cups12.jpg" },
+        { en: "Queen of Cups", zh: "聖杯皇后", img: "https://upload.wikimedia.org/wikipedia/commons/6/62/Cups13.jpg" },
+        { en: "King of Cups", zh: "聖杯國王", img: "https://upload.wikimedia.org/wikipedia/commons/0/04/Cups14.jpg" },
+        { en: "Ace of Swords", zh: "寶劍一", img: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Swords01.jpg" },
+        { en: "Two of Swords", zh: "寶劍二", img: "https://upload.wikimedia.org/wikipedia/commons/9/9e/Swords02.jpg" },
+        { en: "Three of Swords", zh: "寶劍三", img: "https://upload.wikimedia.org/wikipedia/commons/0/02/Swords03.jpg" },
+        { en: "Four of Swords", zh: "寶劍四", img: "https://upload.wikimedia.org/wikipedia/commons/b/bf/Swords04.jpg" },
+        { en: "Five of Swords", zh: "寶劍五", img: "https://upload.wikimedia.org/wikipedia/commons/2/23/Swords05.jpg" },
+        { en: "Six of Swords", zh: "寶劍六", img: "https://upload.wikimedia.org/wikipedia/commons/2/29/Swords06.jpg" },
+        { en: "Seven of Swords", zh: "寶劍七", img: "https://upload.wikimedia.org/wikipedia/commons/3/34/Swords07.jpg" },
+        { en: "Eight of Swords", zh: "寶劍八", img: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Swords08.jpg" },
+        { en: "Nine of Swords", zh: "寶劍九", img: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Swords09.jpg" },
+        { en: "Ten of Swords", zh: "寶劍十", img: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Swords10.jpg" },
+        { en: "Page of Swords", zh: "寶劍侍者", img: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Swords11.jpg" },
+        { en: "Knight of Swords", zh: "寶劍騎士", img: "https://upload.wikimedia.org/wikipedia/commons/b/b0/Swords12.jpg" },
+        { en: "Queen of Swords", zh: "寶劍皇后", img: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Swords13.jpg" },
+        { en: "King of Swords", zh: "寶劍國王", img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Swords14.jpg" },
+        { en: "Ace of Pentacles", zh: "錢幣一", img: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Pents01.jpg" },
+        { en: "Two of Pentacles", zh: "錢幣二", img: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Pents02.jpg" },
+        { en: "Three of Pentacles", zh: "錢幣三", img: "https://upload.wikimedia.org/wikipedia/commons/4/42/Pents03.jpg" },
+        { en: "Four of Pentacles", zh: "錢幣四", img: "https://upload.wikimedia.org/wikipedia/commons/3/35/Pents04.jpg" },
+        { en: "Five of Pentacles", zh: "錢幣五", img: "https://upload.wikimedia.org/wikipedia/commons/9/96/Pents05.jpg" },
+        { en: "Six of Pentacles", zh: "錢幣六", img: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Pents06.jpg" },
+        { en: "Seven of Pentacles", zh: "錢幣七", img: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Pents07.jpg" },
+        { en: "Eight of Pentacles", zh: "錢幣八", img: "https://upload.wikimedia.org/wikipedia/commons/4/49/Pents08.jpg" },
+        { en: "Nine of Pentacles", zh: "錢幣九", img: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Pents09.jpg" },
+        { en: "Ten of Pentacles", zh: "錢幣十", img: "https://upload.wikimedia.org/wikipedia/commons/4/42/Pents10.jpg" },
+        { en: "Page of Pentacles", zh: "錢幣侍者", img: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Pents11.jpg" },
+        { en: "Knight of Pentacles", zh: "錢幣騎士", img: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Pents12.jpg" },
+        { en: "Queen of Pentacles", zh: "錢幣皇后", img: "https://upload.wikimedia.org/wikipedia/commons/8/88/Pents13.jpg" },
+        { en: "King of Pentacles", zh: "錢幣國王", img: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Pents14.jpg" }
+      ];
+
+      const drawButton = document.getElementById("drawButton");
+      const shuffleArea = document.getElementById("shuffleArea");
+      const resultArea = document.getElementById("resultArea");
+      const cardImage = document.getElementById("cardImage");
+      const cardName = document.getElementById("cardName");
+      const whatsappLink = document.getElementById("whatsappLink");
+      const countdown = document.getElementById("countdown");
+      const menuButton = document.getElementById("menuButton");
+      const dropdownMenu = document.getElementById("dropdownMenu");
+      const langButtons = document.querySelectorAll("[data-set-lang]");
+
+      const STORAGE_KEY = "estarot_random_tarot_last_draw";
+      const CARD_KEY = "estarot_random_tarot_last_card";
+      const LANG_KEY = "estarot_language";
+      const ONE_HOUR = 60 * 60 * 1000;
+      let currentLang = safeGetItem(LANG_KEY) || "zh";
+
+      function safeGetItem(key) { try { return localStorage.getItem(key); } catch (error) { return null; } }
+      function safeSetItem(key, value) { try { localStorage.setItem(key, value); } catch (error) {} }
+      function safeRemoveItem(key) { try { localStorage.removeItem(key); } catch (error) {} }
+
+      function getRemainingTime() {
+        const lastDraw = Number(safeGetItem(STORAGE_KEY));
+        if (!lastDraw || Number.isNaN(lastDraw)) return 0;
+        return Math.max(0, ONE_HOUR - (Date.now() - lastDraw));
+      }
+
+      function formatCountdown(milliseconds) {
+        const totalSeconds = Math.ceil(milliseconds / 1000);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        return minutes + (currentLang === "zh" ? "分" : "m ") + String(seconds).padStart(2, "0") + (currentLang === "zh" ? "秒" : "s");
+      }
+
+      function applyLanguage(lang) {
+        currentLang = lang;
+        safeSetItem(LANG_KEY, lang);
+        document.documentElement.lang = lang === "zh" ? "zh-Hant" : "en";
+
+        document.querySelectorAll("[data-zh][data-en]").forEach(function (el) {
+          el.innerHTML = el.getAttribute(lang === "zh" ? "data-zh" : "data-en");
+        });
+
+        document.querySelectorAll("[data-phone][data-text-zh][data-text-en]").forEach(function (el) {
+          const phone = el.getAttribute("data-phone");
+          const message = el.getAttribute(lang === "zh" ? "data-text-zh" : "data-text-en");
+          el.href = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message);
+        });
+
+        document.querySelectorAll("[data-email][data-mail-subject-zh][data-mail-subject-en][data-mail-body-zh][data-mail-body-en]").forEach(function (el) {
+          const email = el.getAttribute("data-email");
+          const subject = el.getAttribute(lang === "zh" ? "data-mail-subject-zh" : "data-mail-subject-en");
+          const body = el.getAttribute(lang === "zh" ? "data-mail-body-zh" : "data-mail-body-en");
+          el.href = "mailto:" + email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+        });
+
+        langButtons.forEach(function (button) {
+          button.classList.toggle("active", button.getAttribute("data-set-lang") === lang);
+        });
+
+        updateButtonText();
+        updatePageState();
+      }
+
+      function getCardDisplayName(card) {
+        if (!card) return "";
+        return currentLang === "zh" ? card.en + " " + card.zh : card.en;
+      }
+
+      function showCard(card) {
+        if (!card || !card.img) return;
+        cardImage.src = card.img;
+        cardImage.alt = getCardDisplayName(card);
+        cardName.textContent = getCardDisplayName(card);
+        resultArea.classList.add("show");
+        whatsappLink.classList.add("show");
+      }
+
+      function updateButtonText() {
+        if (getRemainingTime() > 0) {
+          drawButton.textContent = drawButton.getAttribute(currentLang === "zh" ? "data-locked-zh" : "data-locked-en");
+        } else {
+          drawButton.textContent = drawButton.getAttribute(currentLang === "zh" ? "data-ready-zh" : "data-ready-en");
+        }
+      }
+
+      function updatePageState() {
+        const remaining = getRemainingTime();
+        const savedCard = safeGetItem(CARD_KEY);
+
+        if (remaining > 0) {
+          drawButton.disabled = true;
+          updateButtonText();
+          countdown.textContent = (currentLang === "zh" ? "距離下一次抽卡：" : "Next draw available in: ") + formatCountdown(remaining);
+
+          if (savedCard) {
+            try { showCard(JSON.parse(savedCard)); } catch (error) { safeRemoveItem(CARD_KEY); }
+          }
+        } else {
+          drawButton.disabled = false;
+          updateButtonText();
+          countdown.textContent = "";
+        }
+
+        if (savedCard && resultArea.classList.contains("show")) {
+          try { cardName.textContent = getCardDisplayName(JSON.parse(savedCard)); } catch (error) {}
+        }
+      }
+
+      drawButton.addEventListener("click", function () {
+        if (getRemainingTime() > 0) {
+          updatePageState();
+          return;
+        }
+
+        resultArea.classList.remove("show");
+        whatsappLink.classList.remove("show");
+        shuffleArea.classList.add("show");
+        drawButton.disabled = true;
+        drawButton.textContent = drawButton.getAttribute(currentLang === "zh" ? "data-shuffle-zh" : "data-shuffle-en");
+        countdown.textContent = "";
+
+        setTimeout(function () {
+          const selectedCard = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
+          safeSetItem(STORAGE_KEY, String(Date.now()));
+          safeSetItem(CARD_KEY, JSON.stringify(selectedCard));
+          shuffleArea.classList.remove("show");
+          showCard(selectedCard);
+          updatePageState();
+        }, 1600);
+      });
+
+      menuButton.addEventListener("click", function () {
+        dropdownMenu.classList.toggle("show");
+      });
+
+      dropdownMenu.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", function () { dropdownMenu.classList.remove("show"); });
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!menuButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+          dropdownMenu.classList.remove("show");
+        }
+      });
+
+      langButtons.forEach(function (button) {
+        button.addEventListener("click", function () { applyLanguage(button.getAttribute("data-set-lang")); });
+      });
+
+      applyLanguage(currentLang);
+      setInterval(updatePageState, 1000);
+    });
+  </script>
+</body>
+</html>
 
     .language-toggle {
       justify-self: start;

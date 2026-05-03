@@ -405,7 +405,9 @@
       scroll-margin-top: 18px;
     }
 
-    .about-section {
+    .about-section,
+    .contact-section,
+    .disclaimer-section {
       width: min(900px, 92%);
       margin: 34px auto 0;
       padding: 34px 22px 44px;
@@ -415,10 +417,10 @@
       border-radius: 34px;
       border: 2px solid rgba(215, 179, 106, 0.72);
       box-shadow: 0 22px 54px rgba(0, 0, 0, 0.25);
-      scroll-margin-top: 18px;
+      scroll-margin-top: 84px;
     }
 
-    .services-section h2, .services-intro, .about-section h2 { text-align: center; }
+    .services-section h2, .services-intro, .about-section h2, .contact-section h2, .disclaimer-section h2 { text-align: center; }
 
     .service-grid {
       display: grid;
@@ -490,7 +492,9 @@
       text-align: center;
     }
 
-    .about-card {
+    .about-card,
+    .contact-card,
+    .disclaimer-card {
       width: min(720px, 100%);
       margin: 22px auto 0;
       padding: 24px;
@@ -501,15 +505,63 @@
       text-align: left;
     }
 
-    .about-card p {
+    .about-card p,
+    .contact-card p,
+    .disclaimer-card p,
+    .disclaimer-card li {
       color: var(--muted);
       line-height: 1.85;
       font-size: 0.98rem;
       margin-bottom: 16px;
     }
 
-    .about-card p:last-child {
+    .about-card p:last-child,
+    .contact-card p:last-child,
+    .disclaimer-card p:last-child {
       margin-bottom: 0;
+    }
+
+    .contact-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .email-link,
+    .contact-buttons .whatsapp-link {
+      min-height: 52px;
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 13px 20px;
+      text-decoration: none;
+      font-weight: 800;
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .email-link {
+      background: linear-gradient(135deg, var(--gold), #f0d79b);
+      color: var(--plum);
+      box-shadow: 0 10px 18px rgba(215, 179, 106, 0.2);
+    }
+
+    .back-link {
+      margin-top: 22px;
+    }
+
+    .footer-link {
+      color: var(--plum);
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    @media (max-width: 620px) {
+      .contact-buttons { grid-template-columns: 1fr; }
     }
 
     footer {
@@ -550,7 +602,7 @@
 </head>
 
 <body>
-  <div class="site">
+  <div id="top" class="site">
     <header>
       <div class="language-toggle" aria-label="Language switcher">
         <button class="lang-btn active" type="button" data-set-lang="zh">繁中</button>
@@ -567,6 +619,7 @@
           <a href="#draw" data-zh="隨機抽塔羅卡" data-en="Random Tarot Draw">隨機抽塔羅卡</a>
           <a href="#services" data-zh="服務詳情及收費" data-en="Services & Pricing">服務詳情及收費</a>
           <a href="#about" data-zh="關於我" data-en="About Me">關於我</a>
+          <a href="#contact" data-zh="查詢" data-en="Contact">查詢</a>
         </nav>
       </div>
     </header>
@@ -682,18 +735,44 @@
       <section id="about" class="about-section" aria-label="關於我">
         <h2 data-zh="關於我" data-en="About Me">關於我</h2>
         <div class="about-card">
-          <p data-zh="你好，我係Esther，一位住喺倫敦嘅香港塔羅師。我自2013年開始做塔羅占卜，專注於直覺塔羅，特別係戀情分析同事業分析，幫助客人更清晰睇到未來，從而做出適當嘅改變，實現佢哋渴望嘅未來。" data-en="Hi, I’m Esther, a Hong Kong-born Tarot reader based in London. I’ve been practicing Tarot since 2013, specialising in intuitive readings. My expertise lies in love and career analysis, where I help my clients gain clear insights into their future, empowering them to make the right changes to create the life they truly desire.">你好，我係Esther，一位住喺倫敦嘅香港塔羅師。我自2013年開始做塔羅占卜，專注於直覺塔羅，特別係戀情分析同事業分析，幫助客人更清晰睇到未來，從而做出適當嘅改變，實現佢哋渴望嘅未來。</p>
+          <p data-zh="你好，我是 Esther，一位現居倫敦的香港塔羅師。我自 2013 年開始提供塔羅占卜服務，專注於直覺塔羅解讀，尤其擅長感情分析與事業分析，協助客人更清晰地了解未來方向，並作出合適的改變，逐步走向自己所渴望的未來。" data-en="Hi, I’m Esther, a Hong Kong-born Tarot reader based in London. I’ve been practicing Tarot since 2013, specialising in intuitive readings. My expertise lies in love and career analysis, where I help my clients gain clear insights into their future, empowering them to make the right changes to create the life they truly desire.">你好，我是 Esther，一位現居倫敦的香港塔羅師。我自 2013 年開始提供塔羅占卜服務，專注於直覺塔羅解讀，尤其擅長感情分析與事業分析，協助客人更清晰地了解未來方向，並作出合適的改變，逐步走向自己所渴望的未來。</p>
 
-          <p data-zh="多年來，我亦不斷擴展我的靈性技藝，並學習咗靈性回應療法（SRT）、靈擺調頻同寵物傳心等。每一種療法都幫助我提供更全面嘅療癒指引，協助你喺生命中各個層面達到清晰、平衡同調頻。" data-en="Over the years, I’ve expanded my skills and explored other areas of spiritual guidance, including Spiritual Response Therapy (SRT), Pendulum Energy Alignment, and Pet Communication. Each of these modalities allows me to provide a holistic approach to healing and transformation, helping you achieve clarity, balance, and alignment in every area of your life.">多年來，我亦不斷擴展我的靈性技藝，並學習咗靈性回應療法（SRT）、靈擺調頻同寵物傳心等。每一種療法都幫助我提供更全面嘅療癒指引，協助你喺生命中各個層面達到清晰、平衡同調頻。</p>
+          <p data-zh="多年來，我亦持續擴展自己的靈性療癒工具，並學習了靈性回應療法（SRT）、靈擺調頻及寵物傳心等不同範疇。每一種服務都讓我能夠以更全面的方式提供療癒與指引，協助你在生命中不同層面獲得清晰、平衡與能量調整。" data-en="Over the years, I’ve expanded my skills and explored other areas of spiritual guidance, including Spiritual Response Therapy (SRT), Pendulum Energy Alignment, and Pet Communication. Each of these modalities allows me to provide a holistic approach to healing and transformation, helping you achieve clarity, balance, and alignment in every area of your life.">多年來，我亦持續擴展自己的靈性療癒工具，並學習了靈性回應療法（SRT）、靈擺調頻及寵物傳心等不同範疇。每一種服務都讓我能夠以更全面的方式提供療癒與指引，協助你在生命中不同層面獲得清晰、平衡與能量調整。</p>
 
-          <p data-zh="我深信，透過了解並調整你嘅能量，你可以釋放出你嘅潛能，並實現自己心中嘅未來。讓我成為你自我探索與轉變之旅嘅指引。" data-en="I believe that through understanding and adjusting your energy, you can unlock your full potential and manifest the future you envision. Let me guide you on this journey of self-discovery and transformation.">我深信，透過了解並調整你嘅能量，你可以釋放出你嘅潛能，並實現自己心中嘅未來。讓我成為你自我探索與轉變之旅嘅指引。</p>
+          <p data-zh="我深信，透過理解並調整自身的能量，每個人都能釋放內在潛能，並逐步實現心中所嚮往的未來。願我能成為你在自我探索與轉變旅程中的指引與支持。" data-en="I believe that through understanding and adjusting your energy, you can unlock your full potential and manifest the future you envision. Let me guide you on this journey of self-discovery and transformation.">我深信，透過理解並調整自身的能量，每個人都能釋放內在潛能，並逐步實現心中所嚮往的未來。願我能成為你在自我探索與轉變旅程中的指引與支持。</p>
         </div>
+      </section>
+
+      <section id="contact" class="contact-section" aria-label="查詢">
+        <h2 data-zh="查詢" data-en="Contact">查詢</h2>
+        <p class="section-copy" data-zh="如你想了解哪一項服務最適合你，或想預約塔羅占卜、SRT、靈擺調頻或寵物傳心，歡迎用以下方式聯絡我。" data-en="If you would like to know which service is most suitable for you, or if you would like to book a Tarot reading, SRT, Pendulum Energy Alignment, or Pet Communication, please contact me below.">如你想了解哪一項服務最適合你，或想預約塔羅占卜、SRT、靈擺調頻或寵物傳心，歡迎用以下方式聯絡我。</p>
+
+        <div class="contact-card">
+          <p data-zh="你可以選擇用電郵或 WhatsApp 查詢。我會根據你的情況，介紹最適合你的服務方式。" data-en="You can contact me by email or WhatsApp. I will recommend the most suitable service based on your situation.">你可以選擇用電郵或 WhatsApp 查詢。我會根據你的情況，介紹最適合你的服務方式。</p>
+          <div class="contact-buttons">
+            <a class="email-link" href="mailto:booking@estarot.uk?subject=Estarot%E6%9C%8D%E5%8B%99%E6%9F%A5%E8%A9%A2&body=%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2Estarot%E6%9C%8D%E5%8B%99" data-email="booking@estarot.uk" data-mail-subject-zh="Estarot服務查詢" data-mail-subject-en="Estarot Service Enquiry" data-mail-body-zh="我想查詢Estarot服務" data-mail-body-en="I would like to enquire about Estarot services" data-zh="電郵查詢" data-en="Email Enquiry">電郵查詢</a>
+            <a class="whatsapp-link show" href="https://api.whatsapp.com/send?phone=447585548525&text=%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2Estarot%E6%9C%8D%E5%8B%99" target="_blank" rel="noopener" data-phone="447585548525" data-text-zh="我想查詢Estarot服務" data-text-en="I would like to enquire about Estarot services" data-zh="WhatsApp 查詢" data-en="WhatsApp Enquiry">WhatsApp 查詢</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="disclaimer" class="disclaimer-section" aria-label="免責聲明">
+        <h2 data-zh="免責聲明" data-en="Disclaimer">免責聲明</h2>
+        <div class="disclaimer-card">
+          <p data-zh="Estarot 提供的塔羅占卜、SRT、靈擺調頻、寵物傳心及相關靈性服務，均屬於靈性指引、個人成長及自我探索用途。所有內容只供參考，並不構成法律、醫療、心理治療、財務、投資或其他專業意見。" data-en="Tarot readings, SRT, Pendulum Energy Alignment, Pet Communication, and related spiritual services provided by Estarot are for spiritual guidance, personal growth, and self-reflection purposes only. All content is for reference only and does not constitute legal, medical, psychological, financial, investment, or other professional advice.">Estarot 提供的塔羅占卜、SRT、靈擺調頻、寵物傳心及相關靈性服務，均屬於靈性指引、個人成長及自我探索用途。所有內容只供參考，並不構成法律、醫療、心理治療、財務、投資或其他專業意見。</p>
+
+          <p data-zh="任何解讀、訊息或能量服務均不能保證特定結果。你仍然需要為自己的選擇、行動及決定承擔全部責任。如你正面對健康、法律、財務或心理健康相關問題，請尋求合資格專業人士協助。" data-en="No reading, message, or energy service can guarantee any specific outcome. You remain fully responsible for your own choices, actions, and decisions. If you are dealing with health, legal, financial, or mental health matters, please seek support from a qualified professional.">任何解讀、訊息或能量服務均不能保證特定結果。你仍然需要為自己的選擇、行動及決定承擔全部責任。如你正面對健康、法律、財務或心理健康相關問題，請尋求合資格專業人士協助。</p>
+
+          <p data-zh="使用本網站及預約任何服務，即代表你理解並同意以上免責聲明。" data-en="By using this website and booking any service, you acknowledge and agree to this disclaimer.">使用本網站及預約任何服務，即代表你理解並同意以上免責聲明。</p>
+        </div>
+        <a class="primary-link back-link" href="#top" data-zh="返回主頁" data-en="Back to Main Page">返回主頁</a>
       </section>
     </main>
 
     <footer>
       <div data-zh="* 本抽卡頁面只作隨機抽牌用途，不包含任何牌義或解讀內容。" data-en="* This card draw page is for random card selection only and does not include card meanings or reading content.">* 本抽卡頁面只作隨機抽牌用途，不包含任何牌義或解讀內容。</div>
       <div data-zh="* 限制以同一裝置及瀏覽器記錄為準。" data-en="* The one-card-per-hour limit is based on the same device and browser record.">* 限制以同一裝置及瀏覽器記錄為準。</div>
+      <div><a class="footer-link" href="#disclaimer" data-zh="免責聲明" data-en="Disclaimer">免責聲明</a></div>
       <div class="since">Estarot since 2013</div>
     </footer>
   </div>
@@ -828,6 +907,13 @@
           const phone = el.getAttribute("data-phone");
           const message = el.getAttribute(lang === "zh" ? "data-text-zh" : "data-text-en");
           el.href = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message);
+        });
+
+        document.querySelectorAll("[data-email][data-mail-subject-zh][data-mail-subject-en][data-mail-body-zh][data-mail-body-en]").forEach(function (el) {
+          const email = el.getAttribute("data-email");
+          const subject = el.getAttribute(lang === "zh" ? "data-mail-subject-zh" : "data-mail-subject-en");
+          const body = el.getAttribute(lang === "zh" ? "data-mail-body-zh" : "data-mail-body-en");
+          el.href = "mailto:" + email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
         });
 
         langButtons.forEach(function (button) {

@@ -4,26 +4,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Estarot｜Payment 付款</title>
+
   <meta name="description" content="Estarot 付款頁面 Payment page for Tarot Reading, SRT, Pendulum Energy Alignment and Pet Communication services." />
   <link rel="canonical" href="https://www.estarot.uk/payment/" />
+
   <link rel="icon" type="image/png" href="https://www.image2url.com/r2/default/images/1777843802442-0c145276-e7f0-41c8-bd26-f05688bf542d.png" />
-<link rel="shortcut icon" type="image/png" href="https://www.image2url.com/r2/default/images/1777843802442-0c145276-e7f0-41c8-bd26-f05688bf542d.png" />
-<link rel="apple-touch-icon" href="https://www.image2url.com/r2/default/images/1777843802442-0c145276-e7f0-41c8-bd26-f05688bf542d.png" />
+  <link rel="shortcut icon" type="image/png" href="https://www.image2url.com/r2/default/images/1777843802442-0c145276-e7f0-41c8-bd26-f05688bf542d.png" />
+  <link rel="apple-touch-icon" href="https://www.image2url.com/r2/default/images/1777843802442-0c145276-e7f0-41c8-bd26-f05688bf542d.png" />
+
+  <meta property="og:title" content="Estarot｜Payment 付款" />
+  <meta property="og:description" content="Secure payment page for Estarot services. Estarot 服務付款頁面。" />
+  <meta property="og:url" content="https://www.estarot.uk/payment/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.image2url.com/r2/default/images/1777749488848-573813ee-29aa-4670-865f-97cb2f27a873.jpg" />
 
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+
     function loadGoogleAnalytics() {
       if (window.estarotGoogleAnalyticsLoaded) return;
       window.estarotGoogleAnalyticsLoaded = true;
+
       const script = document.createElement("script");
       script.async = true;
       script.src = "https://www.googletagmanager.com/gtag/js?id=G-GH0JYP6E4H";
       document.head.appendChild(script);
+
       gtag("js", new Date());
       gtag("config", "G-GH0JYP6E4H");
     }
   </script>
+
+  <script src="https://www.paypal.com/sdk/js?client-id=BAABn0nMp_bXhTS0RC3aU4kZffVnBthtCbCaq2yg0HOiMgQPb4tdUEBZ9ADZHrqCfGyZgAQLAoPIu42Y3c&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
 
   <style>
     :root {
@@ -31,6 +44,7 @@
       --bg-purple: #3a2448;
       --paper: #fff7e8;
       --paper-soft: #fffaf0;
+      --paper-deep: #f3dfbd;
       --gold: #d7b36a;
       --rose: #d9a6b7;
       --plum: #4a2f58;
@@ -139,7 +153,7 @@
       text-align: center;
     }
 
-    h1, h2, p { margin-top: 0; }
+    h1, h2, h3, p { margin-top: 0; }
 
     h1 {
       font-size: clamp(2.35rem, 8vw, 4.3rem);
@@ -221,72 +235,29 @@
       margin-bottom: 14px;
     }
 
-    .payment-form {
-      display: grid;
-      gap: 16px;
-      margin-top: 20px;
+    .paypal-box {
+      margin: 22px auto 0;
+      width: min(520px, 100%);
     }
 
-    label {
-      display: grid;
-      gap: 7px;
-      color: var(--plum);
-      font-weight: 800;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      border: 1px solid rgba(74, 47, 88, 0.22);
-      border-radius: 16px;
-      padding: 13px 14px;
-      font-family: inherit;
-      font-size: 1rem;
-      color: var(--ink);
-      background: #fffdf6;
-    }
-
-    textarea { min-height: 96px; resize: vertical; }
-
-    .quick-amounts {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .amount-btn {
-      border: 1px solid rgba(215, 179, 106, 0.7);
-      background: #f7efe0;
-      color: var(--plum);
-      border-radius: 999px;
-      padding: 10px;
-      font-family: inherit;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .paypal-button, .primary-link {
-      width: 100%;
+    .primary-link {
       min-height: 54px;
       border: 0;
       border-radius: 999px;
       padding: 15px 24px;
-      background: var(--paypal);
+      background: linear-gradient(135deg, var(--plum), #25162f);
       color: white;
       font-family: inherit;
       font-size: 1rem;
       font-weight: 800;
+      letter-spacing: 0.03em;
       cursor: pointer;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      box-shadow: 0 12px 24px rgba(0, 112, 186, 0.22);
-    }
-
-    .primary-link {
-      width: auto;
-      background: linear-gradient(135deg, var(--plum), #25162f);
+      box-shadow: 0 12px 24px rgba(74, 47, 88, 0.22);
       margin-top: 18px;
     }
 
@@ -296,26 +267,6 @@
       text-align: center;
       line-height: 1.7;
       margin-top: 14px;
-    }
-
-    footer {
-      width: min(900px, 92%);
-      margin: 28px auto 48px;
-      padding: 24px 20px 34px;
-      text-align: center;
-      background: rgba(255, 247, 232, 0.9);
-      color: var(--muted);
-      border: 2px solid rgba(215, 179, 106, 0.72);
-      border-radius: 34px;
-      line-height: 1.8;
-      font-size: 0.86rem;
-    }
-
-    .since {
-      margin-top: 16px;
-      color: var(--plum);
-      font-weight: 800;
-      letter-spacing: 0.08em;
     }
 
     .cookie-banner {
@@ -342,12 +293,31 @@
     .cookie-accept { background: var(--plum); color: var(--paper); }
     .cookie-reject { background: #eee2cc; color: var(--plum); }
 
+    footer {
+      width: min(900px, 92%);
+      margin: 28px auto 48px;
+      padding: 24px 20px 34px;
+      text-align: center;
+      background: rgba(255, 247, 232, 0.9);
+      color: var(--muted);
+      border: 2px solid rgba(215, 179, 106, 0.72);
+      border-radius: 34px;
+      line-height: 1.8;
+      font-size: 0.86rem;
+    }
+
+    .since {
+      margin-top: 16px;
+      color: var(--plum);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
     @media (max-width: 620px) {
       header { padding: 8px 12px; }
       .logo { max-width: 76px; width: 24vw; }
       .lang-btn { padding: 6px 8px; font-size: 0.72rem; }
       .header-link { font-size: 0.78rem; padding: 9px 11px; }
-      .quick-amounts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .payment-section, .notice-section { padding: 34px 16px 40px; }
     }
   </style>
@@ -374,49 +344,16 @@
 
       <section class="payment-section" aria-label="Payment form">
         <h2 data-zh="透過 PayPal 付款" data-en="Pay via PayPal">透過 PayPal 付款</h2>
-        <p class="section-copy" data-zh="你可以輸入指定金額，然後前往 PayPal 完成付款。付款時可登入 PayPal，或按 PayPal 頁面顯示使用 debit / credit card 付款。" data-en="Enter the agreed amount and continue to PayPal to complete your payment. You may log in to PayPal or use debit / credit card if the option is shown on PayPal.">你可以輸入指定金額，然後前往 PayPal 完成付款。付款時可登入 PayPal，或按 PayPal 頁面顯示使用 debit / credit card 付款。</p>
+        <p class="section-copy" data-zh="你可以在 PayPal 付款框內輸入已確認金額，然後按指示完成付款。付款時可登入 PayPal，或按 PayPal 頁面顯示使用 debit / credit card 付款。" data-en="Enter the confirmed amount in the PayPal payment box and follow the steps to complete your payment. You may log in to PayPal or use debit / credit card if the option is shown on PayPal.">你可以在 PayPal 付款框內輸入已確認金額，然後按指示完成付款。付款時可登入 PayPal，或按 PayPal 頁面顯示使用 debit / credit card 付款。</p>
 
         <div class="payment-card">
           <p data-zh="請只在已確認預約或已與 Estarot 確認服務內容後付款。" data-en="Please only make payment after your booking or service details have been confirmed with Estarot.">請只在已確認預約或已與 Estarot 確認服務內容後付款。</p>
 
-          <form id="paymentForm" class="payment-form">
-            <label>
-              <span data-zh="服務項目" data-en="Service">服務項目</span>
-              <select id="serviceSelect" required>
-                <option value="" data-zh="請選擇服務" data-en="Please select a service">請選擇服務</option>
-                <option value="Tarot Reading" data-zh="塔羅占卜 Tarot Reading" data-en="Tarot Reading">塔羅占卜 Tarot Reading</option>
-                <option value="SRT" data-zh="靈性回應療法 SRT" data-en="Spiritual Response Therapy (SRT)">靈性回應療法 SRT</option>
-                <option value="Pendulum Energy Alignment" data-zh="靈擺調頻 Pendulum Energy Alignment" data-en="Pendulum Energy Alignment">靈擺調頻 Pendulum Energy Alignment</option>
-                <option value="Pet Communication" data-zh="寵物傳心 Pet Communication" data-en="Pet Communication">寵物傳心 Pet Communication</option>
-                <option value="Other Estarot Service" data-zh="其他 Estarot 服務" data-en="Other Estarot Service">其他 Estarot 服務</option>
-              </select>
-            </label>
+          <div class="paypal-box">
+            <div id="paypal-container-GSYXA7NKTVZ7Q"></div>
+          </div>
 
-            <label>
-              <span data-zh="付款金額 GBP" data-en="Payment Amount GBP">付款金額 GBP</span>
-              <input id="amountInput" type="number" min="1" step="0.01" placeholder="e.g. 40" required />
-            </label>
-
-            <div class="quick-amounts" aria-label="Quick amount buttons">
-              <button class="amount-btn" type="button" data-amount="20">£20</button>
-              <button class="amount-btn" type="button" data-amount="30">£30</button>
-              <button class="amount-btn" type="button" data-amount="40">£40</button>
-              <button class="amount-btn" type="button" data-amount="55">£55</button>
-              <button class="amount-btn" type="button" data-amount="80">£80</button>
-              <button class="amount-btn" type="button" data-amount="90">£90</button>
-              <button class="amount-btn" type="button" data-amount="99">£99</button>
-              <button class="amount-btn" type="button" data-amount="120">£120</button>
-            </div>
-
-            <label>
-              <span data-zh="備註 / 你的名稱（可選）" data-en="Note / Your Name (Optional)">備註 / 你的名稱（可選）</span>
-              <textarea id="noteInput" data-placeholder-zh="例如：塔羅占卜 - Esther" data-placeholder-en="e.g. Tarot Reading - Esther" placeholder="例如：塔羅占卜 - Esther"></textarea>
-            </label>
-
-            <button class="paypal-button" type="submit" data-zh="前往 PayPal 付款" data-en="Continue to PayPal">前往 PayPal 付款</button>
-          </form>
-
-          <p class="small-note" data-zh="注意：此頁面會將你帶到 PayPal 安全付款頁。Estarot 不會在本網站儲存你的銀行卡資料。" data-en="Note: This page will take you to PayPal’s secure payment page. Estarot does not store your card details on this website.">注意：此頁面會將你帶到 PayPal 安全付款頁。Estarot 不會在本網站儲存你的銀行卡資料。</p>
+          <p class="small-note" data-zh="注意：付款將透過 PayPal 安全頁面處理。Estarot 不會在本網站儲存你的銀行卡資料。" data-en="Note: Payments are processed through PayPal’s secure payment page. Estarot does not store your card details on this website.">注意：付款將透過 PayPal 安全頁面處理。Estarot 不會在本網站儲存你的銀行卡資料。</p>
         </div>
       </section>
 
@@ -449,22 +386,21 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const PAYPAL_ME_USERNAME = "EstarotUK";
-      const paymentForm = document.getElementById("paymentForm");
-      const amountInput = document.getElementById("amountInput");
-      const serviceSelect = document.getElementById("serviceSelect");
-      const noteInput = document.getElementById("noteInput");
       const langButtons = document.querySelectorAll("[data-set-lang]");
       const cookieBanner = document.getElementById("cookieBanner");
       const acceptCookies = document.getElementById("acceptCookies");
       const rejectCookies = document.getElementById("rejectCookies");
-
       const LANG_KEY = "estarot_payment_language";
       const COOKIE_KEY = "estarot_cookie_preference";
       let currentLang = safeGetItem(LANG_KEY) || "zh";
 
-      function safeSetItem(key, value) { try { localStorage.setItem(key, value); } catch (error) {} }
-      function safeGetItem(key) { try { return localStorage.getItem(key); } catch (error) { return null; } }
+      function safeGetItem(key) {
+        try { return localStorage.getItem(key); } catch (error) { return null; }
+      }
+
+      function safeSetItem(key, value) {
+        try { localStorage.setItem(key, value); } catch (error) {}
+      }
 
       function translatePage(lang) {
         currentLang = lang;
@@ -476,10 +412,6 @@
           if (text !== null) element.innerHTML = text;
         });
 
-        document.querySelectorAll("[data-placeholder-zh][data-placeholder-en]").forEach(function (element) {
-          element.placeholder = element.getAttribute(lang === "zh" ? "data-placeholder-zh" : "data-placeholder-en");
-        });
-
         langButtons.forEach(function (button) {
           button.classList.toggle("active", button.getAttribute("data-set-lang") === lang);
         });
@@ -487,15 +419,18 @@
 
       function initialiseCookiePreferences() {
         const preference = safeGetItem(COOKIE_KEY);
+
         if (preference === "accepted") {
           loadGoogleAnalytics();
           cookieBanner.classList.remove("show");
           return;
         }
+
         if (preference === "rejected") {
           cookieBanner.classList.remove("show");
           return;
         }
+
         cookieBanner.classList.add("show");
       }
 
@@ -516,27 +451,11 @@
         });
       });
 
-      document.querySelectorAll(".amount-btn").forEach(function (button) {
-        button.addEventListener("click", function () {
-          amountInput.value = button.getAttribute("data-amount");
-        });
-      });
-
-      paymentForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-        const amount = Number(amountInput.value);
-        const service = serviceSelect.value || "Estarot Service";
-        const note = noteInput.value.trim();
-
-        if (!amount || amount <= 0) {
-          alert(currentLang === "zh" ? "請輸入有效的付款金額。" : "Please enter a valid payment amount.");
-          return;
-        }
-
-        const paymentNote = note ? service + " - " + note : service;
-        const paypalUrl = "https://www.paypal.me/" + encodeURIComponent(PAYPAL_ME_USERNAME) + "/" + encodeURIComponent(amount.toFixed(2)) + "GBP?note=" + encodeURIComponent(paymentNote);
-        window.location.href = paypalUrl;
-      });
+      if (window.paypal && paypal.HostedButtons) {
+        paypal.HostedButtons({
+          hostedButtonId: "GSYXA7NKTVZ7Q"
+        }).render("#paypal-container-GSYXA7NKTVZ7Q");
+      }
 
       translatePage(currentLang);
       initialiseCookiePreferences();

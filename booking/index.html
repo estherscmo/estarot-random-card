@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estarot｜預約查詢 Booking Enquiry</title>
+
+  <meta name="description" content="Estarot booking enquiry page. Select services, choose quantity, enter your preferred time, and send the details via WhatsApp." />
+  <link rel="canonical" href="https://www.estarot.uk/booking/" />
+
+  <link rel="icon" type="image/png" href="https://www.image2url.com/r2/default/images/1777843802442-0c145276-e7f0-41c8-bd26-f05688bf542d.png?v=2" />
+  <link rel="shortcut icon" type="image/png" href="https://www.image2url.com/r2/default/images/1777843802442-0c145276-e7f0-41c8-bd26-f05688bf542d.png?v=2" />
+  <link rel="apple-touch-icon" href="https://www.image2url.com/r2/default/images/1777843802442-0c145276-e7f0-41c8-bd26-f05688bf542d.png?v=2" />
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    function loadGoogleAnalytics() {
+      if (window.estarotGoogleAnalyticsLoaded) return;
+      window.estarotGoogleAnalyticsLoaded = true;
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://www.googletagmanager.com/gtag/js?id=G-GH0JYP6E4H";
+      document.head.appendChild(script);
+      gtag("js", new Date());
+      gtag("config", "G-GH0JYP6E4H");
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-dark: #211529;
+      --bg-purple: #3a2448;
+      --paper: #fff7e8;
+      --paper-soft: #fffaf0;
+      --paper-deep: #f3dfbd;
+      --gold: #d7b36a;
+      --rose: #d9a6b7;
+      --plum: #4a2f58;
+      --ink: #33233a;
+      --muted: #7b637f;
+      --white: #ffffff;
+      --green: #21825f;
+      --red: #c83f4d;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Noto Serif TC", "Noto Sans TC", "Hiragino Mincho ProN", "Yu Mincho", serif;
+      color: var(--paper);
+      background:
+        radial-gradient(circle at top left, rgba(217, 166, 183, 0.25), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(215, 179, 106, 0.22), transparent 32%),
+        linear-gradient(145deg, var(--bg-dark), var(--bg-purple));
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(rgba(255, 247, 232, 0.75) 1px, transparent 1px),
+        radial-gradient(rgba(215, 179, 106, 0.75) 1px, transparent 1px);
+      background-size: 46px 46px, 88px 88px;
+      background-position: 0 0, 22px 34px;
+      opacity: 0.32;
+      z-index: 0;
+    }
+
+    .site { position: relative; z-index: 1; }
+
+    header {
+      width: 100%;
+      padding: 10px 18px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      background: var(--white);
+      border-bottom: 1px solid rgba(215, 179, 106, 0.45);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .language-toggle {
+      justify-self: start;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #f7efe0;
+      border: 1px solid rgba(215, 179, 106, 0.45);
+      border-radius: 999px;
+      padding: 4px;
+    }
+
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      color: var(--plum);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .lang-btn.active {
+      background: var(--plum);
+      color: var(--paper);
+    }
+
+    .logo {
+      max-width: 84px;
+      width: 22vw;
+      height: auto;
+      display: block;
+    }
+
+    .header-link {
+      justify-self: end;
+      color: var(--plum);
+      text-decoration: none;
+      font-weight: 800;
+      background: #f7efe0;
+      border: 1px solid rgba(215, 179, 106, 0.5);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .hero {
+      width: min(820px, 92%);
+      margin: 0 auto;
+      padding: 44px 0 24px;
+      text-align: center;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      font-size: clamp(2.35rem, 8vw, 4.3rem);
+      line-height: 1.1;
+      letter-spacing: 0.06em;
+      margin-bottom: 18px;
+      color: var(--paper);
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
+    }
+
+    .hero-copy {
+      width: min(720px, 100%);
+      margin: 0 auto;
+      font-size: clamp(1.02rem, 3vw, 1.2rem);
+      line-height: 1.9;
+      color: rgba(255, 247, 232, 0.92);
+    }
+
+    .booking-section, .details-section, .notice-section {
+      width: min(1080px, 92%);
+      margin: 22px auto 0;
+      padding: 34px 22px 44px;
+      background: rgba(255, 247, 232, 0.94);
+      color: var(--ink);
+      border-radius: 34px;
+      border: 2px solid rgba(215, 179, 106, 0.72);
+      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.25);
+      position: relative;
+    }
+
+    .booking-section::before {
+      content: "✦ booking enquiry ✦";
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-1deg);
+      background: var(--rose);
+      color: var(--ink);
+      padding: 6px 18px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+
+    h2 {
+      font-size: clamp(1.65rem, 5vw, 2.35rem);
+      color: var(--plum);
+      margin-bottom: 12px;
+      letter-spacing: 0.06em;
+      text-align: center;
+    }
+
+    .section-copy {
+      width: min(800px, 100%);
+      margin: 0 auto 26px;
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: 0.98rem;
+      text-align: center;
+    }
+
+    .service-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.75fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .service-group, .cart-card, .details-card, .notice-card {
+      border-radius: 26px;
+      background: var(--paper-soft);
+      border: 1px solid rgba(215, 179, 106, 0.55);
+      box-shadow: 0 10px 20px rgba(51, 35, 58, 0.08);
+    }
+
+    .service-group {
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .group-header {
+      padding: 16px 18px;
+      background: linear-gradient(135deg, rgba(74, 47, 88, 0.13), rgba(215, 179, 106, 0.14));
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .group-header h3 {
+      margin: 0;
+      color: var(--plum);
+      font-size: 1.15rem;
+    }
+
+    .group-badge {
+      font-size: 0.78rem;
+      font-weight: 900;
+      color: var(--plum);
+      background: rgba(255, 247, 232, 0.85);
+      border: 1px solid rgba(215, 179, 106, 0.5);
+      border-radius: 999px;
+      padding: 6px 10px;
+      white-space: nowrap;
+    }
+
+    .service-list { display: grid; }
+
+    .service-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border-top: 1px solid rgba(215, 179, 106, 0.32);
+    }
+
+    .service-name {
+      color: var(--ink);
+      font-weight: 900;
+      line-height: 1.55;
+    }
+
+    .service-sub {
+      display: block;
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 600;
+      line-height: 1.55;
+      margin-top: 2px;
+    }
+
+    .price {
+      color: var(--plum);
+      font-weight: 900;
+      text-align: right;
+      line-height: 1.45;
+      min-width: 112px;
+      white-space: nowrap;
+    }
+
+    .offer-price { color: var(--red); font-weight: 950; }
+    .original-price { color: var(--muted); text-decoration: line-through; opacity: 0.8; font-weight: 700; }
+
+    .add-btn, .remove-btn {
+      border: 0;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      line-height: 1;
+      font-weight: 900;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .add-btn {
+      background: var(--plum);
+      color: var(--paper);
+      box-shadow: 0 8px 16px rgba(74, 47, 88, 0.18);
+    }
+
+    .remove-btn {
+      background: #eadcc4;
+      color: var(--plum);
+      width: 30px;
+      height: 30px;
+      font-size: 1rem;
+      flex: 0 0 auto;
+    }
+
+    .cart-card {
+      padding: 20px;
+      position: sticky;
+      top: 92px;
+    }
+
+    .cart-card h3 {
+      margin: 0 0 12px;
+      color: var(--plum);
+      font-size: 1.25rem;
+    }
+
+    .cart-empty {
+      color: var(--muted);
+      line-height: 1.75;
+      background: rgba(255, 247, 232, 0.65);
+      border: 1px dashed rgba(74, 47, 88, 0.22);
+      border-radius: 18px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .cart-list {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .cart-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(215, 179, 106, 0.35);
+    }
+
+    .cart-row-name {
+      color: var(--ink);
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    .cart-row-price {
+      display: block;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .quantity-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      background: rgba(255, 247, 232, 0.75);
+      border: 1px solid rgba(215, 179, 106, 0.45);
+      border-radius: 999px;
+      padding: 5px 8px;
+    }
+
+    .qty-btn {
+      border: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--plum);
+      color: var(--paper);
+      font-family: inherit;
+      font-weight: 900;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .qty-number {
+      min-width: 24px;
+      text-align: center;
+      color: var(--plum);
+      font-weight: 900;
+    }
+
+    .total-box {
+      background: rgba(74, 47, 88, 0.08);
+      border: 1px solid rgba(74, 47, 88, 0.12);
+      border-radius: 18px;
+      padding: 14px 16px;
+      color: var(--plum);
+      font-weight: 900;
+      line-height: 1.7;
+    }
+
+    .details-card, .notice-card {
+      width: min(800px, 100%);
+      margin: 22px auto 0;
+      padding: 24px;
+    }
+
+    .details-card p, .notice-card p {
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: 0.98rem;
+      margin-bottom: 14px;
+    }
+
+    .details-form {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      color: var(--plum);
+      font-weight: 900;
+    }
+
+    input, textarea {
+      width: 100%;
+      border: 1px solid rgba(74, 47, 88, 0.22);
+      border-radius: 16px;
+      padding: 13px 14px;
+      font-family: inherit;
+      font-size: 1rem;
+      color: var(--ink);
+      background: #fffdf6;
+    }
+
+    textarea { min-height: 116px; resize: vertical; }
+
+    .helper {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.65;
+      font-weight: 600;
+    }
+
+    .whatsapp-button, .primary-link {
+      width: 100%;
+      min-height: 54px;
+      border: 0;
+      border-radius: 999px;
+      padding: 15px 24px;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: white;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 12px 24px rgba(18, 140, 126, 0.22);
+      margin-top: 4px;
+    }
+
+    .primary-link {
+      width: auto;
+      background: linear-gradient(135deg, var(--plum), #25162f);
+      margin-top: 18px;
+    }
+
+    .small-note {
+      font-size: 0.86rem;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.7;
+      margin-top: 14px;
+    }
+
+    .cookie-banner {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      width: min(680px, calc(100% - 28px));
+      background: rgba(255, 250, 240, 0.98);
+      color: var(--ink);
+      border: 2px solid rgba(215, 179, 106, 0.72);
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.22);
+      z-index: 999;
+      display: none;
+    }
+
+    .cookie-banner.show { display: block; }
+    .cookie-banner h3 { margin: 0 0 8px; color: var(--plum); font-size: 1.1rem; }
+    .cookie-banner p { margin: 0 0 14px; color: var(--muted); line-height: 1.65; font-size: 0.92rem; }
+    .cookie-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+    .cookie-btn { border: 0; border-radius: 999px; padding: 11px 16px; font-family: inherit; font-weight: 800; cursor: pointer; }
+    .cookie-accept { background: var(--plum); color: var(--paper); }
+    .cookie-reject { background: #eee2cc; color: var(--plum); }
+
+    footer {
+      width: min(900px, 92%);
+      margin: 28px auto 48px;
+      padding: 24px 20px 34px;
+      text-align: center;
+      background: rgba(255, 247, 232, 0.9);
+      color: var(--muted);
+      border: 2px solid rgba(215, 179, 106, 0.72);
+      border-radius: 34px;
+      line-height: 1.8;
+      font-size: 0.86rem;
+    }
+
+    .since {
+      margin-top: 16px;
+      color: var(--plum);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 860px) {
+      .service-layout { grid-template-columns: 1fr; }
+      .cart-card { position: static; }
+    }
+
+    @media (max-width: 620px) {
+      header { padding: 8px 12px; }
+      .logo { max-width: 76px; width: 24vw; }
+      .lang-btn { padding: 6px 8px; font-size: 0.72rem; }
+      .header-link { font-size: 0.78rem; padding: 9px 11px; }
+      .booking-section, .details-section, .notice-section { padding: 34px 16px 40px; }
+      .service-item { grid-template-columns: minmax(0, 1fr) auto; }
+      .price { grid-column: 1 / 2; text-align: left; min-width: auto; }
+      .add-btn { grid-column: 2 / 3; grid-row: 1 / 3; }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="top" class="site">
+    <header>
+      <div class="language-toggle" aria-label="Language switcher">
+        <button class="lang-btn active" type="button" data-set-lang="zh">繁中</button>
+        <button class="lang-btn" type="button" data-set-lang="en">EN</button>
+      </div>
+
+      <img class="logo" src="https://www.image2url.com/r2/default/images/1777749562213-b49198f9-98f4-41fe-b700-168a18b58cd2.png" alt="Estarot logo" />
+
+      <a class="header-link" href="/" data-zh="返回主頁" data-en="Main Page">返回主頁</a>
+    </header>
+
+    <main>
+      <section class="hero" aria-label="Estarot booking enquiry page">
+        <h1 data-zh="Estarot<br />預約查詢" data-en="Estarot<br />Booking Enquiry">Estarot<br />預約查詢</h1>
+        <p class="hero-copy" data-zh="請先選擇你想預約的服務，再填寫希望預約的日期及時間。此頁面不會即時確認預約，時間需要雙方再互相配合及確認。" data-en="Please select the service you would like to book, then enter your preferred date and time. This page does not confirm your booking instantly; the time will be arranged and confirmed mutually.">請先選擇你想預約的服務，再填寫希望預約的日期及時間。此頁面不會即時確認預約，時間需要雙方再互相配合及確認。</p>
+      </section>
+
+      <section class="booking-section" aria-label="Service selection">
+        <h2 data-zh="選擇服務" data-en="Choose Your Service">選擇服務</h2>
+        <p class="section-copy" data-zh="按下每項服務旁邊的「＋」加入查詢清單。你可以一次選擇多項服務，並在查詢清單調整數量。" data-en="Tap the “+” next to a service to add it to your enquiry list. You can select multiple services and adjust the quantity in the enquiry list.">按下每項服務旁邊的「＋」加入查詢清單。你可以一次選擇多項服務，並在查詢清單調整數量。</p>
+
+        <div class="service-layout">
+          <div id="serviceGroups"></div>
+
+          <aside class="cart-card" aria-label="Selected services">
+            <h3 data-zh="查詢清單" data-en="Enquiry List">查詢清單</h3>
+            <div id="cartContent"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="details-section" aria-label="Booking details">
+        <h2 data-zh="填寫預約資料" data-en="Booking Details">填寫預約資料</h2>
+        <p class="section-copy" data-zh="你可以自由填寫希望預約的日期及時間。我會再透過 WhatsApp 與你確認是否可以安排。" data-en="You can freely enter your preferred date and time. I will confirm the availability with you via WhatsApp.">你可以自由填寫希望預約的日期及時間。我會再透過 WhatsApp 與你確認是否可以安排。</p>
+
+        <div class="details-card">
+          <form id="bookingForm" class="details-form">
+            <label>
+              <span data-zh="你的稱呼" data-en="Your Name">你的稱呼</span>
+              <input id="nameInput" type="text" data-placeholder-zh="例如：Esther" data-placeholder-en="e.g. Esther" placeholder="例如：Esther" required />
+            </label>
+
+            <label>
+              <span data-zh="希望預約的日期及時間" data-en="Preferred Date and Time">希望預約的日期及時間</span>
+              <input id="preferredTimeInput" type="text" data-placeholder-zh="例如：下星期三晚上 8 點 / 5月20日 20:00 UK Time" data-placeholder-en="e.g. Next Wednesday 8pm / 20 May 20:00 UK Time" placeholder="例如：下星期三晚上 8 點 / 5月20日 20:00 UK Time" required />
+              <span class="helper" data-zh="預約時間需要互相配合，此處只作預約查詢，並非即時確認。" data-en="The booking time needs to be arranged mutually. This is an enquiry only and not an instant confirmation.">預約時間需要互相配合，此處只作預約查詢，並非即時確認。</span>
+            </label>
+
+            <label>
+              <span data-zh="備註 / 你想解決的問題" data-en="Note / What would you like help with?">備註 / 你想解決的問題</span>
+              <textarea id="noteInput" data-placeholder-zh="例如：我想了解感情發展、事業方向、情緒狀態，或想知道哪一項服務比較適合我。" data-placeholder-en="e.g. I would like to understand my love situation, career direction, emotional state, or which service is more suitable for me." placeholder="例如：我想了解感情發展、事業方向、情緒狀態，或想知道哪一項服務比較適合我。"></textarea>
+            </label>
+
+            <button class="whatsapp-button" type="submit" data-zh="透過 WhatsApp 發送預約查詢" data-en="Send Booking Enquiry via WhatsApp">透過 WhatsApp 發送預約查詢</button>
+          </form>
+
+          <p class="small-note" data-zh="注意：發送 WhatsApp 查詢不等於預約已確認。時間及付款安排需由 Estarot 回覆確認後才算成功。" data-en="Note: Sending a WhatsApp enquiry does not mean the booking is confirmed. The time and payment arrangement must be confirmed by Estarot first.">注意：發送 WhatsApp 查詢不等於預約已確認。時間及付款安排需由 Estarot 回覆確認後才算成功。</p>
+        </div>
+      </section>
+
+      <section class="notice-section" aria-label="Booking notice">
+        <h2 data-zh="預約前請留意" data-en="Before Booking">預約前請留意</h2>
+        <div class="notice-card">
+          <p data-zh="所有價錢以網站顯示為準。如服務內容需要額外時間或特別安排，價格及付款方式會於 WhatsApp 確認。" data-en="All prices are based on the website listing. If the service requires extra time or special arrangements, the price and payment method will be confirmed via WhatsApp.">所有價錢以網站顯示為準。如服務內容需要額外時間或特別安排，價格及付款方式會於 WhatsApp 確認。</p>
+          <p data-zh="付款通常會在預約時間及服務內容確認後進行。你亦可以使用付款頁面完成付款。" data-en="Payment is usually made after the booking time and service details are confirmed. You may also use the payment page to complete your payment.">付款通常會在預約時間及服務內容確認後進行。你亦可以使用付款頁面完成付款。</p>
+          <a class="primary-link" href="/payment/" data-zh="前往付款頁面" data-en="Go to Payment Page">前往付款頁面</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div data-zh="* 本預約頁面只作預約查詢用途，不代表即時確認預約。" data-en="* This booking page is for booking enquiries only and does not confirm an appointment instantly.">* 本預約頁面只作預約查詢用途，不代表即時確認預約。</div>
+      <div data-zh="* 可預約時間、服務內容及付款安排需由 Estarot 最終確認。" data-en="* Booking time, service details and payment arrangements are subject to final confirmation by Estarot.">* 可預約時間、服務內容及付款安排需由 Estarot 最終確認。</div>
+      <div class="since">Estarot since 2013</div>
+    </footer>
+
+    <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie preferences">
+      <h3 data-zh="Cookie 偏好設定" data-en="Cookie Preferences">Cookie 偏好設定</h3>
+      <p data-zh="本網站只會使用必要功能處理預約查詢。如你同意，我們亦會使用 Google Analytics 了解網站人流及改善內容。" data-en="This website uses essential storage for booking enquiry functionality. With your consent, we also use Google Analytics to understand website traffic and improve the site.">本網站只會使用必要功能處理預約查詢。如你同意，我們亦會使用 Google Analytics 了解網站人流及改善內容。</p>
+      <div class="cookie-actions">
+        <button id="rejectCookies" class="cookie-btn cookie-reject" type="button" data-zh="拒絕非必要 Cookies" data-en="Reject non-essential cookies">拒絕非必要 Cookies</button>
+        <button id="acceptCookies" class="cookie-btn cookie-accept" type="button" data-zh="接受 Analytics Cookies" data-en="Accept analytics cookies">接受 Analytics Cookies</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const WHATSAPP_PHONE = "447585548525";
+      const LANG_KEY = "estarot_booking_language";
+      const COOKIE_KEY = "estarot_cookie_preference";
+
+      const serviceGroupsData = [
+        {
+          zh: "塔羅占卜",
+          en: "Tarot Reading",
+          badgeZh: "感情・事業・個人問題",
+          badgeEn: "Love · Career · Personal Questions",
+          services: [
+            { id: "tarot-love-premium", zh: "皇牌戀情分析", en: "Signature Love Analysis", price: "GBP 40 | HKD 400", gbp: 40, hkd: 400 },
+            { id: "tarot-career", zh: "事業分析", en: "Career Analysis", price: "GBP 40 | HKD 400", gbp: 40, hkd: 400 },
+            { id: "tarot-choice", zh: "二選一", en: "Two-Option Reading", price: "GBP 30 | HKD 300", gbp: 30, hkd: 300 },
+            { id: "tarot-15", zh: "15分鐘塔羅占卜", en: "15-min Tarot Reading", price: "GBP 30 | HKD 300", gbp: 30, hkd: 300 },
+            { id: "tarot-30", zh: "30分鐘塔羅占卜", en: "30-min Tarot Reading", price: "GBP 50 | HKD 500", gbp: 50, hkd: 500 },
+            { id: "tarot-45", zh: "45分鐘塔羅占卜", en: "45-min Tarot Reading", price: "GBP 70 | HKD 700", gbp: 70, hkd: 700 },
+            { id: "tarot-60", zh: "60分鐘塔羅占卜", en: "60-min Tarot Reading", price: "GBP 90 | HKD 900", gbp: 90, hkd: 900 }
+          ]
+        },
+        {
+          zh: "SRT 靈性反應療癒",
+          en: "SRT Spiritual Response Therapy",
+          badgeZh: "清理限制信念・能量模式",
+          badgeEn: "Clearing limiting beliefs & energy patterns",
+          services: [
+            { id: "srt-complete", zh: "全面清理", en: "Complete Clearing", price: "GBP 99 | HKD 990", original: "原價 GBP 120 | HKD 1200", originalEn: "Original Price GBP 120 | HKD 1200", gbp: 99, hkd: 990, offer: true },
+            { id: "srt-theme", zh: "主題療癒", en: "Themed Healing", price: "GBP 55 | HKD 550", gbp: 55, hkd: 550 },
+            { id: "srt-report", zh: "可加購詳細報告", en: "Detailed Report Add-on", price: "+ GBP 20 | + HKD 200", gbp: 20, hkd: 200 }
+          ]
+        },
+        {
+          zh: "靈擺調頻",
+          en: "Pendulum Energy Alignment",
+          badgeZh: "調整頻率・吸引合適機會",
+          badgeEn: "Frequency alignment & attracting opportunities",
+          services: [
+            { id: "pendulum-6", zh: "自選6個項目調頻", en: "6 Selected Alignment Items", price: "GBP 40 | HKD 400", gbp: 40, hkd: 400, subZh: "可自選6個範疇作頻率調整", subEn: "Choose 6 areas for frequency alignment" },
+            { id: "pendulum-package-3", zh: "靈擺調頻套餐（3次）", en: "Pendulum Energy Alignment Package (3 sessions)", price: "GBP 100 | HKD 1,000", gbp: 100, hkd: 1000 },
+            { id: "pendulum-package-5", zh: "靈擺調頻套餐（5次）", en: "Pendulum Energy Alignment Package (5 sessions)", price: "GBP 150 | HKD 1,500", gbp: 150, hkd: 1500 },
+            { id: "pendulum-extra", zh: "額外調頻項目", en: "Extra Alignment Item", price: "+ GBP 5 | + HKD 50", gbp: 5, hkd: 50 }
+          ]
+        },
+        {
+          zh: "寵物傳心（只限貓犬）",
+          en: "Pet Communication (Cats & Dogs Only)",
+          badgeZh: "了解寵物情緒・需要・訊息",
+          badgeEn: "Understand your pet’s feelings, needs & messages",
+          services: [
+            { id: "pet-2", zh: "2個問題", en: "2 Questions", price: "GBP 20 | HKD 200", gbp: 20, hkd: 200 },
+            { id: "pet-5", zh: "5個問題", en: "5 Questions", price: "GBP 40 | HKD 400", gbp: 40, hkd: 400 },
+            { id: "pet-12", zh: "12個問題", en: "12 Questions", price: "GBP 80 | HKD 800", gbp: 80, hkd: 800 }
+          ]
+        }
+      ];
+
+      const langButtons = document.querySelectorAll("[data-set-lang]");
+      const serviceGroupsEl = document.getElementById("serviceGroups");
+      const cartContent = document.getElementById("cartContent");
+      const bookingForm = document.getElementById("bookingForm");
+      const nameInput = document.getElementById("nameInput");
+      const preferredTimeInput = document.getElementById("preferredTimeInput");
+      const noteInput = document.getElementById("noteInput");
+      const cookieBanner = document.getElementById("cookieBanner");
+      const acceptCookies = document.getElementById("acceptCookies");
+      const rejectCookies = document.getElementById("rejectCookies");
+
+      let currentLang = safeGetItem(LANG_KEY) || "zh";
+      let selectedServices = {};
+
+      function safeGetItem(key) {
+        try { return localStorage.getItem(key); } catch (error) { return null; }
+      }
+
+      function safeSetItem(key, value) {
+        try { localStorage.setItem(key, value); } catch (error) {}
+      }
+
+      function flattenServices() {
+        return serviceGroupsData.flatMap(function (group) {
+          return group.services.map(function (service) {
+            return Object.assign({}, service, { groupZh: group.zh, groupEn: group.en });
+          });
+        });
+      }
+
+      function getServiceById(id) {
+        return flattenServices().find(function (service) { return service.id === id; });
+      }
+
+      function getName(service) {
+        return currentLang === "zh" ? service.zh : service.en;
+      }
+
+      function getGroupName(service) {
+        return currentLang === "zh" ? service.groupZh : service.groupEn;
+      }
+
+      function renderServices() {
+        serviceGroupsEl.innerHTML = "";
+
+        serviceGroupsData.forEach(function (group) {
+          const groupEl = document.createElement("section");
+          groupEl.className = "service-group";
+
+          const header = document.createElement("div");
+          header.className = "group-header";
+
+          const title = document.createElement("h3");
+          title.textContent = currentLang === "zh" ? group.zh : group.en;
+
+          const badge = document.createElement("span");
+          badge.className = "group-badge";
+          badge.textContent = currentLang === "zh" ? group.badgeZh : group.badgeEn;
+
+          header.appendChild(title);
+          header.appendChild(badge);
+          groupEl.appendChild(header);
+
+          const list = document.createElement("div");
+          list.className = "service-list";
+
+          group.services.forEach(function (service) {
+            const item = document.createElement("div");
+            item.className = "service-item";
+
+            const nameBox = document.createElement("div");
+            nameBox.className = "service-name";
+            nameBox.textContent = currentLang === "zh" ? service.zh : service.en;
+
+            if (service.subZh || service.subEn) {
+              const sub = document.createElement("span");
+              sub.className = "service-sub";
+              sub.textContent = currentLang === "zh" ? service.subZh : service.subEn;
+              nameBox.appendChild(sub);
+            }
+
+            const priceBox = document.createElement("div");
+            priceBox.className = "price";
+
+            if (service.offer) {
+              const offer = document.createElement("div");
+              offer.className = "offer-price";
+              offer.textContent = service.price;
+              priceBox.appendChild(offer);
+
+              const original = document.createElement("div");
+              original.className = "original-price";
+              original.textContent = currentLang === "zh" ? service.original : service.originalEn;
+              priceBox.appendChild(original);
+            } else {
+              priceBox.textContent = service.price;
+            }
+
+            const addButton = document.createElement("button");
+            addButton.type = "button";
+            addButton.className = "add-btn";
+            addButton.textContent = "+";
+            addButton.setAttribute("aria-label", currentLang === "zh" ? "加入查詢清單" : "Add to enquiry list");
+            addButton.addEventListener("click", function () { addToCart(service.id); });
+
+            item.appendChild(nameBox);
+            item.appendChild(priceBox);
+            item.appendChild(addButton);
+            list.appendChild(item);
+          });
+
+          groupEl.appendChild(list);
+          serviceGroupsEl.appendChild(groupEl);
+        });
+      }
+
+      function addToCart(id) {
+        selectedServices[id] = (selectedServices[id] || 0) + 1;
+        renderCart();
+      }
+
+      function decreaseQuantity(id) {
+        if (!selectedServices[id]) return;
+        selectedServices[id] -= 1;
+        if (selectedServices[id] <= 0) delete selectedServices[id];
+        renderCart();
+      }
+
+      function increaseQuantity(id) {
+        selectedServices[id] = (selectedServices[id] || 0) + 1;
+        renderCart();
+      }
+
+      function removeFromCart(id) {
+        delete selectedServices[id];
+        renderCart();
+      }
+
+      function renderCart() {
+        const selectedIds = Object.keys(selectedServices);
+
+        if (!selectedIds.length) {
+          cartContent.innerHTML = "<div class='cart-empty'>" + (currentLang === "zh" ? "尚未選擇任何服務。請按服務旁邊的「＋」加入查詢清單。" : "No service selected yet. Tap “+” next to a service to add it to your enquiry list.") + "</div>";
+          return;
+        }
+
+        let totalGbp = 0;
+        let totalHkd = 0;
+        const list = document.createElement("div");
+        list.className = "cart-list";
+
+        selectedIds.forEach(function (id) {
+          const service = getServiceById(id);
+          if (!service) return;
+          const qty = selectedServices[id] || 1;
+          totalGbp += (service.gbp || 0) * qty;
+          totalHkd += (service.hkd || 0) * qty;
+
+          const row = document.createElement("div");
+          row.className = "cart-row";
+
+          const text = document.createElement("div");
+          text.className = "cart-row-name";
+          text.textContent = getName(service);
+
+          const price = document.createElement("span");
+          price.className = "cart-row-price";
+          price.textContent = service.price;
+          text.appendChild(price);
+
+          const quantityControls = document.createElement("div");
+          quantityControls.className = "quantity-controls";
+
+          const minus = document.createElement("button");
+          minus.type = "button";
+          minus.className = "qty-btn";
+          minus.textContent = "−";
+          minus.setAttribute("aria-label", currentLang === "zh" ? "減少數量" : "Decrease quantity");
+          minus.addEventListener("click", function () { decreaseQuantity(id); });
+
+          const quantity = document.createElement("span");
+          quantity.className = "qty-number";
+          quantity.textContent = qty;
+
+          const plus = document.createElement("button");
+          plus.type = "button";
+          plus.className = "qty-btn";
+          plus.textContent = "+";
+          plus.setAttribute("aria-label", currentLang === "zh" ? "增加數量" : "Increase quantity");
+          plus.addEventListener("click", function () { increaseQuantity(id); });
+
+          quantityControls.appendChild(minus);
+          quantityControls.appendChild(quantity);
+          quantityControls.appendChild(plus);
+          text.appendChild(quantityControls);
+
+          const remove = document.createElement("button");
+          remove.type = "button";
+          remove.className = "remove-btn";
+          remove.textContent = "×";
+          remove.setAttribute("aria-label", currentLang === "zh" ? "移除" : "Remove");
+          remove.addEventListener("click", function () { removeFromCart(id); });
+
+          row.appendChild(text);
+          row.appendChild(remove);
+          list.appendChild(row);
+        });
+
+        const total = document.createElement("div");
+        total.className = "total-box";
+        total.innerHTML = currentLang === "zh"
+          ? "預計總額：GBP " + totalGbp + " | HKD " + totalHkd + "<br><span class='helper'>最終金額會於 WhatsApp 確認。</span>"
+          : "Estimated total: GBP " + totalGbp + " | HKD " + totalHkd + "<br><span class='helper'>Final amount will be confirmed via WhatsApp.</span>";
+
+        cartContent.innerHTML = "";
+        cartContent.appendChild(list);
+        cartContent.appendChild(total);
+      }
+
+      function translatePage(lang) {
+        currentLang = lang;
+        safeSetItem(LANG_KEY, lang);
+        document.documentElement.lang = lang === "zh" ? "zh-Hant" : "en";
+
+        document.querySelectorAll("[data-zh][data-en]").forEach(function (element) {
+          const text = element.getAttribute(lang === "zh" ? "data-zh" : "data-en");
+          if (text !== null) element.innerHTML = text;
+        });
+
+        document.querySelectorAll("[data-placeholder-zh][data-placeholder-en]").forEach(function (element) {
+          element.placeholder = element.getAttribute(lang === "zh" ? "data-placeholder-zh" : "data-placeholder-en");
+        });
+
+        langButtons.forEach(function (button) {
+          button.classList.toggle("active", button.getAttribute("data-set-lang") === lang);
+        });
+
+        renderServices();
+        renderCart();
+      }
+
+      function initialiseCookiePreferences() {
+        const preference = safeGetItem(COOKIE_KEY);
+        if (preference === "accepted") {
+          loadGoogleAnalytics();
+          cookieBanner.classList.remove("show");
+          return;
+        }
+        if (preference === "rejected") {
+          cookieBanner.classList.remove("show");
+          return;
+        }
+        cookieBanner.classList.add("show");
+      }
+
+      acceptCookies.addEventListener("click", function () {
+        safeSetItem(COOKIE_KEY, "accepted");
+        cookieBanner.classList.remove("show");
+        loadGoogleAnalytics();
+      });
+
+      rejectCookies.addEventListener("click", function () {
+        safeSetItem(COOKIE_KEY, "rejected");
+        cookieBanner.classList.remove("show");
+      });
+
+      langButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          translatePage(button.getAttribute("data-set-lang"));
+        });
+      });
+
+      bookingForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const selectedIds = Object.keys(selectedServices);
+        const name = nameInput.value.trim();
+        const preferredTime = preferredTimeInput.value.trim();
+        const note = noteInput.value.trim();
+
+        if (!selectedIds.length) {
+          alert(currentLang === "zh" ? "請先選擇至少一項服務。" : "Please select at least one service first.");
+          return;
+        }
+
+        if (!name) {
+          alert(currentLang === "zh" ? "請填寫你的稱呼。" : "Please enter your name.");
+          return;
+        }
+
+        if (!preferredTime) {
+          alert(currentLang === "zh" ? "請填寫希望預約的日期及時間。" : "Please enter your preferred date and time.");
+          return;
+        }
+
+        let totalGbp = 0;
+        let totalHkd = 0;
+        const selectedText = selectedIds.map(function (id, index) {
+          const service = getServiceById(id);
+          if (!service) return "";
+          const qty = selectedServices[id] || 1;
+          totalGbp += (service.gbp || 0) * qty;
+          totalHkd += (service.hkd || 0) * qty;
+          return (index + 1) + ". " + getGroupName(service) + " - " + getName(service) + " × " + qty + "（" + service.price + "）";
+        }).filter(Boolean).join("\n");
+
+        const message = currentLang === "zh"
+          ? [
+              "你好，我想查詢 Estarot 預約。",
+              "",
+              "我的稱呼：" + name,
+              "想預約的服務：",
+              selectedText,
+              "",
+              "預計總額：GBP " + totalGbp + " | HKD " + totalHkd,
+              "希望預約日期及時間：" + preferredTime,
+              note ? "想解決的問題 / 備註：" + note : "",
+              "",
+              "我明白時間需要互相配合，並等待 Estarot 確認。"
+            ].filter(Boolean).join("\n")
+          : [
+              "Hello, I would like to make an Estarot booking enquiry.",
+              "",
+              "My name: " + name,
+              "Selected service(s):",
+              selectedText,
+              "",
+              "Estimated total: GBP " + totalGbp + " | HKD " + totalHkd,
+              "Preferred date and time: " + preferredTime,
+              note ? "Question / Note: " + note : "",
+              "",
+              "I understand the time needs to be arranged mutually and confirmed by Estarot."
+            ].filter(Boolean).join("\n");
+
+        window.location.href = "https://api.whatsapp.com/send?phone=" + WHATSAPP_PHONE + "&text=" + encodeURIComponent(message);
+      });
+
+      translatePage(currentLang);
+      initialiseCookiePreferences();
+    });
+  </script>
+</body>
+</html>

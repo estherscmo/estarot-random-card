@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Estarot Admin | Income Tracker</title>
+  <title>Estarot Admin</title>
 
   <style>
     :root {
@@ -25,6 +25,10 @@
       box-sizing: border-box;
     }
 
+    html {
+      background: var(--bg);
+    }
+
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
@@ -33,6 +37,7 @@
         linear-gradient(180deg, #120818 0%, #1b0c24 100%);
       color: var(--text);
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
     .hidden {
@@ -42,7 +47,7 @@
     .container {
       width: min(1100px, 92%);
       margin: 0 auto;
-      padding: 28px 0 60px;
+      padding: 28px 0 80px;
     }
 
     .login-wrap {
@@ -64,7 +69,7 @@
 
     .brand {
       text-align: center;
-      margin-bottom: 26px;
+      margin-bottom: 22px;
     }
 
     .brand .moon {
@@ -88,6 +93,28 @@
       font-size: 14px;
     }
 
+    .lang-switch {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 18px 0 8px;
+    }
+
+    .lang-btn {
+      padding: 8px 14px;
+      font-size: 13px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.15);
+      width: auto;
+    }
+
+    .lang-btn.active {
+      background: linear-gradient(135deg, #d8b26e, #fff0bf);
+      color: #241225;
+    }
+
     label {
       display: block;
       margin: 14px 0 7px;
@@ -98,6 +125,8 @@
 
     input, select, textarea {
       width: 100%;
+      max-width: 100%;
+      min-width: 0;
       padding: 13px 14px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,0.14);
@@ -120,6 +149,28 @@
     textarea {
       min-height: 90px;
       resize: vertical;
+    }
+
+    input[type="date"],
+    input[type="month"] {
+      -webkit-appearance: none;
+      appearance: none;
+      text-align: left;
+      line-height: normal;
+      min-height: 48px;
+      display: block;
+    }
+
+    input[type="date"]::-webkit-date-and-time-value,
+    input[type="month"]::-webkit-date-and-time-value {
+      text-align: left;
+      display: block;
+      width: 100%;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="month"]::-webkit-calendar-picker-indicator {
+      opacity: 0.85;
     }
 
     button {
@@ -157,13 +208,24 @@
       background: rgba(255,107,107,0.14);
       color: #ffb1b1;
       border: 1px solid rgba(255,107,107,0.3);
-      padding: 8px 12px;
-      font-size: 13px;
+    }
+
+    .btn-edit {
+      background: rgba(216,178,110,0.13);
+      color: #ffe7ad;
+      border: 1px solid rgba(216,178,110,0.28);
     }
 
     .btn-small {
       padding: 9px 12px;
       font-size: 13px;
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 16px;
     }
 
     .error {
@@ -199,6 +261,14 @@
       font-size: 14px;
     }
 
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
     .grid {
       display: grid;
       gap: 18px;
@@ -215,6 +285,7 @@
       border-radius: 24px;
       padding: 22px;
       box-shadow: var(--shadow);
+      min-width: 0;
     }
 
     .stat-card h3 {
@@ -256,7 +327,7 @@
 
     .service-row {
       display: grid;
-      grid-template-columns: 1fr 90px 42px;
+      grid-template-columns: minmax(0, 1fr) 90px 42px;
       gap: 10px;
       align-items: end;
       margin-bottom: 10px;
@@ -269,16 +340,15 @@
     }
 
     .filter-bar {
-      display: flex;
-      gap: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
       align-items: end;
-      flex-wrap: wrap;
       margin-bottom: 14px;
     }
 
     .filter-bar > div {
-      min-width: 170px;
-      flex: 1;
+      min-width: 0;
     }
 
     .records {
@@ -322,6 +392,14 @@
       margin-top: 3px;
     }
 
+    .record-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
     .tags {
       display: flex;
       gap: 7px;
@@ -362,6 +440,17 @@
       line-height: 1.6;
     }
 
+    .edit-banner {
+      background: rgba(216,178,110,0.12);
+      border: 1px solid rgba(216,178,110,0.28);
+      color: #ffe7ad;
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-size: 13px;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
     @media (max-width: 880px) {
       .stats-grid,
       .main-grid {
@@ -373,8 +462,13 @@
         flex-direction: column;
       }
 
-      .topbar .btn-secondary {
+      .top-actions {
         width: 100%;
+        justify-content: flex-start;
+      }
+
+      .top-actions .btn-secondary {
+        flex: 1;
       }
     }
 
@@ -393,12 +487,13 @@
         padding: 24px;
       }
 
-      .row {
+      .row,
+      .filter-bar {
         grid-template-columns: 1fr;
       }
 
       .service-row {
-        grid-template-columns: 1fr 70px 38px;
+        grid-template-columns: minmax(0, 1fr) 70px 38px;
       }
 
       .record-head {
@@ -408,92 +503,104 @@
       .record-amount {
         text-align: left;
       }
+
+      .button-row {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Login Screen -->
   <section id="loginScreen" class="login-wrap">
     <div class="login-card">
       <div class="brand">
         <div class="moon">🌙</div>
-        <h1>Estarot Admin</h1>
-        <p>Private Income Tracker</p>
+        <h1 id="loginTitle">Estarot Admin</h1>
+        <p id="loginSubtitle">Admin Page</p>
+
+        <div class="lang-switch">
+          <button type="button" id="loginLangZh" class="lang-btn">繁中</button>
+          <button type="button" id="loginLangEn" class="lang-btn">EN</button>
+        </div>
       </div>
 
       <form id="loginForm">
-        <label for="email">Email</label>
+        <label for="email" data-i18n="email">Email</label>
         <input id="email" type="email" autocomplete="email" required />
 
-        <label for="password">Password</label>
+        <label for="password" data-i18n="password">Password</label>
         <input id="password" type="password" autocomplete="current-password" required />
 
-        <button class="btn-primary" type="submit">Login</button>
+        <button id="loginBtn" class="btn-primary" type="submit">登入</button>
 
         <div id="loginError" class="error hidden"></div>
       </form>
     </div>
   </section>
 
-  <!-- App Screen -->
   <main id="appScreen" class="container hidden">
 
     <div class="topbar">
       <div>
-        <h1>Estarot Income Tracker</h1>
+        <h1 id="mainTitle">收入記錄</h1>
         <p id="userEmail">Logged in</p>
       </div>
-      <button id="logoutBtn" class="btn-secondary">Logout</button>
+
+      <div class="top-actions">
+        <button type="button" id="appLangZh" class="lang-btn">繁中</button>
+        <button type="button" id="appLangEn" class="lang-btn">EN</button>
+        <button id="logoutBtn" class="btn-secondary">登出</button>
+      </div>
     </div>
 
-    <!-- Dashboard -->
     <section class="grid stats-grid">
       <div class="card stat-card">
-        <h3>This Month GBP</h3>
+        <h3 id="statGbpTitle">本月 GBP</h3>
         <div id="monthGbp" class="value">£0</div>
-        <div class="sub">Selected month</div>
+        <div id="statMonthSub1" class="sub">所選月份</div>
       </div>
 
       <div class="card stat-card">
-        <h3>This Month HKD</h3>
+        <h3 id="statHkdTitle">本月 HKD</h3>
         <div id="monthHkd" class="value">HK$0</div>
-        <div class="sub">Selected month</div>
+        <div id="statMonthSub2" class="sub">所選月份</div>
       </div>
 
       <div class="card stat-card">
-        <h3>Most Popular Service</h3>
+        <h3 id="statPopularTitle">最受歡迎服務</h3>
         <div id="popularService" class="value">-</div>
-        <div id="popularServiceSub" class="sub">Based on quantity</div>
+        <div id="popularServiceSub" class="sub">按數量計算</div>
       </div>
 
       <div class="card stat-card">
-        <h3>Top Payment Method</h3>
+        <h3 id="statPaymentTitle">最常用收款方式</h3>
         <div id="topPayment" class="value">-</div>
-        <div id="topPaymentSub" class="sub">Selected month</div>
+        <div id="topPaymentSub" class="sub">所選月份</div>
       </div>
     </section>
 
     <section class="grid main-grid">
 
-      <!-- Add Record -->
       <div class="card">
-        <h2 class="section-title">Add Income Record</h2>
+        <h2 id="formTitle" class="section-title">新增收入</h2>
+
+        <div id="editBanner" class="edit-banner hidden"></div>
 
         <form id="incomeForm">
 
-          <label for="date">收款日期</label>
+          <label for="date" id="dateLabel">收款日期</label>
           <input id="date" type="date" required />
 
-          <label>服務內容</label>
+          <label id="serviceLabel">服務內容</label>
           <div id="servicesContainer"></div>
 
-          <button id="addServiceBtn" type="button" class="btn-secondary btn-small">+ Add Service</button>
+          <button id="addServiceBtn" type="button" class="btn-secondary btn-small">+ 新增服務</button>
 
           <div class="row">
             <div>
-              <label for="currency">貨幣</label>
+              <label for="currency" id="currencyLabel">貨幣</label>
               <select id="currency" required>
                 <option value="GBP">GBP</option>
                 <option value="HKD">HKD</option>
@@ -501,40 +608,48 @@
             </div>
 
             <div>
-              <label for="paymentMethod">收款方式</label>
+              <label for="paymentMethod" id="paymentMethodLabel">收款方式</label>
               <select id="paymentMethod" required></select>
             </div>
           </div>
 
-          <label for="amount">金額</label>
+          <label for="amount" id="amountLabel">金額</label>
           <input id="amount" type="number" step="0.01" min="0" placeholder="例如：35" required />
 
-          <label for="notes">備註 Optional</label>
+          <label for="notes" id="notesLabel">備註 Optional</label>
           <textarea id="notes" placeholder="例如：IG booking / package / special note"></textarea>
 
-          <button class="btn-primary" type="submit">Save Record</button>
+          <button id="saveBtn" class="btn-primary" type="submit">儲存紀錄</button>
+
+          <div id="cancelEditWrap" class="button-row hidden">
+            <button id="cancelEditBtn" type="button" class="btn-secondary">取消更改</button>
+            <button id="clearFormBtn" type="button" class="btn-secondary">清空表格</button>
+          </div>
+
+          <div id="normalButtonsWrap">
+            <button id="clearFormBtn2" type="button" class="btn-secondary" style="width:100%; margin-top:10px;">清空表格</button>
+          </div>
 
           <div id="formMessage" class="success hidden"></div>
           <div id="formError" class="error hidden"></div>
         </form>
 
-        <p class="footer-note">
+        <p id="privacyNote" class="footer-note">
           建議只記收入資料，不記客戶姓名或敏感內容，保障私隱。
         </p>
       </div>
 
-      <!-- Records -->
       <div class="card">
-        <h2 class="section-title">Income Records</h2>
+        <h2 id="recordsTitle" class="section-title">收入紀錄</h2>
 
         <div class="filter-bar">
           <div>
-            <label for="monthFilter">月份篩選</label>
+            <label for="monthFilter" id="monthFilterLabel">月份篩選</label>
             <input id="monthFilter" type="month" />
           </div>
 
           <div>
-            <label for="currencyFilter">貨幣篩選</label>
+            <label for="currencyFilter" id="currencyFilterLabel">貨幣篩選</label>
             <select id="currencyFilter">
               <option value="ALL">All</option>
               <option value="GBP">GBP</option>
@@ -553,6 +668,7 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+
     import {
       getAuth,
       signInWithEmailAndPassword,
@@ -564,6 +680,7 @@
       getFirestore,
       collection,
       addDoc,
+      updateDoc,
       deleteDoc,
       doc,
       serverTimestamp,
@@ -586,13 +703,51 @@
     const db = getFirestore(app);
 
     const SERVICE_OPTIONS = [
-      "Tarot Reading",
-      "SRT",
-      "Pendulum Energy Alignment",
-      "Pet Communication",
-      "Dream Interpretation",
-      "Combination Session",
-      "Other"
+      {
+        key: "tarot_love",
+        zh: "愛情塔羅占卜",
+        en: "Love Tarot Reading"
+      },
+      {
+        key: "tarot_career",
+        zh: "事業塔羅占卜",
+        en: "Career Tarot Reading"
+      },
+      {
+        key: "tarot_general",
+        zh: "綜合塔羅占卜",
+        en: "General Tarot Reading"
+      },
+      {
+        key: "srt",
+        zh: "SRT 靈性反應療法",
+        en: "SRT Spiritual Response Therapy"
+      },
+      {
+        key: "pendulum_alignment",
+        zh: "靈擺調頻",
+        en: "Pendulum Energy Alignment"
+      },
+      {
+        key: "pet_communication",
+        zh: "寵物傳心",
+        en: "Pet Communication"
+      },
+      {
+        key: "dream_interpretation",
+        zh: "解夢",
+        en: "Dream Interpretation"
+      },
+      {
+        key: "combination",
+        zh: "組合服務",
+        en: "Combination Session"
+      },
+      {
+        key: "other",
+        zh: "其他",
+        en: "Other"
+      }
     ];
 
     const PAYMENT_METHODS = {
@@ -600,8 +755,113 @@
       HKD: ["FPS", "Payme", "Alipay"]
     };
 
+    const translations = {
+      zh: {
+        loginTitle: "Estarot Admin",
+        loginSubtitle: "Admin Page",
+        email: "Email",
+        password: "Password",
+        login: "登入",
+        logout: "登出",
+        mainTitle: "收入記錄",
+        loggedInAs: "登入帳戶：",
+        formAddTitle: "新增收入",
+        formEditTitle: "更改收入紀錄",
+        editBanner: "你正在更改一筆收入紀錄。完成後請按「儲存更改」。",
+        date: "收款日期",
+        service: "服務內容",
+        addService: "+ 新增服務",
+        currency: "貨幣",
+        paymentMethod: "收款方式",
+        amount: "金額",
+        notes: "備註 Optional",
+        save: "儲存紀錄",
+        saveChanges: "儲存更改",
+        cancelEdit: "取消更改",
+        clearForm: "清空表格",
+        records: "收入紀錄",
+        monthFilter: "月份篩選",
+        currencyFilter: "貨幣篩選",
+        thisMonthGbp: "本月 GBP",
+        thisMonthHkd: "本月 HKD",
+        selectedMonth: "所選月份",
+        popularService: "最受歡迎服務",
+        popularSub: "按數量計算",
+        topPayment: "最常用收款方式",
+        noRecordThisMonth: "本月未有紀錄",
+        noRecords: "未有收入紀錄。",
+        delete: "刪除",
+        edit: "更改",
+        deleteConfirm: "確定要刪除這筆收入紀錄嗎？",
+        saveSuccess: "收入紀錄已儲存。",
+        updateSuccess: "收入紀錄已更新。",
+        requiredError: "請填妥所有必填欄位。",
+        loginError: "登入失敗，請檢查 email 及 password。",
+        deleteError: "刪除失敗：",
+        saveError: "儲存失敗：",
+        updateError: "更新失敗：",
+        loading: "載入中...",
+        privacyNote: "建議只記收入資料，不記客戶姓名或敏感內容，保障私隱。",
+        serviceQuantity: "服務數量",
+        recordCount: "筆紀錄",
+        quantityCount: "次服務"
+      },
+      en: {
+        loginTitle: "Estarot Admin",
+        loginSubtitle: "Admin Page",
+        email: "Email",
+        password: "Password",
+        login: "Login",
+        logout: "Logout",
+        mainTitle: "Income Tracker",
+        loggedInAs: "Logged in as: ",
+        formAddTitle: "Add Income Record",
+        formEditTitle: "Edit Income Record",
+        editBanner: "You are editing an income record. Click “Save Changes” when finished.",
+        date: "Payment Date",
+        service: "Service",
+        addService: "+ Add Service",
+        currency: "Currency",
+        paymentMethod: "Payment Method",
+        amount: "Amount",
+        notes: "Notes Optional",
+        save: "Save Record",
+        saveChanges: "Save Changes",
+        cancelEdit: "Cancel Edit",
+        clearForm: "Clear Form",
+        records: "Income Records",
+        monthFilter: "Month Filter",
+        currencyFilter: "Currency Filter",
+        thisMonthGbp: "This Month GBP",
+        thisMonthHkd: "This Month HKD",
+        selectedMonth: "Selected month",
+        popularService: "Most Popular Service",
+        popularSub: "Based on quantity",
+        topPayment: "Top Payment Method",
+        noRecordThisMonth: "No record this month",
+        noRecords: "No income records found.",
+        delete: "Delete",
+        edit: "Edit",
+        deleteConfirm: "Are you sure you want to delete this income record?",
+        saveSuccess: "Income record saved successfully.",
+        updateSuccess: "Income record updated successfully.",
+        requiredError: "Please complete all required fields.",
+        loginError: "Login failed. Please check your email and password.",
+        deleteError: "Failed to delete record: ",
+        saveError: "Failed to save record: ",
+        updateError: "Failed to update record: ",
+        loading: "Loading...",
+        privacyNote: "Recommended: record income only. Avoid storing client names or sensitive details.",
+        serviceQuantity: "service quantity",
+        recordCount: "record(s)",
+        quantityCount: "service quantity"
+      }
+    };
+
+    let currentLang = localStorage.getItem("estarotAdminLang") || "zh";
     let allRecords = [];
     let unsubscribeRecords = null;
+    let editingRecordId = null;
 
     const loginScreen = document.getElementById("loginScreen");
     const appScreen = document.getElementById("appScreen");
@@ -610,11 +870,20 @@
     const logoutBtn = document.getElementById("logoutBtn");
     const userEmail = document.getElementById("userEmail");
 
+    const loginLangZh = document.getElementById("loginLangZh");
+    const loginLangEn = document.getElementById("loginLangEn");
+    const appLangZh = document.getElementById("appLangZh");
+    const appLangEn = document.getElementById("appLangEn");
+
     const incomeForm = document.getElementById("incomeForm");
     const servicesContainer = document.getElementById("servicesContainer");
     const addServiceBtn = document.getElementById("addServiceBtn");
     const currencySelect = document.getElementById("currency");
     const paymentMethodSelect = document.getElementById("paymentMethod");
+    const amountInput = document.getElementById("amount");
+    const notesInput = document.getElementById("notes");
+    const dateInput = document.getElementById("date");
+
     const recordsList = document.getElementById("recordsList");
     const monthFilter = document.getElementById("monthFilter");
     const currencyFilter = document.getElementById("currencyFilter");
@@ -629,6 +898,19 @@
     const formMessage = document.getElementById("formMessage");
     const formError = document.getElementById("formError");
 
+    const formTitle = document.getElementById("formTitle");
+    const editBanner = document.getElementById("editBanner");
+    const saveBtn = document.getElementById("saveBtn");
+    const cancelEditWrap = document.getElementById("cancelEditWrap");
+    const normalButtonsWrap = document.getElementById("normalButtonsWrap");
+    const cancelEditBtn = document.getElementById("cancelEditBtn");
+    const clearFormBtn = document.getElementById("clearFormBtn");
+    const clearFormBtn2 = document.getElementById("clearFormBtn2");
+
+    function t(key) {
+      return translations[currentLang][key] || key;
+    }
+
     function todayString() {
       const today = new Date();
       return today.toISOString().slice(0, 10);
@@ -637,6 +919,25 @@
     function currentMonthString() {
       const today = new Date();
       return today.toISOString().slice(0, 7);
+    }
+
+    function getServiceByKey(key) {
+      return SERVICE_OPTIONS.find(service => service.key === key);
+    }
+
+    function getServiceLabel(serviceObj) {
+      if (!serviceObj) return "-";
+
+      if (serviceObj.key) {
+        const found = getServiceByKey(serviceObj.key);
+        if (found) return found[currentLang];
+      }
+
+      if (currentLang === "zh") {
+        return serviceObj.zh || serviceObj.name || serviceObj.en || "-";
+      }
+
+      return serviceObj.en || serviceObj.name || serviceObj.zh || "-";
     }
 
     function formatMoney(amount, currency) {
@@ -659,16 +960,81 @@
       return number.toString();
     }
 
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
     function showMessage(element, message) {
       element.textContent = message;
       element.classList.remove("hidden");
 
       setTimeout(() => {
         element.classList.add("hidden");
-      }, 3000);
+      }, 3200);
     }
 
-    function updatePaymentMethods() {
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem("estarotAdminLang", lang);
+      applyLanguage();
+      refreshServiceDropdownLabels();
+      renderRecords();
+    }
+
+    function applyLanguage() {
+      document.documentElement.lang = currentLang === "zh" ? "zh-HK" : "en";
+
+      document.getElementById("loginTitle").textContent = t("loginTitle");
+      document.getElementById("loginSubtitle").textContent = t("loginSubtitle");
+      document.querySelector('label[for="email"]').textContent = t("email");
+      document.querySelector('label[for="password"]').textContent = t("password");
+      document.getElementById("loginBtn").textContent = t("login");
+
+      document.getElementById("mainTitle").textContent = t("mainTitle");
+      logoutBtn.textContent = t("logout");
+
+      document.getElementById("statGbpTitle").textContent = t("thisMonthGbp");
+      document.getElementById("statHkdTitle").textContent = t("thisMonthHkd");
+      document.getElementById("statMonthSub1").textContent = t("selectedMonth");
+      document.getElementById("statMonthSub2").textContent = t("selectedMonth");
+      document.getElementById("statPopularTitle").textContent = t("popularService");
+      document.getElementById("statPaymentTitle").textContent = t("topPayment");
+
+      document.getElementById("dateLabel").textContent = t("date");
+      document.getElementById("serviceLabel").textContent = t("service");
+      document.getElementById("currencyLabel").textContent = t("currency");
+      document.getElementById("paymentMethodLabel").textContent = t("paymentMethod");
+      document.getElementById("amountLabel").textContent = t("amount");
+      document.getElementById("notesLabel").textContent = t("notes");
+      document.getElementById("recordsTitle").textContent = t("records");
+      document.getElementById("monthFilterLabel").textContent = t("monthFilter");
+      document.getElementById("currencyFilterLabel").textContent = t("currencyFilter");
+      document.getElementById("privacyNote").textContent = t("privacyNote");
+
+      addServiceBtn.textContent = t("addService");
+      cancelEditBtn.textContent = t("cancelEdit");
+      clearFormBtn.textContent = t("clearForm");
+      clearFormBtn2.textContent = t("clearForm");
+
+      formTitle.textContent = editingRecordId ? t("formEditTitle") : t("formAddTitle");
+      editBanner.textContent = t("editBanner");
+      saveBtn.textContent = editingRecordId ? t("saveChanges") : t("save");
+
+      loginLangZh.classList.toggle("active", currentLang === "zh");
+      loginLangEn.classList.toggle("active", currentLang === "en");
+      appLangZh.classList.toggle("active", currentLang === "zh");
+      appLangEn.classList.toggle("active", currentLang === "en");
+
+      popularServiceSub.textContent = t("popularSub");
+      topPaymentSub.textContent = t("selectedMonth");
+    }
+
+    function updatePaymentMethods(selectedValue = null) {
       const currency = currencySelect.value;
       const methods = PAYMENT_METHODS[currency] || [];
 
@@ -678,23 +1044,26 @@
         const option = document.createElement("option");
         option.value = method;
         option.textContent = method;
+        if (selectedValue === method) option.selected = true;
         paymentMethodSelect.appendChild(option);
       });
     }
 
-    function createServiceRow(name = "Tarot Reading", quantity = 1) {
+    function createServiceRow(serviceKey = "tarot_love", quantity = 1) {
       const row = document.createElement("div");
       row.className = "service-row";
 
       const select = document.createElement("select");
-      select.className = "service-name";
+      select.className = "service-key";
       select.required = true;
 
       SERVICE_OPTIONS.forEach(service => {
         const option = document.createElement("option");
-        option.value = service;
-        option.textContent = service;
-        if (service === name) option.selected = true;
+        option.value = service.key;
+        option.dataset.zh = service.zh;
+        option.dataset.en = service.en;
+        option.textContent = service[currentLang];
+        if (service.key === serviceKey) option.selected = true;
         select.appendChild(option);
       });
 
@@ -723,27 +1092,114 @@
       servicesContainer.appendChild(row);
     }
 
-    function resetForm() {
-      incomeForm.reset();
-      document.getElementById("date").value = todayString();
-      servicesContainer.innerHTML = "";
-      createServiceRow();
-      currencySelect.value = "GBP";
-      updatePaymentMethods();
+    function refreshServiceDropdownLabels() {
+      document.querySelectorAll(".service-key option").forEach(option => {
+        option.textContent = currentLang === "zh" ? option.dataset.zh : option.dataset.en;
+      });
+    }
+
+    function normaliseExistingService(service) {
+      if (service.key) {
+        const found = getServiceByKey(service.key);
+        if (found) {
+          return {
+            key: found.key,
+            zh: found.zh,
+            en: found.en,
+            quantity: Number(service.quantity || 1)
+          };
+        }
+      }
+
+      const rawName = service.name || service.en || service.zh || "";
+      const found = SERVICE_OPTIONS.find(item => {
+        return item.en === rawName || item.zh === rawName || item.key === rawName;
+      });
+
+      if (found) {
+        return {
+          key: found.key,
+          zh: found.zh,
+          en: found.en,
+          quantity: Number(service.quantity || 1)
+        };
+      }
+
+      return {
+        key: "other",
+        zh: rawName || "其他",
+        en: rawName || "Other",
+        quantity: Number(service.quantity || 1)
+      };
     }
 
     function getServicesFromForm() {
       const rows = servicesContainer.querySelectorAll(".service-row");
 
       return Array.from(rows).map(row => {
-        const name = row.querySelector(".service-name").value;
+        const key = row.querySelector(".service-key").value;
         const quantity = Number(row.querySelector(".service-quantity").value || 1);
+        const found = getServiceByKey(key);
 
         return {
-          name,
+          key,
+          zh: found ? found.zh : "其他",
+          en: found ? found.en : "Other",
           quantity
         };
-      }).filter(service => service.name && service.quantity > 0);
+      }).filter(service => service.key && service.quantity > 0);
+    }
+
+    function resetForm() {
+      editingRecordId = null;
+      incomeForm.reset();
+      dateInput.value = todayString();
+      servicesContainer.innerHTML = "";
+      createServiceRow();
+      currencySelect.value = "GBP";
+      updatePaymentMethods();
+      formError.classList.add("hidden");
+      formMessage.classList.add("hidden");
+
+      editBanner.classList.add("hidden");
+      cancelEditWrap.classList.add("hidden");
+      normalButtonsWrap.classList.remove("hidden");
+
+      applyLanguage();
+    }
+
+    function enterEditMode(recordId) {
+      const record = allRecords.find(item => item.id === recordId);
+      if (!record) return;
+
+      editingRecordId = recordId;
+
+      dateInput.value = record.date || todayString();
+
+      servicesContainer.innerHTML = "";
+      const services = Array.isArray(record.services) && record.services.length
+        ? record.services.map(normaliseExistingService)
+        : [{ key: "tarot_love", quantity: 1 }];
+
+      services.forEach(service => {
+        createServiceRow(service.key || "other", Number(service.quantity || 1));
+      });
+
+      currencySelect.value = record.currency || "GBP";
+      updatePaymentMethods(record.paymentMethod);
+      amountInput.value = record.amount ?? "";
+      notesInput.value = record.notes || "";
+
+      editBanner.classList.remove("hidden");
+      cancelEditWrap.classList.remove("hidden");
+      normalButtonsWrap.classList.add("hidden");
+
+      applyLanguage();
+
+      document.querySelector("#incomeForm").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
     }
 
     function filterRecords() {
@@ -777,12 +1233,16 @@
       monthHkd.textContent = formatMoney(hkdTotal, "HKD");
 
       const serviceCount = {};
+      const serviceLabelMap = {};
       const paymentCount = {};
 
       monthRecords.forEach(record => {
         if (Array.isArray(record.services)) {
-          record.services.forEach(service => {
-            serviceCount[service.name] = (serviceCount[service.name] || 0) + Number(service.quantity || 1);
+          record.services.forEach(rawService => {
+            const service = normaliseExistingService(rawService);
+            const label = getServiceLabel(service);
+            serviceCount[service.key] = (serviceCount[service.key] || 0) + Number(service.quantity || 1);
+            serviceLabelMap[service.key] = label;
           });
         }
 
@@ -795,19 +1255,19 @@
       const topMethod = Object.entries(paymentCount).sort((a, b) => b[1] - a[1])[0];
 
       if (topService) {
-        popularService.textContent = topService[0];
-        popularServiceSub.textContent = `${topService[1]} service quantity this month`;
+        popularService.textContent = serviceLabelMap[topService[0]] || topService[0];
+        popularServiceSub.textContent = `${topService[1]} ${t("quantityCount")}`;
       } else {
         popularService.textContent = "-";
-        popularServiceSub.textContent = "No record this month";
+        popularServiceSub.textContent = t("noRecordThisMonth");
       }
 
       if (topMethod) {
         topPayment.textContent = topMethod[0];
-        topPaymentSub.textContent = `${topMethod[1]} record(s) this month`;
+        topPaymentSub.textContent = `${topMethod[1]} ${t("recordCount")}`;
       } else {
         topPayment.textContent = "-";
-        topPaymentSub.textContent = "No record this month";
+        topPaymentSub.textContent = t("noRecordThisMonth");
       }
     }
 
@@ -815,7 +1275,7 @@
       const records = filterRecords();
 
       if (!records.length) {
-        recordsList.innerHTML = `<div class="empty">No income records found.</div>`;
+        recordsList.innerHTML = `<div class="empty">${escapeHtml(t("noRecords"))}</div>`;
         renderStats();
         return;
       }
@@ -827,8 +1287,9 @@
         card.className = "record";
 
         const serviceTags = Array.isArray(record.services)
-          ? record.services.map(service => {
-              return `<span class="tag">${escapeHtml(service.name)} × ${Number(service.quantity || 1)}</span>`;
+          ? record.services.map(rawService => {
+              const service = normaliseExistingService(rawService);
+              return `<span class="tag">${escapeHtml(getServiceLabel(service))} × ${Number(service.quantity || 1)}</span>`;
             }).join("")
           : "";
 
@@ -840,29 +1301,44 @@
             </div>
             <div>
               <div class="record-amount">${formatMoney(record.amount, record.currency)}</div>
-              <button class="btn-danger btn-small" data-delete-id="${record.id}">Delete</button>
             </div>
           </div>
 
           <div class="tags">${serviceTags}</div>
 
           ${record.notes ? `<div class="notes">${escapeHtml(record.notes)}</div>` : ""}
+
+          <div class="record-actions">
+            <button class="btn-edit btn-small" data-edit-id="${record.id}">${escapeHtml(t("edit"))}</button>
+            <button class="btn-danger btn-small" data-delete-id="${record.id}">${escapeHtml(t("delete"))}</button>
+          </div>
         `;
 
         recordsList.appendChild(card);
+      });
+
+      recordsList.querySelectorAll("[data-edit-id]").forEach(button => {
+        button.addEventListener("click", () => {
+          const id = button.getAttribute("data-edit-id");
+          enterEditMode(id);
+        });
       });
 
       recordsList.querySelectorAll("[data-delete-id]").forEach(button => {
         button.addEventListener("click", async () => {
           const id = button.getAttribute("data-delete-id");
 
-          const confirmed = confirm("Delete this income record?");
+          const confirmed = confirm(t("deleteConfirm"));
           if (!confirmed) return;
 
           try {
             await deleteDoc(doc(db, "incomeRecords", id));
+
+            if (editingRecordId === id) {
+              resetForm();
+            }
           } catch (error) {
-            alert("Failed to delete record: " + error.message);
+            alert(t("deleteError") + error.message);
           }
         });
       });
@@ -870,14 +1346,10 @@
       renderStats();
     }
 
-    function escapeHtml(value) {
-      return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
+    loginLangZh.addEventListener("click", () => setLanguage("zh"));
+    loginLangEn.addEventListener("click", () => setLanguage("en"));
+    appLangZh.addEventListener("click", () => setLanguage("zh"));
+    appLangEn.addEventListener("click", () => setLanguage("en"));
 
     loginForm.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -890,7 +1362,7 @@
       try {
         await signInWithEmailAndPassword(auth, email, password);
       } catch (error) {
-        loginError.textContent = "Login failed. Please check your email and password.";
+        loginError.textContent = t("loginError");
         loginError.classList.remove("hidden");
       }
     });
@@ -903,7 +1375,13 @@
       createServiceRow();
     });
 
-    currencySelect.addEventListener("change", updatePaymentMethods);
+    currencySelect.addEventListener("change", () => {
+      updatePaymentMethods();
+    });
+
+    clearFormBtn.addEventListener("click", resetForm);
+    clearFormBtn2.addEventListener("click", resetForm);
+    cancelEditBtn.addEventListener("click", resetForm);
 
     incomeForm.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -911,33 +1389,47 @@
       formError.classList.add("hidden");
       formMessage.classList.add("hidden");
 
-      const date = document.getElementById("date").value;
+      const date = dateInput.value;
       const services = getServicesFromForm();
       const currency = currencySelect.value;
       const paymentMethod = paymentMethodSelect.value;
-      const amount = Number(document.getElementById("amount").value);
-      const notes = document.getElementById("notes").value.trim();
+      const amount = Number(amountInput.value);
+      const notes = notesInput.value.trim();
 
       if (!date || !services.length || !currency || !paymentMethod || !amount) {
-        showMessage(formError, "Please complete all required fields.");
+        showMessage(formError, t("requiredError"));
         return;
       }
 
-      try {
-        await addDoc(collection(db, "incomeRecords"), {
-          date,
-          services,
-          currency,
-          paymentMethod,
-          amount,
-          notes,
-          createdAt: serverTimestamp()
-        });
+      const payload = {
+        date,
+        services,
+        currency,
+        paymentMethod,
+        amount,
+        notes,
+        updatedAt: serverTimestamp()
+      };
 
-        showMessage(formMessage, "Income record saved successfully.");
+      try {
+        if (editingRecordId) {
+          await updateDoc(doc(db, "incomeRecords", editingRecordId), payload);
+          showMessage(formMessage, t("updateSuccess"));
+        } else {
+          await addDoc(collection(db, "incomeRecords"), {
+            ...payload,
+            createdAt: serverTimestamp()
+          });
+          showMessage(formMessage, t("saveSuccess"));
+        }
+
         resetForm();
       } catch (error) {
-        showMessage(formError, "Failed to save record: " + error.message);
+        if (editingRecordId) {
+          showMessage(formError, t("updateError") + error.message);
+        } else {
+          showMessage(formError, t("saveError") + error.message);
+        }
       }
     });
 
@@ -948,9 +1440,12 @@
       if (user) {
         loginScreen.classList.add("hidden");
         appScreen.classList.remove("hidden");
-        userEmail.textContent = `Logged in as ${user.email}`;
+        userEmail.textContent = `${t("loggedInAs")}${user.email}`;
 
-        monthFilter.value = currentMonthString();
+        if (!monthFilter.value) {
+          monthFilter.value = currentMonthString();
+        }
+
         resetForm();
 
         if (unsubscribeRecords) unsubscribeRecords();
@@ -968,7 +1463,7 @@
 
           renderRecords();
         }, (error) => {
-          recordsList.innerHTML = `<div class="empty">Failed to load records: ${escapeHtml(error.message)}</div>`;
+          recordsList.innerHTML = `<div class="empty">${escapeHtml(error.message)}</div>`;
         });
 
       } else {
@@ -981,7 +1476,12 @@
           unsubscribeRecords = null;
         }
       }
+
+      applyLanguage();
     });
+
+    applyLanguage();
+    updatePaymentMethods();
   </script>
 
 </body>

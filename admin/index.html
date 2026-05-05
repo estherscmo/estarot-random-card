@@ -283,7 +283,7 @@
     }
 
     .stats-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       margin-bottom: 20px;
     }
 
@@ -587,6 +587,18 @@
       </div>
 
       <div class="card stat-card">
+        <h3 id="statYearGbpTitle">全年 GBP</h3>
+        <div id="yearGbp" class="value">£0</div>
+        <div id="statYearSub1" class="sub">4月開始計算</div>
+      </div>
+
+      <div class="card stat-card">
+        <h3 id="statYearHkdTitle">全年 HKD</h3>
+        <div id="yearHkd" class="value">HK$0</div>
+        <div id="statYearSub2" class="sub">4月開始計算</div>
+      </div>
+
+      <div class="card stat-card">
         <h3 id="statPopularTitle">最受歡迎服務</h3>
         <div id="popularService" class="value">-</div>
         <div id="popularServiceSub" class="sub">按數量計算</div>
@@ -828,7 +840,10 @@
         exportNoRecords: "沒有可匯出的紀錄。",
         thisMonthGbp: "本月 GBP",
         thisMonthHkd: "本月 HKD",
+        yearGbp: "全年 GBP",
+        yearHkd: "全年 HKD",
         selectedMonth: "所選月份",
+        financialYearSub: "4月開始計算",
         popularService: "最受歡迎服務",
         popularSub: "按數量計算",
         topPayment: "最常用收款方式",
@@ -881,7 +896,10 @@
         exportNoRecords: "There are no records to export.",
         thisMonthGbp: "This Month GBP",
         thisMonthHkd: "This Month HKD",
+        yearGbp: "Year Total GBP",
+        yearHkd: "Year Total HKD",
         selectedMonth: "Selected month",
+        financialYearSub: "Starting from April",
         popularService: "Most Popular Service",
         popularSub: "Based on quantity",
         topPayment: "Top Payment Method",
@@ -940,6 +958,9 @@
 
     const monthGbp = document.getElementById("monthGbp");
     const monthHkd = document.getElementById("monthHkd");
+    const yearGbp = document.getElementById("yearGbp");
+    const yearHkd = document.getElementById("yearHkd");
+
     const popularService = document.getElementById("popularService");
     const popularServiceSub = document.getElementById("popularServiceSub");
     const topPayment = document.getElementById("topPayment");
@@ -971,6 +992,36 @@
       return today.toISOString().slice(0, 7);
     }
 
+    function getFinancialYearRange() {
+      const today = new Date();
+      const currentYear = today.getFullYear();
+      const currentMonth = today.getMonth() + 1;
+
+      let startYear;
+      let endYear;
+
+      if (currentMonth >= 4) {
+        startYear = currentYear;
+        endYear = currentYear + 1;
+      } else {
+        startYear = currentYear - 1;
+        endYear = currentYear;
+      }
+
+      return {
+        start: `${startYear}-04-01`,
+        end: `${endYear}-03-31`
+      };
+    }
+
+    function isDateInFinancialYear(dateString) {
+      if (!dateString) return false;
+
+      const range = getFinancialYearRange();
+
+      return dateString >= range.start && dateString <= range.end;
+    }
+
     function getServiceByKey(key) {
       return SERVICE_OPTIONS.find(service => service.key === key);
     }
@@ -989,26 +1040,6 @@
       if (found) {
         const category = currentLang === "zh" ? found.categoryZh : found.categoryEn;
         const item = currentLang === "zh" ? found.zh : found.en;
-        return `${category} - ${item}`;
-      }
-
-      return serviceObj.name || serviceObj.zh || serviceObj.en || "-";
-    }
-
-    function getServiceLabelForExport(serviceObj, lang = currentLang) {
-      if (!serviceObj) return "-";
-
-      if (serviceObj.key === "other" && serviceObj.customName) {
-        return lang === "zh"
-          ? `其他 - ${serviceObj.customName}`
-          : `Other - ${serviceObj.customName}`;
-      }
-
-      const found = getServiceByKey(serviceObj.key);
-
-      if (found) {
-        const category = lang === "zh" ? found.categoryZh : found.categoryEn;
-        const item = lang === "zh" ? found.zh : found.en;
         return `${category} - ${item}`;
       }
 
@@ -1077,6 +1108,12 @@
       document.getElementById("statHkdTitle").textContent = t("thisMonthHkd");
       document.getElementById("statMonthSub1").textContent = t("selectedMonth");
       document.getElementById("statMonthSub2").textContent = t("selectedMonth");
+
+      document.getElementById("statYearGbpTitle").textContent = t("yearGbp");
+      document.getElementById("statYearHkdTitle").textContent = t("yearHkd");
+      document.getElementById("statYearSub1").textContent = t("financialYearSub");
+      document.getElementById("statYearSub2").textContent = t("financialYearSub");
+
       document.getElementById("statPopularTitle").textContent = t("popularService");
       document.getElementById("statPaymentTitle").textContent = t("topPayment");
 
@@ -1374,6 +1411,21 @@
       monthGbp.textContent = formatMoney(gbpTotal, "GBP");
       monthHkd.textContent = formatMoney(hkdTotal, "HKD");
 
+      const yearRecords = allRecords.filter(record => {
+        return isDateInFinancialYear(record.date);
+      });
+
+      const yearGbpTotal = yearRecords
+        .filter(record => record.currency === "GBP")
+        .reduce((sum, record) => sum + Number(record.amount || 0), 0);
+
+      const yearHkdTotal = yearRecords
+        .filter(record => record.currency === "HKD")
+        .reduce((sum, record) => sum + Number(record.amount || 0), 0);
+
+      yearGbp.textContent = formatMoney(yearGbpTotal, "GBP");
+      yearHkd.textContent = formatMoney(yearHkdTotal, "HKD");
+
       const serviceCount = {};
       const serviceLabelMap = {};
       const paymentCount = {};
@@ -1383,9 +1435,10 @@
           record.services.forEach(rawService => {
             const service = normaliseExistingService(rawService);
             const label = getServiceLabel(service);
-            serviceCount[service.key + (service.customName || "")] =
-              (serviceCount[service.key + (service.customName || "")] || 0) + Number(service.quantity || 1);
-            serviceLabelMap[service.key + (service.customName || "")] = label;
+            const key = service.key + (service.customName || "");
+
+            serviceCount[key] = (serviceCount[key] || 0) + Number(service.quantity || 1);
+            serviceLabelMap[key] = label;
           });
         }
 

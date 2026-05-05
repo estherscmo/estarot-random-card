@@ -701,6 +701,9 @@
     </section>
   </main>
 
+  <!-- Real .xlsx export library -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
@@ -1016,9 +1019,7 @@
 
     function isDateInFinancialYear(dateString) {
       if (!dateString) return false;
-
       const range = getFinancialYearRange();
-
       return dateString >= range.start && dateString <= range.end;
     }
 
@@ -1040,6 +1041,26 @@
       if (found) {
         const category = currentLang === "zh" ? found.categoryZh : found.categoryEn;
         const item = currentLang === "zh" ? found.zh : found.en;
+        return `${category} - ${item}`;
+      }
+
+      return serviceObj.name || serviceObj.zh || serviceObj.en || "-";
+    }
+
+    function getServiceLabelForExport(serviceObj, lang = currentLang) {
+      if (!serviceObj) return "-";
+
+      if (serviceObj.key === "other" && serviceObj.customName) {
+        return lang === "zh"
+          ? `其他 - ${serviceObj.customName}`
+          : `Other - ${serviceObj.customName}`;
+      }
+
+      const found = getServiceByKey(serviceObj.key);
+
+      if (found) {
+        const category = lang === "zh" ? found.categoryZh : found.categoryEn;
+        const item = lang === "zh" ? found.zh : found.en;
         return `${category} - ${item}`;
       }
 
@@ -1688,57 +1709,47 @@
         return;
       }
 
-      const html = `
-        <html>
-          <head>
-            <meta charset="UTF-8">
-          </head>
-          <body>
-            <table border="1">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Currency</th>
-                  <th>Amount</th>
-                  <th>Payment Method</th>
-                  <th>Service Category ZH</th>
-                  <th>Service Item ZH</th>
-                  <th>Service Full ZH</th>
-                  <th>Service Category EN</th>
-                  <th>Service Item EN</th>
-                  <th>Service Full EN</th>
-                  <th>Quantity</th>
-                  <th>Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${rows.map(row => `
-                  <tr>
-                    <td>${escapeHtml(row.date)}</td>
-                    <td>${escapeHtml(row.currency)}</td>
-                    <td>${escapeHtml(row.amount)}</td>
-                    <td>${escapeHtml(row.paymentMethod)}</td>
-                    <td>${escapeHtml(row.serviceCategoryZh)}</td>
-                    <td>${escapeHtml(row.serviceItemZh)}</td>
-                    <td>${escapeHtml(row.serviceFullZh)}</td>
-                    <td>${escapeHtml(row.serviceCategoryEn)}</td>
-                    <td>${escapeHtml(row.serviceItemEn)}</td>
-                    <td>${escapeHtml(row.serviceFullEn)}</td>
-                    <td>${escapeHtml(row.quantity)}</td>
-                    <td>${escapeHtml(row.notes)}</td>
-                  </tr>
-                `).join("")}
-              </tbody>
-            </table>
-          </body>
-        </html>
-      `;
+      if (typeof XLSX === "undefined") {
+        alert("Excel export library is still loading. Please try again in a few seconds.");
+        return;
+      }
 
-      downloadBlob(
-        html,
-        getExportFilename("xls"),
-        "application/vnd.ms-excel;charset=utf-8;"
-      );
+      const worksheetData = rows.map(row => ({
+        "Date": row.date,
+        "Currency": row.currency,
+        "Amount": row.amount,
+        "Payment Method": row.paymentMethod,
+        "Service Category ZH": row.serviceCategoryZh,
+        "Service Item ZH": row.serviceItemZh,
+        "Service Full ZH": row.serviceFullZh,
+        "Service Category EN": row.serviceCategoryEn,
+        "Service Item EN": row.serviceItemEn,
+        "Service Full EN": row.serviceFullEn,
+        "Quantity": row.quantity,
+        "Notes": row.notes
+      }));
+
+      const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+
+      worksheet["!cols"] = [
+        { wch: 12 },
+        { wch: 10 },
+        { wch: 10 },
+        { wch: 18 },
+        { wch: 20 },
+        { wch: 22 },
+        { wch: 34 },
+        { wch: 26 },
+        { wch: 26 },
+        { wch: 42 },
+        { wch: 10 },
+        { wch: 34 }
+      ];
+
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Income Records");
+
+      XLSX.writeFile(workbook, getExportFilename("xlsx"));
     }
 
     loginLangZh.addEventListener("click", () => setLanguage("zh"));

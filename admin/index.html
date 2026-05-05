@@ -141,7 +141,8 @@
       box-shadow: 0 0 0 3px rgba(216,178,110,0.13);
     }
 
-    select option {
+    select option,
+    select optgroup {
       background: #1f102b;
       color: #fff;
     }
@@ -226,6 +227,13 @@
       grid-template-columns: 1fr 1fr;
       gap: 10px;
       margin-top: 16px;
+    }
+
+    .export-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
     }
 
     .error {
@@ -337,6 +345,15 @@
       border-radius: 14px;
       height: 47px;
       padding: 0;
+    }
+
+    .service-custom {
+      grid-column: 1 / -1;
+      margin-top: 8px;
+    }
+
+    .service-custom.hidden {
+      display: none;
     }
 
     .filter-bar {
@@ -488,7 +505,8 @@
       }
 
       .row,
-      .filter-bar {
+      .filter-bar,
+      .export-row {
         grid-template-columns: 1fr;
       }
 
@@ -527,10 +545,10 @@
       </div>
 
       <form id="loginForm">
-        <label for="email" data-i18n="email">Email</label>
+        <label for="email">Email</label>
         <input id="email" type="email" autocomplete="email" required />
 
-        <label for="password" data-i18n="password">Password</label>
+        <label for="password">Password</label>
         <input id="password" type="password" autocomplete="current-password" required />
 
         <button id="loginBtn" class="btn-primary" type="submit">登入</button>
@@ -658,6 +676,11 @@
           </div>
         </div>
 
+        <div class="export-row">
+          <button id="exportExcelBtn" type="button" class="btn-edit btn-small">匯出 Excel</button>
+          <button id="exportCsvBtn" type="button" class="btn-secondary btn-small">匯出 CSV</button>
+        </div>
+
         <div id="recordsList" class="records">
           <div class="empty">Loading records...</div>
         </div>
@@ -702,53 +725,71 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    const SERVICE_OPTIONS = [
+    const SERVICE_GROUPS = [
       {
-        key: "tarot_love",
-        zh: "愛情塔羅占卜",
-        en: "Love Tarot Reading"
-      },
-      {
-        key: "tarot_career",
-        zh: "事業塔羅占卜",
-        en: "Career Tarot Reading"
-      },
-      {
-        key: "tarot_general",
-        zh: "綜合塔羅占卜",
-        en: "General Tarot Reading"
+        key: "tarot",
+        zh: "塔羅占卜",
+        en: "Tarot Reading",
+        items: [
+          { key: "tarot_love_analysis", zh: "戀情分析", en: "Love Analysis" },
+          { key: "tarot_career_analysis", zh: "事業分析", en: "Career Analysis" },
+          { key: "tarot_two_choices", zh: "二選一", en: "Two-Choice Reading" },
+          { key: "tarot_15_min", zh: "15分鐘塔羅", en: "15-Minute Tarot" },
+          { key: "tarot_30_min", zh: "30分鐘塔羅", en: "30-Minute Tarot" },
+          { key: "tarot_45_min", zh: "45分鐘塔羅", en: "45-Minute Tarot" },
+          { key: "tarot_60_min", zh: "60分鐘塔羅", en: "60-Minute Tarot" },
+          { key: "tarot_random", zh: "隨機塔羅解讀", en: "Random Tarot Reading" }
+        ]
       },
       {
         key: "srt",
-        zh: "SRT 靈性反應療法",
-        en: "SRT Spiritual Response Therapy"
+        zh: "SRT",
+        en: "SRT",
+        items: [
+          { key: "srt_full_clearing", zh: "全面清理", en: "Full Clearing" },
+          { key: "srt_theme_healing", zh: "主題療癒", en: "Theme Healing" },
+          { key: "srt_detailed_report", zh: "加購詳細報告", en: "Add-on Detailed Report" }
+        ]
       },
       {
-        key: "pendulum_alignment",
+        key: "pendulum",
         zh: "靈擺調頻",
-        en: "Pendulum Energy Alignment"
+        en: "Pendulum Energy Alignment",
+        items: [
+          { key: "pendulum_6_items", zh: "自選6個項目", en: "Choose 6 Items" },
+          { key: "pendulum_3_sessions", zh: "3次調頻套餐", en: "3-Session Package" },
+          { key: "pendulum_5_sessions", zh: "5次調頻套餐", en: "5-Session Package" },
+          { key: "pendulum_extra_item", zh: "額外調頻項目", en: "Extra Alignment Item" }
+        ]
       },
       {
-        key: "pet_communication",
+        key: "pet",
         zh: "寵物傳心",
-        en: "Pet Communication"
+        en: "Pet Communication",
+        items: [
+          { key: "pet_2_questions", zh: "2個問題", en: "2 Questions" },
+          { key: "pet_5_questions", zh: "5個問題", en: "5 Questions" },
+          { key: "pet_12_questions", zh: "12個問題", en: "12 Questions" }
+        ]
       },
       {
-        key: "dream_interpretation",
-        zh: "解夢",
-        en: "Dream Interpretation"
-      },
-      {
-        key: "combination",
-        zh: "組合服務",
-        en: "Combination Session"
-      },
-      {
-        key: "other",
+        key: "other_group",
         zh: "其他",
-        en: "Other"
+        en: "Other",
+        items: [
+          { key: "other", zh: "其他（請說明）", en: "Other - Please specify" }
+        ]
       }
     ];
+
+    const SERVICE_OPTIONS = SERVICE_GROUPS.flatMap(group =>
+      group.items.map(item => ({
+        ...item,
+        categoryKey: group.key,
+        categoryZh: group.zh,
+        categoryEn: group.en
+      }))
+    );
 
     const PAYMENT_METHODS = {
       GBP: ["Monzo", "PayPal"],
@@ -782,6 +823,9 @@
         records: "收入紀錄",
         monthFilter: "月份篩選",
         currencyFilter: "貨幣篩選",
+        exportExcel: "匯出 Excel",
+        exportCsv: "匯出 CSV",
+        exportNoRecords: "沒有可匯出的紀錄。",
         thisMonthGbp: "本月 GBP",
         thisMonthHkd: "本月 HKD",
         selectedMonth: "所選月份",
@@ -795,16 +839,16 @@
         deleteConfirm: "確定要刪除這筆收入紀錄嗎？",
         saveSuccess: "收入紀錄已儲存。",
         updateSuccess: "收入紀錄已更新。",
-        requiredError: "請填妥所有必填欄位。",
+        requiredError: "請填妥所有必填欄位。如選擇「其他」，請填寫說明。",
         loginError: "登入失敗，請檢查 email 及 password。",
         deleteError: "刪除失敗：",
         saveError: "儲存失敗：",
         updateError: "更新失敗：",
         loading: "載入中...",
         privacyNote: "建議只記收入資料，不記客戶姓名或敏感內容，保障私隱。",
-        serviceQuantity: "服務數量",
         recordCount: "筆紀錄",
-        quantityCount: "次服務"
+        quantityCount: "次服務",
+        otherPlaceholder: "請說明其他服務"
       },
       en: {
         loginTitle: "Estarot Admin",
@@ -832,6 +876,9 @@
         records: "Income Records",
         monthFilter: "Month Filter",
         currencyFilter: "Currency Filter",
+        exportExcel: "Export Excel",
+        exportCsv: "Export CSV",
+        exportNoRecords: "There are no records to export.",
         thisMonthGbp: "This Month GBP",
         thisMonthHkd: "This Month HKD",
         selectedMonth: "Selected month",
@@ -845,16 +892,16 @@
         deleteConfirm: "Are you sure you want to delete this income record?",
         saveSuccess: "Income record saved successfully.",
         updateSuccess: "Income record updated successfully.",
-        requiredError: "Please complete all required fields.",
+        requiredError: "Please complete all required fields. If you selected “Other”, please specify the service.",
         loginError: "Login failed. Please check your email and password.",
         deleteError: "Failed to delete record: ",
         saveError: "Failed to save record: ",
         updateError: "Failed to update record: ",
         loading: "Loading...",
         privacyNote: "Recommended: record income only. Avoid storing client names or sensitive details.",
-        serviceQuantity: "service quantity",
         recordCount: "record(s)",
-        quantityCount: "service quantity"
+        quantityCount: "service quantity",
+        otherPlaceholder: "Please specify other service"
       }
     };
 
@@ -887,6 +934,9 @@
     const recordsList = document.getElementById("recordsList");
     const monthFilter = document.getElementById("monthFilter");
     const currencyFilter = document.getElementById("currencyFilter");
+
+    const exportExcelBtn = document.getElementById("exportExcelBtn");
+    const exportCsvBtn = document.getElementById("exportCsvBtn");
 
     const monthGbp = document.getElementById("monthGbp");
     const monthHkd = document.getElementById("monthHkd");
@@ -928,16 +978,41 @@
     function getServiceLabel(serviceObj) {
       if (!serviceObj) return "-";
 
-      if (serviceObj.key) {
-        const found = getServiceByKey(serviceObj.key);
-        if (found) return found[currentLang];
+      if (serviceObj.key === "other" && serviceObj.customName) {
+        return currentLang === "zh"
+          ? `其他 - ${serviceObj.customName}`
+          : `Other - ${serviceObj.customName}`;
       }
 
-      if (currentLang === "zh") {
-        return serviceObj.zh || serviceObj.name || serviceObj.en || "-";
+      const found = getServiceByKey(serviceObj.key);
+
+      if (found) {
+        const category = currentLang === "zh" ? found.categoryZh : found.categoryEn;
+        const item = currentLang === "zh" ? found.zh : found.en;
+        return `${category} - ${item}`;
       }
 
-      return serviceObj.en || serviceObj.name || serviceObj.zh || "-";
+      return serviceObj.name || serviceObj.zh || serviceObj.en || "-";
+    }
+
+    function getServiceLabelForExport(serviceObj, lang = currentLang) {
+      if (!serviceObj) return "-";
+
+      if (serviceObj.key === "other" && serviceObj.customName) {
+        return lang === "zh"
+          ? `其他 - ${serviceObj.customName}`
+          : `Other - ${serviceObj.customName}`;
+      }
+
+      const found = getServiceByKey(serviceObj.key);
+
+      if (found) {
+        const category = lang === "zh" ? found.categoryZh : found.categoryEn;
+        const item = lang === "zh" ? found.zh : found.en;
+        return `${category} - ${item}`;
+      }
+
+      return serviceObj.name || serviceObj.zh || serviceObj.en || "-";
     }
 
     function formatMoney(amount, currency) {
@@ -1021,6 +1096,9 @@
       clearFormBtn.textContent = t("clearForm");
       clearFormBtn2.textContent = t("clearForm");
 
+      exportExcelBtn.textContent = t("exportExcel");
+      exportCsvBtn.textContent = t("exportCsv");
+
       formTitle.textContent = editingRecordId ? t("formEditTitle") : t("formAddTitle");
       editBanner.textContent = t("editBanner");
       saveBtn.textContent = editingRecordId ? t("saveChanges") : t("save");
@@ -1049,7 +1127,7 @@
       });
     }
 
-    function createServiceRow(serviceKey = "tarot_love", quantity = 1) {
+    function createServiceRow(serviceKey = "tarot_love_analysis", quantity = 1, customName = "") {
       const row = document.createElement("div");
       row.className = "service-row";
 
@@ -1057,14 +1135,27 @@
       select.className = "service-key";
       select.required = true;
 
-      SERVICE_OPTIONS.forEach(service => {
-        const option = document.createElement("option");
-        option.value = service.key;
-        option.dataset.zh = service.zh;
-        option.dataset.en = service.en;
-        option.textContent = service[currentLang];
-        if (service.key === serviceKey) option.selected = true;
-        select.appendChild(option);
+      SERVICE_GROUPS.forEach(group => {
+        const optgroup = document.createElement("optgroup");
+        optgroup.label = currentLang === "zh" ? group.zh : group.en;
+        optgroup.dataset.zh = group.zh;
+        optgroup.dataset.en = group.en;
+
+        group.items.forEach(item => {
+          const option = document.createElement("option");
+          option.value = item.key;
+          option.dataset.zh = item.zh;
+          option.dataset.en = item.en;
+          option.textContent = item[currentLang];
+
+          if (item.key === serviceKey) {
+            option.selected = true;
+          }
+
+          optgroup.appendChild(option);
+        });
+
+        select.appendChild(optgroup);
       });
 
       const qty = document.createElement("input");
@@ -1085,33 +1176,66 @@
         }
       });
 
+      const customInput = document.createElement("input");
+      customInput.className = "service-custom hidden";
+      customInput.type = "text";
+      customInput.placeholder = t("otherPlaceholder");
+      customInput.value = customName || "";
+
+      function toggleCustomInput() {
+        if (select.value === "other") {
+          customInput.classList.remove("hidden");
+        } else {
+          customInput.classList.add("hidden");
+          customInput.value = "";
+        }
+      }
+
+      select.addEventListener("change", toggleCustomInput);
+
       row.appendChild(select);
       row.appendChild(qty);
       row.appendChild(removeBtn);
+      row.appendChild(customInput);
 
       servicesContainer.appendChild(row);
+
+      toggleCustomInput();
     }
 
     function refreshServiceDropdownLabels() {
+      document.querySelectorAll(".service-key optgroup").forEach(group => {
+        group.label = currentLang === "zh" ? group.dataset.zh : group.dataset.en;
+      });
+
       document.querySelectorAll(".service-key option").forEach(option => {
         option.textContent = currentLang === "zh" ? option.dataset.zh : option.dataset.en;
+      });
+
+      document.querySelectorAll(".service-custom").forEach(input => {
+        input.placeholder = t("otherPlaceholder");
       });
     }
 
     function normaliseExistingService(service) {
       if (service.key) {
         const found = getServiceByKey(service.key);
+
         if (found) {
           return {
             key: found.key,
             zh: found.zh,
             en: found.en,
+            categoryZh: found.categoryZh,
+            categoryEn: found.categoryEn,
+            customName: service.customName || "",
             quantity: Number(service.quantity || 1)
           };
         }
       }
 
       const rawName = service.name || service.en || service.zh || "";
+
       const found = SERVICE_OPTIONS.find(item => {
         return item.en === rawName || item.zh === rawName || item.key === rawName;
       });
@@ -1121,14 +1245,20 @@
           key: found.key,
           zh: found.zh,
           en: found.en,
+          categoryZh: found.categoryZh,
+          categoryEn: found.categoryEn,
+          customName: service.customName || "",
           quantity: Number(service.quantity || 1)
         };
       }
 
       return {
         key: "other",
-        zh: rawName || "其他",
-        en: rawName || "Other",
+        zh: "其他（請說明）",
+        en: "Other - Please specify",
+        categoryZh: "其他",
+        categoryEn: "Other",
+        customName: rawName || service.customName || "",
         quantity: Number(service.quantity || 1)
       };
     }
@@ -1139,15 +1269,23 @@
       return Array.from(rows).map(row => {
         const key = row.querySelector(".service-key").value;
         const quantity = Number(row.querySelector(".service-quantity").value || 1);
+        const customName = row.querySelector(".service-custom")?.value.trim() || "";
         const found = getServiceByKey(key);
 
         return {
           key,
-          zh: found ? found.zh : "其他",
-          en: found ? found.en : "Other",
+          zh: found ? found.zh : "其他（請說明）",
+          en: found ? found.en : "Other - Please specify",
+          categoryZh: found ? found.categoryZh : "其他",
+          categoryEn: found ? found.categoryEn : "Other",
+          customName,
           quantity
         };
-      }).filter(service => service.key && service.quantity > 0);
+      }).filter(service => {
+        if (!service.key || service.quantity <= 0) return false;
+        if (service.key === "other" && !service.customName) return false;
+        return true;
+      });
     }
 
     function resetForm() {
@@ -1179,10 +1317,14 @@
       servicesContainer.innerHTML = "";
       const services = Array.isArray(record.services) && record.services.length
         ? record.services.map(normaliseExistingService)
-        : [{ key: "tarot_love", quantity: 1 }];
+        : [{ key: "tarot_love_analysis", quantity: 1 }];
 
       services.forEach(service => {
-        createServiceRow(service.key || "other", Number(service.quantity || 1));
+        createServiceRow(
+          service.key || "other",
+          Number(service.quantity || 1),
+          service.customName || ""
+        );
       });
 
       currencySelect.value = record.currency || "GBP";
@@ -1241,8 +1383,9 @@
           record.services.forEach(rawService => {
             const service = normaliseExistingService(rawService);
             const label = getServiceLabel(service);
-            serviceCount[service.key] = (serviceCount[service.key] || 0) + Number(service.quantity || 1);
-            serviceLabelMap[service.key] = label;
+            serviceCount[service.key + (service.customName || "")] =
+              (serviceCount[service.key + (service.customName || "")] || 0) + Number(service.quantity || 1);
+            serviceLabelMap[service.key + (service.customName || "")] = label;
           });
         }
 
@@ -1346,6 +1489,205 @@
       renderStats();
     }
 
+    function getExportRows() {
+      const records = filterRecords();
+
+      const rows = [];
+
+      records.forEach(record => {
+        const services = Array.isArray(record.services) && record.services.length
+          ? record.services.map(normaliseExistingService)
+          : [];
+
+        if (!services.length) {
+          rows.push({
+            date: record.date || "",
+            currency: record.currency || "",
+            amount: Number(record.amount || 0),
+            paymentMethod: record.paymentMethod || "",
+            serviceCategoryZh: "",
+            serviceItemZh: "",
+            serviceFullZh: "",
+            serviceCategoryEn: "",
+            serviceItemEn: "",
+            serviceFullEn: "",
+            quantity: "",
+            notes: record.notes || ""
+          });
+          return;
+        }
+
+        services.forEach(service => {
+          const found = getServiceByKey(service.key);
+
+          const categoryZh = service.key === "other"
+            ? "其他"
+            : found?.categoryZh || service.categoryZh || "";
+
+          const categoryEn = service.key === "other"
+            ? "Other"
+            : found?.categoryEn || service.categoryEn || "";
+
+          const itemZh = service.key === "other"
+            ? (service.customName || "其他")
+            : found?.zh || service.zh || "";
+
+          const itemEn = service.key === "other"
+            ? (service.customName || "Other")
+            : found?.en || service.en || "";
+
+          rows.push({
+            date: record.date || "",
+            currency: record.currency || "",
+            amount: Number(record.amount || 0),
+            paymentMethod: record.paymentMethod || "",
+            serviceCategoryZh: categoryZh,
+            serviceItemZh: itemZh,
+            serviceFullZh: `${categoryZh} - ${itemZh}`,
+            serviceCategoryEn: categoryEn,
+            serviceItemEn: itemEn,
+            serviceFullEn: `${categoryEn} - ${itemEn}`,
+            quantity: Number(service.quantity || 1),
+            notes: record.notes || ""
+          });
+        });
+      });
+
+      return rows;
+    }
+
+    function getExportFilename(extension) {
+      const month = monthFilter.value || "all-months";
+      const currency = currencyFilter.value === "ALL" ? "all-currencies" : currencyFilter.value;
+      return `estarot-income-${month}-${currency}.${extension}`;
+    }
+
+    function downloadBlob(content, filename, mimeType) {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    function exportCsv() {
+      const rows = getExportRows();
+
+      if (!rows.length) {
+        alert(t("exportNoRecords"));
+        return;
+      }
+
+      const headers = [
+        "Date",
+        "Currency",
+        "Amount",
+        "Payment Method",
+        "Service Category ZH",
+        "Service Item ZH",
+        "Service Full ZH",
+        "Service Category EN",
+        "Service Item EN",
+        "Service Full EN",
+        "Quantity",
+        "Notes"
+      ];
+
+      const csvRows = [
+        headers,
+        ...rows.map(row => [
+          row.date,
+          row.currency,
+          row.amount,
+          row.paymentMethod,
+          row.serviceCategoryZh,
+          row.serviceItemZh,
+          row.serviceFullZh,
+          row.serviceCategoryEn,
+          row.serviceItemEn,
+          row.serviceFullEn,
+          row.quantity,
+          row.notes
+        ])
+      ];
+
+      const csvContent = "\uFEFF" + csvRows.map(row =>
+        row.map(value => {
+          const safeValue = String(value ?? "").replaceAll('"', '""');
+          return `"${safeValue}"`;
+        }).join(",")
+      ).join("\n");
+
+      downloadBlob(csvContent, getExportFilename("csv"), "text/csv;charset=utf-8;");
+    }
+
+    function exportExcel() {
+      const rows = getExportRows();
+
+      if (!rows.length) {
+        alert(t("exportNoRecords"));
+        return;
+      }
+
+      const html = `
+        <html>
+          <head>
+            <meta charset="UTF-8">
+          </head>
+          <body>
+            <table border="1">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Currency</th>
+                  <th>Amount</th>
+                  <th>Payment Method</th>
+                  <th>Service Category ZH</th>
+                  <th>Service Item ZH</th>
+                  <th>Service Full ZH</th>
+                  <th>Service Category EN</th>
+                  <th>Service Item EN</th>
+                  <th>Service Full EN</th>
+                  <th>Quantity</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rows.map(row => `
+                  <tr>
+                    <td>${escapeHtml(row.date)}</td>
+                    <td>${escapeHtml(row.currency)}</td>
+                    <td>${escapeHtml(row.amount)}</td>
+                    <td>${escapeHtml(row.paymentMethod)}</td>
+                    <td>${escapeHtml(row.serviceCategoryZh)}</td>
+                    <td>${escapeHtml(row.serviceItemZh)}</td>
+                    <td>${escapeHtml(row.serviceFullZh)}</td>
+                    <td>${escapeHtml(row.serviceCategoryEn)}</td>
+                    <td>${escapeHtml(row.serviceItemEn)}</td>
+                    <td>${escapeHtml(row.serviceFullEn)}</td>
+                    <td>${escapeHtml(row.quantity)}</td>
+                    <td>${escapeHtml(row.notes)}</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </body>
+        </html>
+      `;
+
+      downloadBlob(
+        html,
+        getExportFilename("xls"),
+        "application/vnd.ms-excel;charset=utf-8;"
+      );
+    }
+
     loginLangZh.addEventListener("click", () => setLanguage("zh"));
     loginLangEn.addEventListener("click", () => setLanguage("en"));
     appLangZh.addEventListener("click", () => setLanguage("zh"));
@@ -1382,6 +1724,9 @@
     clearFormBtn.addEventListener("click", resetForm);
     clearFormBtn2.addEventListener("click", resetForm);
     cancelEditBtn.addEventListener("click", resetForm);
+
+    exportExcelBtn.addEventListener("click", exportExcel);
+    exportCsvBtn.addEventListener("click", exportCsv);
 
     incomeForm.addEventListener("submit", async (event) => {
       event.preventDefault();

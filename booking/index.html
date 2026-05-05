@@ -12,6 +12,12 @@
   <link rel="shortcut icon" type="image/png" href="https://www.image2url.com/r2/default/images/1777843802442-0c145276-e7f0-41c8-bd26-f05688bf542d.png?v=2" />
   <link rel="apple-touch-icon" href="https://www.image2url.com/r2/default/images/1777843802442-0c145276-e7f0-41c8-bd26-f05688bf542d.png?v=2" />
 
+  <meta property="og:title" content="Estarot｜預約查詢 Booking Enquiry" />
+  <meta property="og:description" content="選擇服務及想預約的日期時間，然後透過 WhatsApp 向 Estarot 查詢預約。" />
+  <meta property="og:url" content="https://www.estarot.uk/booking/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.image2url.com/r2/default/images/1777749488848-573813ee-29aa-4670-865f-97cb2f27a873.jpg" />
+
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -45,10 +51,12 @@
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
       margin: 0;
+      overflow-x: hidden;
+      width: 100%;
       font-family: "Noto Serif TC", "Noto Sans TC", "Hiragino Mincho ProN", "Yu Mincho", serif;
       color: var(--paper);
       background:
@@ -72,7 +80,12 @@
       z-index: 0;
     }
 
-    .site { position: relative; z-index: 1; }
+    .site {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      overflow-x: hidden;
+    }
 
     header {
       width: 100%;
@@ -134,6 +147,7 @@
       padding: 10px 14px;
       font-size: 0.9rem;
       text-align: center;
+      white-space: nowrap;
     }
 
     .hero {
@@ -172,6 +186,7 @@
       border: 2px solid rgba(215, 179, 106, 0.72);
       box-shadow: 0 22px 54px rgba(0, 0, 0, 0.25);
       position: relative;
+      max-width: 100%;
     }
 
     .booking-section::before {
@@ -187,6 +202,7 @@
       font-size: 0.82rem;
       letter-spacing: 0.1em;
       white-space: nowrap;
+      font-weight: 900;
     }
 
     h2 {
@@ -211,6 +227,7 @@
       grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.75fr);
       gap: 20px;
       align-items: start;
+      max-width: 100%;
     }
 
     .service-group, .cart-card, .details-card, .notice-card {
@@ -218,6 +235,7 @@
       background: var(--paper-soft);
       border: 1px solid rgba(215, 179, 106, 0.55);
       box-shadow: 0 10px 20px rgba(51, 35, 58, 0.08);
+      max-width: 100%;
     }
 
     .service-group {
@@ -238,6 +256,7 @@
       margin: 0;
       color: var(--plum);
       font-size: 1.15rem;
+      min-width: 0;
     }
 
     .group-badge {
@@ -248,7 +267,11 @@
       border: 1px solid rgba(215, 179, 106, 0.5);
       border-radius: 999px;
       padding: 6px 10px;
-      white-space: nowrap;
+      white-space: normal;
+      text-align: center;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      line-height: 1.35;
     }
 
     .service-list { display: grid; }
@@ -266,6 +289,8 @@
       color: var(--ink);
       font-weight: 900;
       line-height: 1.55;
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
 
     .service-sub {
@@ -275,6 +300,7 @@
       font-weight: 600;
       line-height: 1.55;
       margin-top: 2px;
+      overflow-wrap: anywhere;
     }
 
     .price {
@@ -301,6 +327,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      flex: 0 0 auto;
     }
 
     .add-btn {
@@ -315,7 +342,6 @@
       width: 30px;
       height: 30px;
       font-size: 1rem;
-      flex: 0 0 auto;
     }
 
     .cart-card {
@@ -359,6 +385,8 @@
       color: var(--ink);
       font-weight: 800;
       line-height: 1.5;
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
 
     .cart-row-price {
@@ -411,6 +439,7 @@
       color: var(--plum);
       font-weight: 900;
       line-height: 1.7;
+      overflow-wrap: anywhere;
     }
 
     .details-card, .notice-card {
@@ -549,10 +578,36 @@
       .logo { max-width: 76px; width: 24vw; }
       .lang-btn { padding: 6px 8px; font-size: 0.72rem; }
       .header-link { font-size: 0.78rem; padding: 9px 11px; }
-      .booking-section, .details-section, .notice-section { padding: 34px 16px 40px; }
-      .service-item { grid-template-columns: minmax(0, 1fr) auto; }
-      .price { grid-column: 1 / 2; text-align: left; min-width: auto; }
+      h1 { font-size: clamp(2.2rem, 12vw, 3.4rem); }
+      .hero { width: min(92%, calc(100% - 28px)); padding-top: 38px; }
+      .booking-section, .details-section, .notice-section {
+        width: min(94%, calc(100% - 24px));
+        padding: 34px 14px 40px;
+      }
+      .booking-section::before { font-size: 0.72rem; padding: 6px 14px; }
+      .group-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .group-badge {
+        align-self: flex-start;
+        font-size: 0.72rem;
+        line-height: 1.35;
+        text-align: left;
+      }
+      .service-item {
+        grid-template-columns: minmax(0, 1fr) auto;
+        padding: 14px 14px;
+      }
+      .price {
+        grid-column: 1 / 2;
+        text-align: left;
+        min-width: auto;
+        white-space: normal;
+      }
       .add-btn { grid-column: 2 / 3; grid-row: 1 / 3; }
+      .details-card, .notice-card, .cart-card { padding: 18px; }
+      .primary-link { width: 100%; }
     }
   </style>
 </head>

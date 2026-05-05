@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Estarot Admin | Income Tracker</title>
+
+  <style>
+    :root {
+      --bg: #120818;
+      --card: #1f102b;
+      --card2: #2b1638;
+      --gold: #d8b26e;
+      --soft-gold: #f1d9a5;
+      --text: #fff8ee;
+      --muted: #c8b8d1;
+      --danger: #ff6b6b;
+      --success: #9be7c5;
+      --border: rgba(216,178,110,0.35);
+      --shadow: 0 18px 45px rgba(0,0,0,0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(216,178,110,0.22), transparent 35%),
+        linear-gradient(180deg, #120818 0%, #1b0c24 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+      padding: 28px 0 60px;
+    }
+
+    .login-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .login-card {
+      width: min(420px, 100%);
+      background: rgba(31,16,43,0.96);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 26px;
+    }
+
+    .brand .moon {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+    }
+
+    .brand h1 {
+      color: var(--soft-gold);
+      font-size: 28px;
+      letter-spacing: 0.5px;
+    }
+
+    .brand p {
+      color: var(--muted);
+      margin: 8px 0 0;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 7px;
+      color: var(--soft-gold);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.07);
+      color: var(--text);
+      outline: none;
+      font-size: 15px;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(216,178,110,0.13);
+    }
+
+    select option {
+      background: #1f102b;
+      color: #fff;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 13px 18px;
+      font-weight: 700;
+      font-size: 15px;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #d8b26e, #fff0bf);
+      color: #241225;
+      width: 100%;
+      margin-top: 18px;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.13);
+    }
+
+    .btn-danger {
+      background: rgba(255,107,107,0.14);
+      color: #ffb1b1;
+      border: 1px solid rgba(255,107,107,0.3);
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+
+    .btn-small {
+      padding: 9px 12px;
+      font-size: 13px;
+    }
+
+    .error {
+      color: #ffb1b1;
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .success {
+      color: var(--success);
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .topbar h1 {
+      color: var(--soft-gold);
+      font-size: clamp(24px, 5vw, 38px);
+    }
+
+    .topbar p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: rgba(31,16,43,0.92);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat-card h3 {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .stat-card .value {
+      font-size: 25px;
+      color: var(--soft-gold);
+      font-weight: 800;
+      word-break: break-word;
+    }
+
+    .stat-card .sub {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .main-grid {
+      grid-template-columns: 0.9fr 1.1fr;
+      align-items: start;
+    }
+
+    .section-title {
+      color: var(--soft-gold);
+      margin-bottom: 16px;
+      font-size: 21px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .service-row {
+      display: grid;
+      grid-template-columns: 1fr 90px 42px;
+      gap: 10px;
+      align-items: end;
+      margin-bottom: 10px;
+    }
+
+    .service-row button {
+      border-radius: 14px;
+      height: 47px;
+      padding: 0;
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      align-items: end;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .filter-bar > div {
+      min-width: 170px;
+      flex: 1;
+    }
+
+    .records {
+      display: grid;
+      gap: 12px;
+      max-height: 680px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .record {
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .record-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .record-date {
+      color: var(--soft-gold);
+      font-weight: 800;
+    }
+
+    .record-amount {
+      font-size: 20px;
+      font-weight: 900;
+      color: #fff2bf;
+      text-align: right;
+    }
+
+    .record-meta {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    .tags {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .tag {
+      background: rgba(216,178,110,0.13);
+      border: 1px solid rgba(216,178,110,0.25);
+      color: #ffe7ad;
+      padding: 6px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .notes {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 24px 10px;
+      border: 1px dashed rgba(255,255,255,0.18);
+      border-radius: 18px;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 880px) {
+      .stats-grid,
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .topbar .btn-secondary {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .container {
+        width: 94%;
+        padding-top: 20px;
+      }
+
+      .card {
+        padding: 18px;
+        border-radius: 20px;
+      }
+
+      .login-card {
+        padding: 24px;
+      }
+
+      .row {
+        grid-template-columns: 1fr;
+      }
+
+      .service-row {
+        grid-template-columns: 1fr 70px 38px;
+      }
+
+      .record-head {
+        flex-direction: column;
+      }
+
+      .record-amount {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Login Screen -->
+  <section id="loginScreen" class="login-wrap">
+    <div class="login-card">
+      <div class="brand">
+        <div class="moon">🌙</div>
+        <h1>Estarot Admin</h1>
+        <p>Private Income Tracker</p>
+      </div>
+
+      <form id="loginForm">
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="email" required />
+
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" required />
+
+        <button class="btn-primary" type="submit">Login</button>
+
+        <div id="loginError" class="error hidden"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- App Screen -->
+  <main id="appScreen" class="container hidden">
+
+    <div class="topbar">
+      <div>
+        <h1>Estarot Income Tracker</h1>
+        <p id="userEmail">Logged in</p>
+      </div>
+      <button id="logoutBtn" class="btn-secondary">Logout</button>
+    </div>
+
+    <!-- Dashboard -->
+    <section class="grid stats-grid">
+      <div class="card stat-card">
+        <h3>This Month GBP</h3>
+        <div id="monthGbp" class="value">£0</div>
+        <div class="sub">Selected month</div>
+      </div>
+
+      <div class="card stat-card">
+        <h3>This Month HKD</h3>
+        <div id="monthHkd" class="value">HK$0</div>
+        <div class="sub">Selected month</div>
+      </div>
+
+      <div class="card stat-card">
+        <h3>Most Popular Service</h3>
+        <div id="popularService" class="value">-</div>
+        <div id="popularServiceSub" class="sub">Based on quantity</div>
+      </div>
+
+      <div class="card stat-card">
+        <h3>Top Payment Method</h3>
+        <div id="topPayment" class="value">-</div>
+        <div id="topPaymentSub" class="sub">Selected month</div>
+      </div>
+    </section>
+
+    <section class="grid main-grid">
+
+      <!-- Add Record -->
+      <div class="card">
+        <h2 class="section-title">Add Income Record</h2>
+
+        <form id="incomeForm">
+
+          <label for="date">收款日期</label>
+          <input id="date" type="date" required />
+
+          <label>服務內容</label>
+          <div id="servicesContainer"></div>
+
+          <button id="addServiceBtn" type="button" class="btn-secondary btn-small">+ Add Service</button>
+
+          <div class="row">
+            <div>
+              <label for="currency">貨幣</label>
+              <select id="currency" required>
+                <option value="GBP">GBP</option>
+                <option value="HKD">HKD</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="paymentMethod">收款方式</label>
+              <select id="paymentMethod" required></select>
+            </div>
+          </div>
+
+          <label for="amount">金額</label>
+          <input id="amount" type="number" step="0.01" min="0" placeholder="例如：35" required />
+
+          <label for="notes">備註 Optional</label>
+          <textarea id="notes" placeholder="例如：IG booking / package / special note"></textarea>
+
+          <button class="btn-primary" type="submit">Save Record</button>
+
+          <div id="formMessage" class="success hidden"></div>
+          <div id="formError" class="error hidden"></div>
+        </form>
+
+        <p class="footer-note">
+          建議只記收入資料，不記客戶姓名或敏感內容，保障私隱。
+        </p>
+      </div>
+
+      <!-- Records -->
+      <div class="card">
+        <h2 class="section-title">Income Records</h2>
+
+        <div class="filter-bar">
+          <div>
+            <label for="monthFilter">月份篩選</label>
+            <input id="monthFilter" type="month" />
+          </div>
+
+          <div>
+            <label for="currencyFilter">貨幣篩選</label>
+            <select id="currencyFilter">
+              <option value="ALL">All</option>
+              <option value="GBP">GBP</option>
+              <option value="HKD">HKD</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="recordsList" class="records">
+          <div class="empty">Loading records...</div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      deleteDoc,
+      doc,
+      serverTimestamp,
+      query,
+      orderBy,
+      onSnapshot
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCn8OiLeOagHnFpu_E8MOHfsp0ucFOwFVs",
+      authDomain: "estarot-income-tracker.firebaseapp.com",
+      projectId: "estarot-income-tracker",
+      storageBucket: "estarot-income-tracker.firebasestorage.app",
+      messagingSenderId: "850423609470",
+      appId: "1:850423609470:web:b7b4c1aff4f02624d8402f"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const SERVICE_OPTIONS = [
+      "Tarot Reading",
+      "SRT",
+      "Pendulum Energy Alignment",
+      "Pet Communication",
+      "Dream Interpretation",
+      "Combination Session",
+      "Other"
+    ];
+
+    const PAYMENT_METHODS = {
+      GBP: ["Monzo", "PayPal"],
+      HKD: ["FPS", "Payme", "Alipay"]
+    };
+
+    let allRecords = [];
+    let unsubscribeRecords = null;
+
+    const loginScreen = document.getElementById("loginScreen");
+    const appScreen = document.getElementById("appScreen");
+    const loginForm = document.getElementById("loginForm");
+    const loginError = document.getElementById("loginError");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const userEmail = document.getElementById("userEmail");
+
+    const incomeForm = document.getElementById("incomeForm");
+    const servicesContainer = document.getElementById("servicesContainer");
+    const addServiceBtn = document.getElementById("addServiceBtn");
+    const currencySelect = document.getElementById("currency");
+    const paymentMethodSelect = document.getElementById("paymentMethod");
+    const recordsList = document.getElementById("recordsList");
+    const monthFilter = document.getElementById("monthFilter");
+    const currencyFilter = document.getElementById("currencyFilter");
+
+    const monthGbp = document.getElementById("monthGbp");
+    const monthHkd = document.getElementById("monthHkd");
+    const popularService = document.getElementById("popularService");
+    const popularServiceSub = document.getElementById("popularServiceSub");
+    const topPayment = document.getElementById("topPayment");
+    const topPaymentSub = document.getElementById("topPaymentSub");
+
+    const formMessage = document.getElementById("formMessage");
+    const formError = document.getElementById("formError");
+
+    function todayString() {
+      const today = new Date();
+      return today.toISOString().slice(0, 10);
+    }
+
+    function currentMonthString() {
+      const today = new Date();
+      return today.toISOString().slice(0, 7);
+    }
+
+    function formatMoney(amount, currency) {
+      const number = Number(amount || 0);
+
+      if (currency === "GBP") {
+        return "£" + number.toLocaleString("en-GB", {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2
+        });
+      }
+
+      if (currency === "HKD") {
+        return "HK$" + number.toLocaleString("en-HK", {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2
+        });
+      }
+
+      return number.toString();
+    }
+
+    function showMessage(element, message) {
+      element.textContent = message;
+      element.classList.remove("hidden");
+
+      setTimeout(() => {
+        element.classList.add("hidden");
+      }, 3000);
+    }
+
+    function updatePaymentMethods() {
+      const currency = currencySelect.value;
+      const methods = PAYMENT_METHODS[currency] || [];
+
+      paymentMethodSelect.innerHTML = "";
+
+      methods.forEach(method => {
+        const option = document.createElement("option");
+        option.value = method;
+        option.textContent = method;
+        paymentMethodSelect.appendChild(option);
+      });
+    }
+
+    function createServiceRow(name = "Tarot Reading", quantity = 1) {
+      const row = document.createElement("div");
+      row.className = "service-row";
+
+      const select = document.createElement("select");
+      select.className = "service-name";
+      select.required = true;
+
+      SERVICE_OPTIONS.forEach(service => {
+        const option = document.createElement("option");
+        option.value = service;
+        option.textContent = service;
+        if (service === name) option.selected = true;
+        select.appendChild(option);
+      });
+
+      const qty = document.createElement("input");
+      qty.className = "service-quantity";
+      qty.type = "number";
+      qty.min = "1";
+      qty.step = "1";
+      qty.value = quantity;
+      qty.required = true;
+
+      const removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.className = "btn-danger";
+      removeBtn.textContent = "×";
+      removeBtn.addEventListener("click", () => {
+        if (servicesContainer.children.length > 1) {
+          row.remove();
+        }
+      });
+
+      row.appendChild(select);
+      row.appendChild(qty);
+      row.appendChild(removeBtn);
+
+      servicesContainer.appendChild(row);
+    }
+
+    function resetForm() {
+      incomeForm.reset();
+      document.getElementById("date").value = todayString();
+      servicesContainer.innerHTML = "";
+      createServiceRow();
+      currencySelect.value = "GBP";
+      updatePaymentMethods();
+    }
+
+    function getServicesFromForm() {
+      const rows = servicesContainer.querySelectorAll(".service-row");
+
+      return Array.from(rows).map(row => {
+        const name = row.querySelector(".service-name").value;
+        const quantity = Number(row.querySelector(".service-quantity").value || 1);
+
+        return {
+          name,
+          quantity
+        };
+      }).filter(service => service.name && service.quantity > 0);
+    }
+
+    function filterRecords() {
+      const selectedMonth = monthFilter.value;
+      const selectedCurrency = currencyFilter.value;
+
+      return allRecords.filter(record => {
+        const matchMonth = !selectedMonth || record.date?.slice(0, 7) === selectedMonth;
+        const matchCurrency = selectedCurrency === "ALL" || record.currency === selectedCurrency;
+
+        return matchMonth && matchCurrency;
+      });
+    }
+
+    function renderStats() {
+      const selectedMonth = monthFilter.value || currentMonthString();
+
+      const monthRecords = allRecords.filter(record => {
+        return record.date?.slice(0, 7) === selectedMonth;
+      });
+
+      const gbpTotal = monthRecords
+        .filter(record => record.currency === "GBP")
+        .reduce((sum, record) => sum + Number(record.amount || 0), 0);
+
+      const hkdTotal = monthRecords
+        .filter(record => record.currency === "HKD")
+        .reduce((sum, record) => sum + Number(record.amount || 0), 0);
+
+      monthGbp.textContent = formatMoney(gbpTotal, "GBP");
+      monthHkd.textContent = formatMoney(hkdTotal, "HKD");
+
+      const serviceCount = {};
+      const paymentCount = {};
+
+      monthRecords.forEach(record => {
+        if (Array.isArray(record.services)) {
+          record.services.forEach(service => {
+            serviceCount[service.name] = (serviceCount[service.name] || 0) + Number(service.quantity || 1);
+          });
+        }
+
+        if (record.paymentMethod) {
+          paymentCount[record.paymentMethod] = (paymentCount[record.paymentMethod] || 0) + 1;
+        }
+      });
+
+      const topService = Object.entries(serviceCount).sort((a, b) => b[1] - a[1])[0];
+      const topMethod = Object.entries(paymentCount).sort((a, b) => b[1] - a[1])[0];
+
+      if (topService) {
+        popularService.textContent = topService[0];
+        popularServiceSub.textContent = `${topService[1]} service quantity this month`;
+      } else {
+        popularService.textContent = "-";
+        popularServiceSub.textContent = "No record this month";
+      }
+
+      if (topMethod) {
+        topPayment.textContent = topMethod[0];
+        topPaymentSub.textContent = `${topMethod[1]} record(s) this month`;
+      } else {
+        topPayment.textContent = "-";
+        topPaymentSub.textContent = "No record this month";
+      }
+    }
+
+    function renderRecords() {
+      const records = filterRecords();
+
+      if (!records.length) {
+        recordsList.innerHTML = `<div class="empty">No income records found.</div>`;
+        renderStats();
+        return;
+      }
+
+      recordsList.innerHTML = "";
+
+      records.forEach(record => {
+        const card = document.createElement("div");
+        card.className = "record";
+
+        const serviceTags = Array.isArray(record.services)
+          ? record.services.map(service => {
+              return `<span class="tag">${escapeHtml(service.name)} × ${Number(service.quantity || 1)}</span>`;
+            }).join("")
+          : "";
+
+        card.innerHTML = `
+          <div class="record-head">
+            <div>
+              <div class="record-date">${escapeHtml(record.date || "-")}</div>
+              <div class="record-meta">${escapeHtml(record.paymentMethod || "-")} · ${escapeHtml(record.currency || "-")}</div>
+            </div>
+            <div>
+              <div class="record-amount">${formatMoney(record.amount, record.currency)}</div>
+              <button class="btn-danger btn-small" data-delete-id="${record.id}">Delete</button>
+            </div>
+          </div>
+
+          <div class="tags">${serviceTags}</div>
+
+          ${record.notes ? `<div class="notes">${escapeHtml(record.notes)}</div>` : ""}
+        `;
+
+        recordsList.appendChild(card);
+      });
+
+      recordsList.querySelectorAll("[data-delete-id]").forEach(button => {
+        button.addEventListener("click", async () => {
+          const id = button.getAttribute("data-delete-id");
+
+          const confirmed = confirm("Delete this income record?");
+          if (!confirmed) return;
+
+          try {
+            await deleteDoc(doc(db, "incomeRecords", id));
+          } catch (error) {
+            alert("Failed to delete record: " + error.message);
+          }
+        });
+      });
+
+      renderStats();
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      loginError.classList.add("hidden");
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (error) {
+        loginError.textContent = "Login failed. Please check your email and password.";
+        loginError.classList.remove("hidden");
+      }
+    });
+
+    logoutBtn.addEventListener("click", async () => {
+      await signOut(auth);
+    });
+
+    addServiceBtn.addEventListener("click", () => {
+      createServiceRow();
+    });
+
+    currencySelect.addEventListener("change", updatePaymentMethods);
+
+    incomeForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      formError.classList.add("hidden");
+      formMessage.classList.add("hidden");
+
+      const date = document.getElementById("date").value;
+      const services = getServicesFromForm();
+      const currency = currencySelect.value;
+      const paymentMethod = paymentMethodSelect.value;
+      const amount = Number(document.getElementById("amount").value);
+      const notes = document.getElementById("notes").value.trim();
+
+      if (!date || !services.length || !currency || !paymentMethod || !amount) {
+        showMessage(formError, "Please complete all required fields.");
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, "incomeRecords"), {
+          date,
+          services,
+          currency,
+          paymentMethod,
+          amount,
+          notes,
+          createdAt: serverTimestamp()
+        });
+
+        showMessage(formMessage, "Income record saved successfully.");
+        resetForm();
+      } catch (error) {
+        showMessage(formError, "Failed to save record: " + error.message);
+      }
+    });
+
+    monthFilter.addEventListener("change", renderRecords);
+    currencyFilter.addEventListener("change", renderRecords);
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        loginScreen.classList.add("hidden");
+        appScreen.classList.remove("hidden");
+        userEmail.textContent = `Logged in as ${user.email}`;
+
+        monthFilter.value = currentMonthString();
+        resetForm();
+
+        if (unsubscribeRecords) unsubscribeRecords();
+
+        const recordsQuery = query(
+          collection(db, "incomeRecords"),
+          orderBy("date", "desc")
+        );
+
+        unsubscribeRecords = onSnapshot(recordsQuery, (snapshot) => {
+          allRecords = snapshot.docs.map(docSnap => ({
+            id: docSnap.id,
+            ...docSnap.data()
+          }));
+
+          renderRecords();
+        }, (error) => {
+          recordsList.innerHTML = `<div class="empty">Failed to load records: ${escapeHtml(error.message)}</div>`;
+        });
+
+      } else {
+        appScreen.classList.add("hidden");
+        loginScreen.classList.remove("hidden");
+        userEmail.textContent = "";
+
+        if (unsubscribeRecords) {
+          unsubscribeRecords();
+          unsubscribeRecords = null;
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

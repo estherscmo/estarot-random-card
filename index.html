@@ -459,6 +459,11 @@
       outline: none;
       border-color: var(--gold);
     }
+
+    .tarot-question-input:disabled {
+      opacity: 0.75;
+      cursor: not-allowed;
+    }
     
     .hidden {
       display: none !important;
@@ -1191,6 +1196,7 @@ data-en="Card interpretation: £5 / HKD50 per card">
           shuffleArea.classList.remove("show");
           showCard(selectedCard);
           const userQuestion = tarotQuestion.value.trim();
+          tarotQuestion.disabled = true;
           const whatsappMessage =
           currentLang === "zh"
           ? `*隨機抽塔羅牌解讀*

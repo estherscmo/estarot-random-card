@@ -997,6 +997,7 @@
       const cardImage = document.getElementById("cardImage");
       const cardName = document.getElementById("cardName");
       const whatsappLink = document.getElementById("whatsappLink");
+      const readingFeeNote = document.getElementById("readingFeeNote");
       const countdown = document.getElementById("countdown");
       const menuButton = document.getElementById("menuButton");
       const dropdownMenu = document.getElementById("dropdownMenu");
@@ -1099,6 +1100,7 @@
         cardName.textContent = getCardDisplayName(card);
         resultArea.classList.add("show");
         whatsappLink.classList.add("show");
+        readingFeeNote.style.display = "block";
       }
 
       function updateButtonText() {

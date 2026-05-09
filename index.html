@@ -438,6 +438,27 @@
       text-align: center;
       opacity: 0.85;
     }
+
+    .tarot-question-input {
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto 18px;
+      display: block;
+      border-radius: 18px;
+      border: 1px solid rgba(215, 179, 106, 0.5);
+      padding: 14px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      background: var(--paper-soft);
+      color: var(--ink);
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .tarot-question-input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
     
     .hidden {
       display: none !important;
@@ -763,6 +784,14 @@
         <h2 data-zh="請抽一張塔羅牌" data-en="Draw One Tarot Card">請抽一張塔羅牌</h2>
         <p class="section-copy" data-zh="這裡只會顯示你抽到的塔羅卡，不提供即時解讀。若你想知道卡牌背後的訊息，可以直接 WhatsApp 查詢詳細解讀。" data-en="This page only shows the tarot card you draw and does not provide an instant reading. If you would like to understand the message behind your card, please contact me on WhatsApp for a detailed reading.">這裡只會顯示你抽到的塔羅卡，不提供即時解讀。若你想知道卡牌背後的訊息，可以直接 WhatsApp 查詢詳細解讀。</p>
 
+        <textarea
+        id="tarotQuestion"
+        class="tarot-question-input"
+        rows="3"
+        placeholder="請輸入你想問的問題..."
+        data-placeholder-zh="請輸入你想問的問題..."
+        data-placeholder-en="Enter your question here..."
+        ></textarea>
         <button id="drawButton" class="draw-button" type="button" data-ready-zh="我準備好抽我的塔羅卡" data-ready-en="I am ready to draw my tarot card" data-shuffle-zh="正在洗牌⋯⋯" data-shuffle-en="Shuffling..." data-locked-zh="暫時不能再抽卡" data-locked-en="You cannot draw another card yet">我準備好抽我的塔羅卡</button>
 
         <div id="shuffleArea" class="shuffle-area" aria-hidden="true">

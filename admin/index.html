@@ -10,7 +10,6 @@
     :root {
       --bg: #120818;
       --card: #1f102b;
-      --card2: #2b1638;
       --gold: #d8b26e;
       --soft-gold: #f1d9a5;
       --text: #fff8ee;
@@ -21,13 +20,9 @@
       --shadow: 0 18px 45px rgba(0,0,0,0.35);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html {
-      background: var(--bg);
-    }
+    html { background: var(--bg); }
 
     body {
       margin: 0;
@@ -40,9 +35,7 @@
       overflow-x: hidden;
     }
 
-    .hidden {
-      display: none !important;
-    }
+    .hidden { display: none !important; }
 
     .container {
       width: min(1100px, 92%);
@@ -77,9 +70,7 @@
       margin-bottom: 10px;
     }
 
-    h1, h2, h3 {
-      margin: 0;
-    }
+    h1, h2, h3 { margin: 0; }
 
     .brand h1 {
       color: var(--soft-gold);
@@ -100,7 +91,7 @@
       margin: 18px 0 8px;
     }
 
-    .lang-btn {
+    .lang-btn, .tab-btn {
       padding: 8px 14px;
       font-size: 13px;
       border-radius: 999px;
@@ -110,7 +101,8 @@
       width: auto;
     }
 
-    .lang-btn.active {
+    .lang-btn.active,
+    .tab-btn.active {
       background: linear-gradient(135deg, #d8b26e, #fff0bf);
       color: #241225;
     }
@@ -169,11 +161,6 @@
       width: 100%;
     }
 
-    input[type="date"]::-webkit-calendar-picker-indicator,
-    input[type="month"]::-webkit-calendar-picker-indicator {
-      opacity: 0.85;
-    }
-
     button {
       border: 0;
       cursor: pointer;
@@ -184,13 +171,8 @@
       transition: transform 0.15s ease, opacity 0.15s ease;
     }
 
-    button:hover {
-      transform: translateY(-1px);
-    }
-
-    button:active {
-      transform: translateY(0);
-    }
+    button:hover { transform: translateY(-1px); }
+    button:active { transform: translateY(0); }
 
     .btn-primary {
       background: linear-gradient(135deg, #d8b26e, #fff0bf);
@@ -222,7 +204,8 @@
       font-size: 13px;
     }
 
-    .button-row {
+    .button-row,
+    .export-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
@@ -230,9 +213,7 @@
     }
 
     .export-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      margin-top: 0;
       margin-bottom: 14px;
     }
 
@@ -255,7 +236,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 16px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     .topbar h1 {
@@ -275,6 +256,13 @@
       align-items: center;
       flex-wrap: wrap;
       justify-content: flex-end;
+    }
+
+    .page-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
     }
 
     .grid {
@@ -352,9 +340,7 @@
       margin-top: 8px;
     }
 
-    .service-custom.hidden {
-      display: none;
-    }
+    .service-custom.hidden { display: none; }
 
     .filter-bar {
       display: grid;
@@ -364,9 +350,7 @@
       margin-bottom: 14px;
     }
 
-    .filter-bar > div {
-      min-width: 0;
-    }
+    .filter-bar > div { min-width: 0; }
 
     .records {
       display: grid;
@@ -468,9 +452,91 @@
       line-height: 1.5;
     }
 
+    .tarot-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .tarot-card-display {
+      min-height: 460px;
+      border: 1px dashed rgba(216,178,110,0.35);
+      border-radius: 22px;
+      padding: 20px;
+      background: rgba(255,255,255,0.045);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .tarot-image {
+      width: min(260px, 100%);
+      max-height: 360px;
+      object-fit: contain;
+      border-radius: 16px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.45);
+      margin-bottom: 18px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .tarot-card-name {
+      font-size: 28px;
+      color: var(--soft-gold);
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .tarot-card-en {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .tarot-count {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 14px;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .tarot-history {
+      display: grid;
+      gap: 10px;
+      max-height: 720px;
+      overflow: auto;
+    }
+
+    .tarot-history-item {
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 12px 14px;
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .tarot-history-thumb {
+      width: 54px;
+      height: 82px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .tarot-history-item strong {
+      color: var(--soft-gold);
+      display: block;
+      margin-bottom: 4px;
+    }
+
     @media (max-width: 880px) {
       .stats-grid,
-      .main-grid {
+      .main-grid,
+      .tarot-layout {
         grid-template-columns: 1fr;
       }
 
@@ -484,9 +550,7 @@
         justify-content: flex-start;
       }
 
-      .top-actions .btn-secondary {
-        flex: 1;
-      }
+      .top-actions .btn-secondary { flex: 1; }
     }
 
     @media (max-width: 540px) {
@@ -500,13 +564,12 @@
         border-radius: 20px;
       }
 
-      .login-card {
-        padding: 24px;
-      }
+      .login-card { padding: 24px; }
 
       .row,
       .filter-bar,
-      .export-row {
+      .export-row,
+      .button-row {
         grid-template-columns: 1fr;
       }
 
@@ -514,17 +577,11 @@
         grid-template-columns: minmax(0, 1fr) 70px 38px;
       }
 
-      .record-head {
-        flex-direction: column;
-      }
+      .record-head { flex-direction: column; }
+      .record-amount { text-align: left; }
 
-      .record-amount {
-        text-align: left;
-      }
-
-      .button-row {
-        grid-template-columns: 1fr;
-      }
+      .tarot-card-display { min-height: 420px; }
+      .tarot-image { max-height: 310px; }
     }
   </style>
 </head>
@@ -573,135 +630,176 @@
       </div>
     </div>
 
-    <section class="grid stats-grid">
-      <div class="card stat-card">
-        <h3 id="statGbpTitle">本月 GBP</h3>
-        <div id="monthGbp" class="value">£0</div>
-        <div id="statMonthSub1" class="sub">所選月份</div>
-      </div>
+    <div class="page-tabs">
+      <button type="button" id="incomeTabBtn" class="tab-btn active">收入記錄</button>
+      <button type="button" id="tarotTabBtn" class="tab-btn">塔羅抽牌</button>
+    </div>
 
-      <div class="card stat-card">
-        <h3 id="statHkdTitle">本月 HKD</h3>
-        <div id="monthHkd" class="value">HK$0</div>
-        <div id="statMonthSub2" class="sub">所選月份</div>
-      </div>
+    <div id="incomePage">
 
-      <div class="card stat-card">
-        <h3 id="statYearGbpTitle">全年 GBP</h3>
-        <div id="yearGbp" class="value">£0</div>
-        <div id="statYearSub1" class="sub">4月開始計算</div>
-      </div>
+      <section class="grid stats-grid">
+        <div class="card stat-card">
+          <h3 id="statGbpTitle">本月 GBP</h3>
+          <div id="monthGbp" class="value">£0</div>
+          <div id="statMonthSub1" class="sub">所選月份</div>
+        </div>
 
-      <div class="card stat-card">
-        <h3 id="statYearHkdTitle">全年 HKD</h3>
-        <div id="yearHkd" class="value">HK$0</div>
-        <div id="statYearSub2" class="sub">4月開始計算</div>
-      </div>
+        <div class="card stat-card">
+          <h3 id="statHkdTitle">本月 HKD</h3>
+          <div id="monthHkd" class="value">HK$0</div>
+          <div id="statMonthSub2" class="sub">所選月份</div>
+        </div>
 
-      <div class="card stat-card">
-        <h3 id="statPopularTitle">最受歡迎服務</h3>
-        <div id="popularService" class="value">-</div>
-        <div id="popularServiceSub" class="sub">按數量計算</div>
-      </div>
+        <div class="card stat-card">
+          <h3 id="statYearGbpTitle">全年 GBP</h3>
+          <div id="yearGbp" class="value">£0</div>
+          <div id="statYearSub1" class="sub">4月開始計算</div>
+        </div>
 
-      <div class="card stat-card">
-        <h3 id="statPaymentTitle">最常用收款方式</h3>
-        <div id="topPayment" class="value">-</div>
-        <div id="topPaymentSub" class="sub">所選月份</div>
-      </div>
-    </section>
+        <div class="card stat-card">
+          <h3 id="statYearHkdTitle">全年 HKD</h3>
+          <div id="yearHkd" class="value">HK$0</div>
+          <div id="statYearSub2" class="sub">4月開始計算</div>
+        </div>
 
-    <section class="grid main-grid">
+        <div class="card stat-card">
+          <h3 id="statPopularTitle">最受歡迎服務</h3>
+          <div id="popularService" class="value">-</div>
+          <div id="popularServiceSub" class="sub">按數量計算</div>
+        </div>
 
-      <div class="card">
-        <h2 id="formTitle" class="section-title">新增收入</h2>
+        <div class="card stat-card">
+          <h3 id="statPaymentTitle">最常用收款方式</h3>
+          <div id="topPayment" class="value">-</div>
+          <div id="topPaymentSub" class="sub">所選月份</div>
+        </div>
+      </section>
 
-        <div id="editBanner" class="edit-banner hidden"></div>
+      <section class="grid main-grid">
 
-        <form id="incomeForm">
+        <div class="card">
+          <h2 id="formTitle" class="section-title">新增收入</h2>
 
-          <label for="date" id="dateLabel">收款日期</label>
-          <input id="date" type="date" required />
+          <div id="editBanner" class="edit-banner hidden"></div>
 
-          <label id="serviceLabel">服務內容</label>
-          <div id="servicesContainer"></div>
+          <form id="incomeForm">
 
-          <button id="addServiceBtn" type="button" class="btn-secondary btn-small">+ 新增服務</button>
+            <label for="date" id="dateLabel">收款日期</label>
+            <input id="date" type="date" required />
 
-          <div class="row">
+            <label id="serviceLabel">服務內容</label>
+            <div id="servicesContainer"></div>
+
+            <button id="addServiceBtn" type="button" class="btn-secondary btn-small">+ 新增服務</button>
+
+            <div class="row">
+              <div>
+                <label for="currency" id="currencyLabel">貨幣</label>
+                <select id="currency" required>
+                  <option value="GBP">GBP</option>
+                  <option value="HKD">HKD</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="paymentMethod" id="paymentMethodLabel">收款方式</label>
+                <select id="paymentMethod" required></select>
+              </div>
+            </div>
+
+            <label for="amount" id="amountLabel">金額</label>
+            <input id="amount" type="number" step="0.01" min="0" placeholder="例如：35" required />
+
+            <label for="notes" id="notesLabel">備註 Optional</label>
+            <textarea id="notes" placeholder="例如：IG booking / package / special note"></textarea>
+
+            <button id="saveBtn" class="btn-primary" type="submit">儲存紀錄</button>
+
+            <div id="cancelEditWrap" class="button-row hidden">
+              <button id="cancelEditBtn" type="button" class="btn-secondary">取消更改</button>
+              <button id="clearFormBtn" type="button" class="btn-secondary">清空表格</button>
+            </div>
+
+            <div id="normalButtonsWrap">
+              <button id="clearFormBtn2" type="button" class="btn-secondary" style="width:100%; margin-top:10px;">清空表格</button>
+            </div>
+
+            <div id="formMessage" class="success hidden"></div>
+            <div id="formError" class="error hidden"></div>
+          </form>
+
+          <p id="privacyNote" class="footer-note">
+            建議只記收入資料，不記客戶姓名或敏感內容，保障私隱。
+          </p>
+        </div>
+
+        <div class="card">
+          <h2 id="recordsTitle" class="section-title">收入紀錄</h2>
+
+          <div class="filter-bar">
             <div>
-              <label for="currency" id="currencyLabel">貨幣</label>
-              <select id="currency" required>
+              <label for="monthFilter" id="monthFilterLabel">月份篩選</label>
+              <input id="monthFilter" type="month" />
+            </div>
+
+            <div>
+              <label for="currencyFilter" id="currencyFilterLabel">貨幣篩選</label>
+              <select id="currencyFilter">
+                <option value="ALL">All</option>
                 <option value="GBP">GBP</option>
                 <option value="HKD">HKD</option>
               </select>
             </div>
+          </div>
 
+          <div class="export-row">
+            <button id="exportExcelBtn" type="button" class="btn-edit btn-small">匯出 Excel</button>
+            <button id="exportCsvBtn" type="button" class="btn-secondary btn-small">匯出 CSV</button>
+          </div>
+
+          <div id="recordsList" class="records">
+            <div class="empty">Loading records...</div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <div id="tarotPage" class="hidden">
+      <section class="tarot-layout">
+        <div class="card">
+          <h2 id="tarotTitle" class="section-title">塔羅抽牌</h2>
+
+          <div id="tarotCardDisplay" class="tarot-card-display">
             <div>
-              <label for="paymentMethod" id="paymentMethodLabel">收款方式</label>
-              <select id="paymentMethod" required></select>
+              <div class="tarot-card-name">尚未抽牌</div>
+              <div class="tarot-card-en">Press the button to draw a card</div>
             </div>
           </div>
 
-          <label for="amount" id="amountLabel">金額</label>
-          <input id="amount" type="number" step="0.01" min="0" placeholder="例如：35" required />
+          <button id="drawTarotBtn" type="button" class="btn-primary">抽一張牌</button>
 
-          <label for="notes" id="notesLabel">備註 Optional</label>
-          <textarea id="notes" placeholder="例如：IG booking / package / special note"></textarea>
-
-          <button id="saveBtn" class="btn-primary" type="submit">儲存紀錄</button>
-
-          <div id="cancelEditWrap" class="button-row hidden">
-            <button id="cancelEditBtn" type="button" class="btn-secondary">取消更改</button>
-            <button id="clearFormBtn" type="button" class="btn-secondary">清空表格</button>
+          <div class="button-row">
+            <button id="shuffleTarotBtn" type="button" class="btn-secondary">洗牌</button>
+            <button id="clearCurrentTarotBtn" type="button" class="btn-secondary">隱藏目前牌面</button>
           </div>
 
-          <div id="normalButtonsWrap">
-            <button id="clearFormBtn2" type="button" class="btn-secondary" style="width:100%; margin-top:10px;">清空表格</button>
-          </div>
-
-          <div id="formMessage" class="success hidden"></div>
-          <div id="formError" class="error hidden"></div>
-        </form>
-
-        <p id="privacyNote" class="footer-note">
-          建議只記收入資料，不記客戶姓名或敏感內容，保障私隱。
-        </p>
-      </div>
-
-      <div class="card">
-        <h2 id="recordsTitle" class="section-title">收入紀錄</h2>
-
-        <div class="filter-bar">
-          <div>
-            <label for="monthFilter" id="monthFilterLabel">月份篩選</label>
-            <input id="monthFilter" type="month" />
-          </div>
-
-          <div>
-            <label for="currencyFilter" id="currencyFilterLabel">貨幣篩選</label>
-            <select id="currencyFilter">
-              <option value="ALL">All</option>
-              <option value="GBP">GBP</option>
-              <option value="HKD">HKD</option>
-            </select>
+          <div id="tarotCount" class="tarot-count">
+            已抽：0 張｜剩餘：78 張
           </div>
         </div>
 
-        <div class="export-row">
-          <button id="exportExcelBtn" type="button" class="btn-edit btn-small">匯出 Excel</button>
-          <button id="exportCsvBtn" type="button" class="btn-secondary btn-small">匯出 CSV</button>
+        <div class="card">
+          <h2 id="tarotHistoryTitle" class="section-title">已抽牌紀錄</h2>
+          <div id="tarotHistory" class="tarot-history">
+            <div class="empty">未有抽牌紀錄。</div>
+          </div>
         </div>
+      </section>
+    </div>
 
-        <div id="recordsList" class="records">
-          <div class="empty">Loading records...</div>
-        </div>
-      </div>
-
-    </section>
   </main>
 
-  <!-- Real .xlsx export library -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
   <script type="module">
@@ -811,6 +909,75 @@
       HKD: ["FPS", "Payme", "Alipay"]
     };
 
+    const MAJORS = [
+      ["愚者", "The Fool", "RWS_Tarot_00_Fool.jpg"],
+      ["魔術師", "The Magician", "RWS_Tarot_01_Magician.jpg"],
+      ["女祭司", "The High Priestess", "RWS_Tarot_02_High_Priestess.jpg"],
+      ["皇后", "The Empress", "RWS_Tarot_03_Empress.jpg"],
+      ["皇帝", "The Emperor", "RWS_Tarot_04_Emperor.jpg"],
+      ["教皇", "The Hierophant", "RWS_Tarot_05_Hierophant.jpg"],
+      ["戀人", "The Lovers", "RWS_Tarot_06_Lovers.jpg"],
+      ["戰車", "The Chariot", "RWS_Tarot_07_Chariot.jpg"],
+      ["力量", "Strength", "RWS_Tarot_08_Strength.jpg"],
+      ["隱者", "The Hermit", "RWS_Tarot_09_Hermit.jpg"],
+      ["命運之輪", "Wheel of Fortune", "RWS_Tarot_10_Wheel_of_Fortune.jpg"],
+      ["正義", "Justice", "RWS_Tarot_11_Justice.jpg"],
+      ["吊人", "The Hanged Man", "RWS_Tarot_12_Hanged_Man.jpg"],
+      ["死神", "Death", "RWS_Tarot_13_Death.jpg"],
+      ["節制", "Temperance", "RWS_Tarot_14_Temperance.jpg"],
+      ["惡魔", "The Devil", "RWS_Tarot_15_Devil.jpg"],
+      ["高塔", "The Tower", "RWS_Tarot_16_Tower.jpg"],
+      ["星星", "The Star", "RWS_Tarot_17_Star.jpg"],
+      ["月亮", "The Moon", "RWS_Tarot_18_Moon.jpg"],
+      ["太陽", "The Sun", "RWS_Tarot_19_Sun.jpg"],
+      ["審判", "Judgement", "RWS_Tarot_20_Judgement.jpg"],
+      ["世界", "The World", "RWS_Tarot_21_World.jpg"]
+    ];
+
+    function filePath(filename) {
+      return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(filename)}?width=500`;
+    }
+
+    function minorSuitCards(suitZh, suitEn, filePrefix) {
+      const ranks = [
+        ["一", "Ace", "01"],
+        ["二", "Two", "02"],
+        ["三", "Three", "03"],
+        ["四", "Four", "04"],
+        ["五", "Five", "05"],
+        ["六", "Six", "06"],
+        ["七", "Seven", "07"],
+        ["八", "Eight", "08"],
+        ["九", "Nine", "09"],
+        ["十", "Ten", "10"],
+        ["侍者", "Page", "11"],
+        ["騎士", "Knight", "12"],
+        ["皇后", "Queen", "13"],
+        ["國王", "King", "14"]
+      ];
+
+      return ranks.map(([zhRank, enRank, num]) => ({
+        zh: `${suitZh}${zhRank}`,
+        en: `${enRank} of ${suitEn}`,
+        img: filePath(`${filePrefix}${num}.jpg`)
+      }));
+    }
+
+    const TAROT_DECK = [
+      ...MAJORS.map(([zh, en, file]) => ({
+        zh,
+        en,
+        img: filePath(file)
+      })),
+      ...minorSuitCards("權杖", "Wands", "Wands"),
+      ...minorSuitCards("聖杯", "Cups", "Cups"),
+      ...minorSuitCards("寶劍", "Swords", "Swords"),
+      ...minorSuitCards("錢幣", "Pentacles", "Pents")
+    ].map((card, index) => ({
+      id: index,
+      ...card
+    }));
+
     const translations = {
       zh: {
         loginTitle: "Estarot Admin",
@@ -820,6 +987,8 @@
         login: "登入",
         logout: "登出",
         mainTitle: "收入記錄",
+        incomeTab: "收入記錄",
+        tarotTab: "塔羅抽牌",
         loggedInAs: "登入帳戶：",
         formAddTitle: "新增收入",
         formEditTitle: "更改收入紀錄",
@@ -862,11 +1031,23 @@
         deleteError: "刪除失敗：",
         saveError: "儲存失敗：",
         updateError: "更新失敗：",
-        loading: "載入中...",
         privacyNote: "建議只記收入資料，不記客戶姓名或敏感內容，保障私隱。",
         recordCount: "筆紀錄",
         quantityCount: "次服務",
-        otherPlaceholder: "請說明其他服務"
+        otherPlaceholder: "請說明其他服務",
+        tarotTitle: "塔羅抽牌",
+        tarotHistoryTitle: "已抽牌紀錄",
+        drawCard: "抽一張牌",
+        shuffle: "洗牌",
+        hideCurrent: "隱藏目前牌面",
+        noCard: "尚未抽牌",
+        pressDraw: "按下按鈕抽一張牌",
+        tarotEmpty: "未有抽牌紀錄。",
+        drawn: "已抽",
+        remaining: "剩餘",
+        cards: "張",
+        allDrawn: "整副牌已經抽完，請先洗牌。",
+        shuffleConfirm: "確定要洗牌？洗牌後已抽牌紀錄會重新開始。"
       },
       en: {
         loginTitle: "Estarot Admin",
@@ -876,6 +1057,8 @@
         login: "Login",
         logout: "Logout",
         mainTitle: "Income Tracker",
+        incomeTab: "Income Records",
+        tarotTab: "Tarot Draw",
         loggedInAs: "Logged in as: ",
         formAddTitle: "Add Income Record",
         formEditTitle: "Edit Income Record",
@@ -918,11 +1101,23 @@
         deleteError: "Failed to delete record: ",
         saveError: "Failed to save record: ",
         updateError: "Failed to update record: ",
-        loading: "Loading...",
         privacyNote: "Recommended: record income only. Avoid storing client names or sensitive details.",
         recordCount: "record(s)",
         quantityCount: "service quantity",
-        otherPlaceholder: "Please specify other service"
+        otherPlaceholder: "Please specify other service",
+        tarotTitle: "Tarot Draw",
+        tarotHistoryTitle: "Drawn Card History",
+        drawCard: "Draw a Card",
+        shuffle: "Shuffle",
+        hideCurrent: "Hide Current Card",
+        noCard: "No card drawn yet",
+        pressDraw: "Press the button to draw a card",
+        tarotEmpty: "No tarot history yet.",
+        drawn: "Drawn",
+        remaining: "Remaining",
+        cards: "cards",
+        allDrawn: "All cards have been drawn. Please shuffle first.",
+        shuffleConfirm: "Shuffle the deck? This will reset all drawn cards."
       }
     };
 
@@ -930,6 +1125,8 @@
     let allRecords = [];
     let unsubscribeRecords = null;
     let editingRecordId = null;
+    let drawnTarotCards = JSON.parse(localStorage.getItem("estarotDrawnTarotCards") || "[]");
+    let currentTarotCard = JSON.parse(localStorage.getItem("estarotCurrentTarotCard") || "null");
 
     const loginScreen = document.getElementById("loginScreen");
     const appScreen = document.getElementById("appScreen");
@@ -942,6 +1139,11 @@
     const loginLangEn = document.getElementById("loginLangEn");
     const appLangZh = document.getElementById("appLangZh");
     const appLangEn = document.getElementById("appLangEn");
+
+    const incomeTabBtn = document.getElementById("incomeTabBtn");
+    const tarotTabBtn = document.getElementById("tarotTabBtn");
+    const incomePage = document.getElementById("incomePage");
+    const tarotPage = document.getElementById("tarotPage");
 
     const incomeForm = document.getElementById("incomeForm");
     const servicesContainer = document.getElementById("servicesContainer");
@@ -980,6 +1182,13 @@
     const cancelEditBtn = document.getElementById("cancelEditBtn");
     const clearFormBtn = document.getElementById("clearFormBtn");
     const clearFormBtn2 = document.getElementById("clearFormBtn2");
+
+    const drawTarotBtn = document.getElementById("drawTarotBtn");
+    const shuffleTarotBtn = document.getElementById("shuffleTarotBtn");
+    const clearCurrentTarotBtn = document.getElementById("clearCurrentTarotBtn");
+    const tarotCardDisplay = document.getElementById("tarotCardDisplay");
+    const tarotHistory = document.getElementById("tarotHistory");
+    const tarotCount = document.getElementById("tarotCount");
 
     function t(key) {
       return translations[currentLang][key] || key;
@@ -1047,26 +1256,6 @@
       return serviceObj.name || serviceObj.zh || serviceObj.en || "-";
     }
 
-    function getServiceLabelForExport(serviceObj, lang = currentLang) {
-      if (!serviceObj) return "-";
-
-      if (serviceObj.key === "other" && serviceObj.customName) {
-        return lang === "zh"
-          ? `其他 - ${serviceObj.customName}`
-          : `Other - ${serviceObj.customName}`;
-      }
-
-      const found = getServiceByKey(serviceObj.key);
-
-      if (found) {
-        const category = lang === "zh" ? found.categoryZh : found.categoryEn;
-        const item = lang === "zh" ? found.zh : found.en;
-        return `${category} - ${item}`;
-      }
-
-      return serviceObj.name || serviceObj.zh || serviceObj.en || "-";
-    }
-
     function formatMoney(amount, currency) {
       const number = Number(amount || 0);
 
@@ -1111,6 +1300,7 @@
       applyLanguage();
       refreshServiceDropdownLabels();
       renderRecords();
+      renderTarotCard();
     }
 
     function applyLanguage() {
@@ -1122,7 +1312,12 @@
       document.querySelector('label[for="password"]').textContent = t("password");
       document.getElementById("loginBtn").textContent = t("login");
 
-      document.getElementById("mainTitle").textContent = t("mainTitle");
+      document.getElementById("mainTitle").textContent =
+        tarotPage.classList.contains("hidden") ? t("mainTitle") : t("tarotTitle");
+
+      incomeTabBtn.textContent = t("incomeTab");
+      tarotTabBtn.textContent = t("tarotTab");
+
       logoutBtn.textContent = t("logout");
 
       document.getElementById("statGbpTitle").textContent = t("thisMonthGbp");
@@ -1160,6 +1355,12 @@
       formTitle.textContent = editingRecordId ? t("formEditTitle") : t("formAddTitle");
       editBanner.textContent = t("editBanner");
       saveBtn.textContent = editingRecordId ? t("saveChanges") : t("save");
+
+      document.getElementById("tarotTitle").textContent = t("tarotTitle");
+      document.getElementById("tarotHistoryTitle").textContent = t("tarotHistoryTitle");
+      drawTarotBtn.textContent = t("drawCard");
+      shuffleTarotBtn.textContent = t("shuffle");
+      clearCurrentTarotBtn.textContent = t("hideCurrent");
 
       loginLangZh.classList.toggle("active", currentLang === "zh");
       loginLangEn.classList.toggle("active", currentLang === "en");
@@ -1206,9 +1407,7 @@
           option.dataset.en = item.en;
           option.textContent = item[currentLang];
 
-          if (item.key === serviceKey) {
-            option.selected = true;
-          }
+          if (item.key === serviceKey) option.selected = true;
 
           optgroup.appendChild(option);
         });
@@ -1229,9 +1428,7 @@
       removeBtn.className = "btn-danger";
       removeBtn.textContent = "×";
       removeBtn.addEventListener("click", () => {
-        if (servicesContainer.children.length > 1) {
-          row.remove();
-        }
+        if (servicesContainer.children.length > 1) row.remove();
       });
 
       const customInput = document.createElement("input");
@@ -1432,9 +1629,7 @@
       monthGbp.textContent = formatMoney(gbpTotal, "GBP");
       monthHkd.textContent = formatMoney(hkdTotal, "HKD");
 
-      const yearRecords = allRecords.filter(record => {
-        return isDateInFinancialYear(record.date);
-      });
+      const yearRecords = allRecords.filter(record => isDateInFinancialYear(record.date));
 
       const yearGbpTotal = yearRecords
         .filter(record => record.currency === "GBP")
@@ -1550,10 +1745,7 @@
 
           try {
             await deleteDoc(doc(db, "incomeRecords", id));
-
-            if (editingRecordId === id) {
-              resetForm();
-            }
+            if (editingRecordId === id) resetForm();
           } catch (error) {
             alert(t("deleteError") + error.message);
           }
@@ -1565,7 +1757,6 @@
 
     function getExportRows() {
       const records = filterRecords();
-
       const rows = [];
 
       records.forEach(record => {
@@ -1594,21 +1785,10 @@
         services.forEach(service => {
           const found = getServiceByKey(service.key);
 
-          const categoryZh = service.key === "other"
-            ? "其他"
-            : found?.categoryZh || service.categoryZh || "";
-
-          const categoryEn = service.key === "other"
-            ? "Other"
-            : found?.categoryEn || service.categoryEn || "";
-
-          const itemZh = service.key === "other"
-            ? (service.customName || "其他")
-            : found?.zh || service.zh || "";
-
-          const itemEn = service.key === "other"
-            ? (service.customName || "Other")
-            : found?.en || service.en || "";
+          const categoryZh = service.key === "other" ? "其他" : found?.categoryZh || service.categoryZh || "";
+          const categoryEn = service.key === "other" ? "Other" : found?.categoryEn || service.categoryEn || "";
+          const itemZh = service.key === "other" ? (service.customName || "其他") : found?.zh || service.zh || "";
+          const itemEn = service.key === "other" ? (service.customName || "Other") : found?.en || service.en || "";
 
           rows.push({
             date: record.date || "",
@@ -1659,35 +1839,19 @@
       }
 
       const headers = [
-        "Date",
-        "Currency",
-        "Amount",
-        "Payment Method",
-        "Service Category ZH",
-        "Service Item ZH",
-        "Service Full ZH",
-        "Service Category EN",
-        "Service Item EN",
-        "Service Full EN",
-        "Quantity",
-        "Notes"
+        "Date", "Currency", "Amount", "Payment Method",
+        "Service Category ZH", "Service Item ZH", "Service Full ZH",
+        "Service Category EN", "Service Item EN", "Service Full EN",
+        "Quantity", "Notes"
       ];
 
       const csvRows = [
         headers,
         ...rows.map(row => [
-          row.date,
-          row.currency,
-          row.amount,
-          row.paymentMethod,
-          row.serviceCategoryZh,
-          row.serviceItemZh,
-          row.serviceFullZh,
-          row.serviceCategoryEn,
-          row.serviceItemEn,
-          row.serviceFullEn,
-          row.quantity,
-          row.notes
+          row.date, row.currency, row.amount, row.paymentMethod,
+          row.serviceCategoryZh, row.serviceItemZh, row.serviceFullZh,
+          row.serviceCategoryEn, row.serviceItemEn, row.serviceFullEn,
+          row.quantity, row.notes
         ])
       ];
 
@@ -1732,30 +1896,147 @@
       const worksheet = XLSX.utils.json_to_sheet(worksheetData);
 
       worksheet["!cols"] = [
-        { wch: 12 },
-        { wch: 10 },
-        { wch: 10 },
-        { wch: 18 },
-        { wch: 20 },
-        { wch: 22 },
-        { wch: 34 },
-        { wch: 26 },
-        { wch: 26 },
-        { wch: 42 },
-        { wch: 10 },
-        { wch: 34 }
+        { wch: 12 }, { wch: 10 }, { wch: 10 }, { wch: 18 },
+        { wch: 20 }, { wch: 22 }, { wch: 34 },
+        { wch: 26 }, { wch: 26 }, { wch: 42 },
+        { wch: 10 }, { wch: 34 }
       ];
 
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, worksheet, "Income Records");
-
       XLSX.writeFile(workbook, getExportFilename("xlsx"));
+    }
+
+    function saveTarotState() {
+      localStorage.setItem("estarotDrawnTarotCards", JSON.stringify(drawnTarotCards));
+      localStorage.setItem("estarotCurrentTarotCard", JSON.stringify(currentTarotCard));
+    }
+
+    function getRemainingTarotCards() {
+      const drawnIds = drawnTarotCards.map(card => card.id);
+      return TAROT_DECK.filter(card => !drawnIds.includes(card.id));
+    }
+
+    function renderTarotCard() {
+      if (!currentTarotCard) {
+        tarotCardDisplay.innerHTML = `
+          <div>
+            <div class="tarot-card-name">${escapeHtml(t("noCard"))}</div>
+            <div class="tarot-card-en">${escapeHtml(t("pressDraw"))}</div>
+          </div>
+        `;
+      } else {
+        tarotCardDisplay.innerHTML = `
+          <div>
+            <img class="tarot-image" src="${escapeHtml(currentTarotCard.img)}" alt="${escapeHtml(currentTarotCard.en)}">
+            <div class="tarot-card-name">${escapeHtml(currentLang === "zh" ? currentTarotCard.zh : currentTarotCard.en)}</div>
+            <div class="tarot-card-en">${escapeHtml(currentLang === "zh" ? currentTarotCard.en : currentTarotCard.zh)}</div>
+          </div>
+        `;
+      }
+
+      const remaining = getRemainingTarotCards().length;
+
+      tarotCount.textContent = currentLang === "zh"
+        ? `${t("drawn")}：${drawnTarotCards.length} ${t("cards")}｜${t("remaining")}：${remaining} ${t("cards")}`
+        : `${t("drawn")}: ${drawnTarotCards.length} ${t("cards")} | ${t("remaining")}: ${remaining} ${t("cards")}`;
+
+      renderTarotHistory();
+    }
+
+    function renderTarotHistory() {
+      if (!drawnTarotCards.length) {
+        tarotHistory.innerHTML = `<div class="empty">${escapeHtml(t("tarotEmpty"))}</div>`;
+        return;
+      }
+
+      tarotHistory.innerHTML = "";
+
+      [...drawnTarotCards].reverse().forEach((card, index) => {
+        const item = document.createElement("div");
+        item.className = "tarot-history-item";
+
+        const drawNumber = drawnTarotCards.length - index;
+
+        item.innerHTML = `
+          <img class="tarot-history-thumb" src="${escapeHtml(card.img)}" alt="${escapeHtml(card.en)}">
+          <div>
+            <strong>#${drawNumber} ${escapeHtml(currentLang === "zh" ? card.zh : card.en)}</strong>
+            <div class="record-meta">${escapeHtml(currentLang === "zh" ? card.en : card.zh)}</div>
+          </div>
+        `;
+
+        tarotHistory.appendChild(item);
+      });
+    }
+
+    function drawTarotCard() {
+      const remainingCards = getRemainingTarotCards();
+
+      if (!remainingCards.length) {
+        alert(t("allDrawn"));
+        return;
+      }
+
+      const randomIndex = Math.floor(Math.random() * remainingCards.length);
+      const selectedCard = remainingCards[randomIndex];
+
+      currentTarotCard = selectedCard;
+      drawnTarotCards.push(selectedCard);
+
+      saveTarotState();
+      renderTarotCard();
+    }
+
+    function shuffleTarotDeck() {
+      const confirmed = confirm(t("shuffleConfirm"));
+      if (!confirmed) return;
+
+      drawnTarotCards = [];
+      currentTarotCard = null;
+
+      saveTarotState();
+      renderTarotCard();
+    }
+
+    function hideCurrentTarotCard() {
+      currentTarotCard = null;
+      saveTarotState();
+      renderTarotCard();
+    }
+
+    function showIncomePage() {
+      incomePage.classList.remove("hidden");
+      tarotPage.classList.add("hidden");
+
+      incomeTabBtn.classList.add("active");
+      tarotTabBtn.classList.remove("active");
+
+      document.getElementById("mainTitle").textContent = t("mainTitle");
+    }
+
+    function showTarotPage() {
+      incomePage.classList.add("hidden");
+      tarotPage.classList.remove("hidden");
+
+      incomeTabBtn.classList.remove("active");
+      tarotTabBtn.classList.add("active");
+
+      document.getElementById("mainTitle").textContent = t("tarotTitle");
+      renderTarotCard();
     }
 
     loginLangZh.addEventListener("click", () => setLanguage("zh"));
     loginLangEn.addEventListener("click", () => setLanguage("en"));
     appLangZh.addEventListener("click", () => setLanguage("zh"));
     appLangEn.addEventListener("click", () => setLanguage("en"));
+
+    incomeTabBtn.addEventListener("click", showIncomePage);
+    tarotTabBtn.addEventListener("click", showTarotPage);
+
+    drawTarotBtn.addEventListener("click", drawTarotCard);
+    shuffleTarotBtn.addEventListener("click", shuffleTarotDeck);
+    clearCurrentTarotBtn.addEventListener("click", hideCurrentTarotCard);
 
     loginForm.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -1834,11 +2115,7 @@
 
         resetForm();
       } catch (error) {
-        if (editingRecordId) {
-          showMessage(formError, t("updateError") + error.message);
-        } else {
-          showMessage(formError, t("saveError") + error.message);
-        }
+        showMessage(formError, (editingRecordId ? t("updateError") : t("saveError")) + error.message);
       }
     });
 
@@ -1856,6 +2133,8 @@
         }
 
         resetForm();
+        showIncomePage();
+        renderTarotCard();
 
         if (unsubscribeRecords) unsubscribeRecords();
 
@@ -1891,6 +2170,7 @@
 
     applyLanguage();
     updatePaymentMethods();
+    renderTarotCard();
   </script>
 
 </body>

@@ -1193,12 +1193,12 @@ data-en="Card interpretation: £5 / HKD50 per card">
           const userQuestion = tarotQuestion.value.trim();
           const whatsappMessage =
           currentLang === "zh"
-          ? `隨機抽塔羅牌解讀
-          問題：${userQuestion || "未有輸入"}
-          抽到的牌：${selectedCard.zh} / ${selectedCard.en}`
-          : `Random tarot card reading
-          Question: ${userQuestion || "No question entered"}
-          Card drawn: ${selectedCard.en} / ${selectedCard.zh}`;
+          ? `*隨機抽塔羅牌解讀*
+問題：${userQuestion || "未有輸入"}
+抽到的牌：${selectedCard.zh} / ${selectedCard.en}`
+          : `*Random tarot card reading*
+Question: ${userQuestion || "No question entered"}
+Card drawn: ${selectedCard.en} / ${selectedCard.zh}`;
 
           whatsappLink.href =
           "https://api.whatsapp.com/send?phone=447585548525&text=" +

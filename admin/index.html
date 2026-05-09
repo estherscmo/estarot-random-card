@@ -507,6 +507,7 @@
   gap: 14px;
   max-height: 720px;
   overflow: auto;
+  direction: ltr;
 }
 
 .tarot-history-item {
@@ -1978,30 +1979,28 @@
     }
 
     function renderTarotHistory() {
-      if (!drawnTarotCards.length) {
-        tarotHistory.innerHTML = `<div class="empty">${escapeHtml(t("tarotEmpty"))}</div>`;
-        return;
-      }
+  if (!drawnTarotCards.length) {
+    tarotHistory.innerHTML = `<div class="empty">${escapeHtml(t("tarotEmpty"))}</div>`;
+    return;
+  }
 
-      tarotHistory.innerHTML = "";
+  tarotHistory.innerHTML = "";
 
-      [...drawnTarotCards].reverse().forEach((card, index) => {
-        const item = document.createElement("div");
-        item.className = "tarot-history-item";
+  drawnTarotCards.forEach((card, index) => {
+    const item = document.createElement("div");
+    item.className = "tarot-history-item";
 
-        const drawNumber = drawnTarotCards.length - index;
+    const drawNumber = index + 1;
 
-        item.innerHTML = `
-          <img class="tarot-history-thumb" src="${escapeHtml(card.img)}" alt="${escapeHtml(card.en)}">
-          <div>
-            <strong>#${drawNumber} ${escapeHtml(currentLang === "zh" ? card.zh : card.en)}</strong>
-            <div class="record-meta">${escapeHtml(currentLang === "zh" ? card.en : card.zh)}</div>
-          </div>
-        `;
+    item.innerHTML = `
+      <img class="tarot-history-thumb" src="${escapeHtml(card.img)}" alt="${escapeHtml(card.en)}">
+      <strong>#${drawNumber} ${escapeHtml(currentLang === "zh" ? card.zh : card.en)}</strong>
+      <div class="record-meta">${escapeHtml(currentLang === "zh" ? card.en : card.zh)}</div>
+    `;
 
-        tarotHistory.appendChild(item);
-      });
-    }
+    tarotHistory.appendChild(item);
+  });
+}
 
     function drawTarotCard() {
       const remainingCards = getRemainingTarotCards();

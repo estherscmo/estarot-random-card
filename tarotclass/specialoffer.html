@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>塔羅占卜速成班｜ESTAROT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Noto Sans TC',sans-serif;
+    background:#fff8fc;
+    color:#5d4b5e;
+    line-height:1.8;
+}
+
+.hero{
+    background:
+    linear-gradient(rgba(255,248,252,0.72),rgba(255,248,252,0.96)),
+    url('https://images.unsplash.com/photo-1518562180175-34a163b1a9a6?q=80&w=1600&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+    padding:90px 20px 70px;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:42px;
+    color:#8b5ca4;
+    margin-bottom:10px;
+}
+
+.hero .subtitle{
+    font-size:20px;
+    margin-bottom:25px;
+    color:#7d677e;
+}
+
+.hero p{
+    max-width:700px;
+    margin:0 auto 25px;
+    font-size:18px;
+}
+
+.highlight{
+    color:#ff4fa3;
+    font-weight:700;
+}
+
+.countdown-box{
+    background:white;
+    display:inline-block;
+    padding:20px 30px;
+    border-radius:22px;
+    margin-top:20px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.06);
+}
+
+.countdown-title{
+    font-size:14px;
+    margin-bottom:10px;
+    color:#9b7d99;
+}
+
+#countdown{
+    font-size:42px;
+    font-weight:700;
+    color:#ff4fa3;
+    letter-spacing:2px;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:30px;
+    padding:18px 32px;
+    border-radius:999px;
+    background:#d87ed3;
+    color:white;
+    text-decoration:none;
+    font-weight:700;
+    transition:0.3s;
+    box-shadow:0 10px 25px rgba(216,126,211,0.3);
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    background:#ca68c3;
+}
+
+.section{
+    max-width:950px;
+    margin:auto;
+    padding:80px 20px;
+}
+
+.section-title{
+    text-align:center;
+    font-size:34px;
+    color:#8b5ca4;
+    margin-bottom:45px;
+}
+
+.card{
+    background:white;
+    border-radius:28px;
+    padding:35px;
+    margin-bottom:28px;
+    box-shadow:0 10px 35px rgba(0,0,0,0.05);
+}
+
+.card p{
+    margin-bottom:16px;
+}
+
+.bullets{
+    display:grid;
+    gap:16px;
+    margin-top:20px;
+}
+
+.bullet{
+    background:#fff4fc;
+    padding:18px 20px;
+    border-radius:18px;
+}
+
+.price-box{
+    text-align:center;
+    background:linear-gradient(180deg,#fff0fb,#ffffff);
+    border:2px dashed #e4b7e1;
+}
+
+.old-price{
+    text-decoration:line-through;
+    opacity:0.5;
+    font-size:20px;
+}
+
+.new-price{
+    font-size:58px;
+    color:#ff4fa3;
+    font-weight:700;
+    margin:10px 0;
+}
+
+.small{
+    font-size:14px;
+    opacity:0.7;
+}
+
+.faq{
+    margin-top:20px;
+}
+
+.faq-item{
+    background:white;
+    padding:22px;
+    border-radius:20px;
+    margin-bottom:16px;
+    box-shadow:0 6px 25px rgba(0,0,0,0.04);
+}
+
+.faq-item h4{
+    color:#8b5ca4;
+    margin-bottom:10px;
+}
+
+.footer{
+    text-align:center;
+    padding:50px 20px;
+    color:#9b8d9a;
+}
+
+.float-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#25D366;
+    color:white;
+    padding:16px 22px;
+    border-radius:999px;
+    text-decoration:none;
+    font-weight:700;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    z-index:999;
+}
+
+@media(max-width:768px){
+
+.hero h1{
+    font-size:34px;
+}
+
+.new-price{
+    font-size:46px;
+}
+
+.section-title{
+    font-size:28px;
+}
+
+#countdown{
+    font-size:34px;
+}
+
+}
+
+</style>
+
+<script>
+
+window.dataLayer = window.dataLayer || [];
+
+function gtag(){dataLayer.push(arguments);}
+
+function loadGoogleAnalytics() {
+
+  if (window.estarotGoogleAnalyticsLoaded) return;
+
+  window.estarotGoogleAnalyticsLoaded = true;
+
+  const script = document.createElement("script");
+
+  script.async = true;
+
+  script.src = "https://www.googletagmanager.com/gtag/js?id=G-GH0JYP6E4H";
+
+  document.head.appendChild(script);
+
+  gtag("js", new Date());
+
+  gtag("config", "G-GH0JYP6E4H");
+
+}
+
+loadGoogleAnalytics();
+
+function trackWhatsApp() {
+
+  gtag('event', 'whatsapp_click', {
+
+    event_category: 'CTA',
+
+    event_label: 'Tarot Course'
+
+  });
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<section class="hero">
+
+    <h1>塔羅占卜速成班</h1>
+
+    <div class="subtitle">
+        3小時線上課程｜新手也能開始自己解牌
+    </div>
+
+    <p>
+        你其實一直都有直覺<br>
+        只是從來沒有人教你怎樣使用它
+    </p>
+
+    <p>
+        很多人以為學塔羅很難<br>
+        但其實只要方法正確<br>
+        <span class="highlight">你3小時已經可以開始解牌</span>
+    </p>
+
+    <div class="countdown-box">
+
+        <div class="countdown-title">
+            ⚠️ 限時優惠將於今晚結束
+        </div>
+
+        <div id="countdown">
+            00:00:00
+        </div>
+
+    </div>
+
+    <br>
+
+    <a class="btn"
+    onclick="trackWhatsApp()"
+    href="https://wa.me/447585548525?text=我想報名塔羅速成班%20£99%20/%20HKD990">
+    立即 WhatsApp 報名
+    </a>
+
+</section>
+
+<section class="section">
+
+    <h2 class="section-title">
+        這堂課適合你嗎？
+    </h2>
+
+    <div class="bullets">
+
+        <div class="bullet">
+            ✨ 對塔羅有興趣但一直不敢開始
+        </div>
+
+        <div class="bullet">
+            ✨ 想學識自己睇感情 / 工作問題
+        </div>
+
+        <div class="bullet">
+            ✨ 成日幫朋友分析感情
+        </div>
+
+        <div class="bullet">
+            ✨ 想提升直覺力與靈感
+        </div>
+
+        <div class="bullet">
+            ✨ 想發展靈性副業
+        </div>
+
+    </div>
+
+</section>
+
+<section class="section">
+
+    <div class="card">
+
+        <h2 class="section-title">
+            你會學到
+        </h2>
+
+        <p>✦ 塔羅牌真正運作原理</p>
+        <p>✦ 78張牌背後核心邏輯</p>
+        <p>✦ 怎樣真正用直覺解牌</p>
+        <p>✦ 愛情 / 工作常用分析方式</p>
+        <p>✦ 初學者最常犯錯誤</p>
+        <p>✦ 如何真正看懂一副牌</p>
+
+    </div>
+
+    <div class="card">
+
+        <h2 class="section-title">
+            這不是死背牌義課
+        </h2>
+
+        <p>
+            我不會要你瘋狂背78張牌
+        </p>
+
+        <p>
+            我會教你：
+        </p>
+
+        <p class="highlight">
+            怎樣真正理解牌與牌之間的訊息
+        </p>
+
+        <p>
+            即使你是完全新手<br>
+            也能開始自己解牌
+        </p>
+
+    </div>
+
+</section>
+
+<section class="section">
+
+    <div class="card price-box">
+
+        <h2 class="section-title">
+            限時優惠價
+        </h2>
+
+        <div class="old-price">
+            原價 £168 / HKD1680
+        </div>
+
+        <div class="new-price">
+            £99
+        </div>
+
+        <p>
+            HKD 990
+        </p>
+
+        <br>
+
+        <p>
+            3小時線上速成班
+        </p>
+
+        <p class="small">
+            ⚠️ 需準備：
+            <br>
+            一本筆記簿
+            <br>
+            一支筆
+            <br>
+            一副偉特牌系塔羅牌
+        </p>
+
+        <a class="btn"
+        onclick="trackWhatsApp()"
+        href="https://wa.me/447585548525?text=我想報名塔羅速成班%20£99%20/%20HKD990">
+        我想報名
+        </a>
+
+    </div>
+
+</section>
+
+<section class="section">
+
+    <h2 class="section-title">
+        常見問題
+    </h2>
+
+    <div class="faq">
+
+        <div class="faq-item">
+            <h4>我完全零基礎都可以學？</h4>
+            <p>可以 這堂課本身就是為新手設計</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>一定要有靈感/天份嗎？</h4>
+            <p>不需要 直覺其實每個人都有</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>上完可以自己解牌？</h4>
+            <p>可以 你會開始理解基本解牌邏輯</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>線上上課會不會跟不上？</h4>
+            <p>不會 課程本身就是為新手而設</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="section">
+
+    <div class="card">
+
+        <h2 class="section-title">
+            很多人不是沒有天份
+        </h2>
+
+        <p>
+            只是從來沒有人用真正容易理解的方法教你
+        </p>
+
+        <p>
+            你未必要成為塔羅師
+        </p>
+
+        <p>
+            但你會開始更了解自己
+        </p>
+
+        <p class="highlight">
+            也會發現 原來很多答案一直都在你心裡
+        </p>
+
+        <center>
+
+        <a class="btn"
+        onclick="trackWhatsApp()"
+        href="https://wa.me/447585548525?text=我想報名塔羅速成班%20£99%20/%20HKD990">
+        立即 WhatsApp 報名
+        </a>
+
+        </center>
+
+    </div>
+
+</section>
+
+<div class="footer">
+    @estarot.uk ✨ Tarot Reading & Spiritual Guidance
+</div>
+
+<a class="float-btn"
+onclick="trackWhatsApp()"
+href="https://wa.me/447585548525?text=我想報名塔羅速成班%20£99%20/%20HKD990">
+WhatsApp 報名
+</a>
+
+<script>
+
+const countdown = document.getElementById("countdown");
+
+function getEndTime() {
+
+    const now = new Date();
+
+    const end = new Date();
+
+    end.setDate(now.getDate() + 2);
+
+    end.setHours(0,0,0,0);
+
+    return end;
+
+}
+
+const endTime = getEndTime();
+
+function updateCountdown() {
+
+    const now = new Date();
+
+    const distance = endTime - now;
+
+    if(distance <= 0){
+
+        countdown.innerHTML = "優惠已結束";
+        return;
+
+    }
+
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdown.innerHTML =
+    String(hours).padStart(2,'0') + ":" +
+    String(minutes).padStart(2,'0') + ":" +
+    String(seconds).padStart(2,'0');
+
+}
+
+updateCountdown();
+
+setInterval(updateCountdown,1000);
+
+</script>
+
+</body>
+</html>

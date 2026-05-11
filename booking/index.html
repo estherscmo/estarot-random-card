@@ -1068,13 +1068,13 @@
           ? [
               "你好，我想查詢 Estarot 預約。",
               "",
-              "我的稱呼：" + name,
-              "想預約的服務：",
+              "*我的稱呼：* " + name,
+              "*想預約的服務：*",
               selectedText,
               "",
-              "預計總額：GBP " + totalGbp + " | HKD " + totalHkd,
-              "希望預約日期及時間：" + preferredTime,
-              note ? "想解決的問題 / 備註：" + note : "",
+              "*預計總額：GBP* " + totalGbp + " | *HKD* " + totalHkd,
+              "*希望預約日期及時間：* " + preferredTime,
+              note ? "*想解決的問題 / 備註：* " + note : "",
               "",
               "我明白時間需要互相配合，並等待 Estarot 確認。"
             ].filter(Boolean).join("\n")

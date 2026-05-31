@@ -793,7 +793,7 @@
         id="tarotQuestion"
         class="tarot-question-input"
         rows="3"
-        placeholder="請輸入你想問的問題..."
+        placeholder="Enter your question here..."
         data-placeholder-zh="請輸入你想問的問題..."
         data-placeholder-en="Enter your question here..."
         ></textarea>
@@ -1076,6 +1076,17 @@ data-en="Card interpretation: £5 / HKD50 per card">
         currentLang = lang;
         safeSetItem(LANG_KEY, lang);
         document.documentElement.lang = lang === "zh" ? "zh-Hant" : "en";
+
+        const tarotQuestion = document.getElementById("tarotQuestion");
+
+if (tarotQuestion) {
+  tarotQuestion.placeholder =
+    tarotQuestion.getAttribute(
+      lang === "zh"
+        ? "data-placeholder-zh"
+        : "data-placeholder-en"
+    );
+}
 
         document.querySelectorAll("[data-zh][data-en]").forEach(function (el) {
           el.innerHTML = el.getAttribute(lang === "zh" ? "data-zh" : "data-en");

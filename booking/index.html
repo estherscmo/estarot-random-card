@@ -1131,7 +1131,10 @@
 
           const price = document.createElement("span");
           price.className = "cart-row-price";
-          price.textContent = service.price;
+          price.textContent =
+          currentCurrency === "GBP"
+          ? `£${service.gbp}`
+          : `HK$${service.hkd}`;
           text.appendChild(price);
 
           const quantityControls = document.createElement("div");
@@ -1172,12 +1175,17 @@
           list.appendChild(row);
         });
 
-        const total = document.createElement("div");
-        total.className = "total-box";
-        total.innerHTML = currentLang === "zh"
-          ? "預計總額：GBP " + totalGbp + " | HKD " + totalHkd + "<br><span class='helper'>最終金額會於 WhatsApp 確認。</span>"
-          : "Estimated total: GBP " + totalGbp + " | HKD " + totalHkd + "<br><span class='helper'>Final amount will be confirmed via WhatsApp.</span>";
+        const totalAmount =
+  currentCurrency === "GBP"
+    ? `£${totalGbp}`
+    : `HK$${totalHkd}`;
 
+total.innerHTML = currentLang === "zh"
+  ? "預計總額：" + totalAmount +
+    "<br><span class='helper'>最終金額會於 WhatsApp 確認。</span>"
+  : "Estimated total: " + totalAmount +
+    "<br><span class='helper'>Final amount will be confirmed via WhatsApp.</span>";
+        
         cartContent.innerHTML = "";
         cartContent.appendChild(list);
         cartContent.appendChild(total);
@@ -1200,6 +1208,8 @@
         langButtons.forEach(function (button) {
           button.classList.toggle("active", button.getAttribute("data-set-lang") === lang);
         });
+
+        
 
         renderServices();
         renderCart();
@@ -1236,6 +1246,27 @@
         });
       });
 
+      const currencyButtons = document.querySelectorAll(".currency-btn");
+
+currencyButtons.forEach(function(button){
+
+  button.addEventListener("click", function(){
+
+    currentCurrency = button.dataset.currency;
+
+    currencyButtons.forEach(function(btn){
+      btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    renderServices();
+    renderCart();
+
+  });
+
+});
+
       bookingForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
@@ -1267,7 +1298,16 @@
           const qty = selectedServices[id] || 1;
           totalGbp += (service.gbp || 0) * qty;
           totalHkd += (service.hkd || 0) * qty;
-          return (index + 1) + ". " + getGroupName(service) + " - " + getName(service) + " × " + qty + "（" + service.price + "）";
+          const servicePrice =
+  currentCurrency === "GBP"
+    ? `£${service.gbp}`
+    : `HK$${service.hkd}`;
+
+return (index + 1) +
+". " + getGroupName(service) +
+" - " + getName(service) +
+" × " + qty +
+"（" + servicePrice + "）";
         }).filter(Boolean).join("\n");
 
         const message = currentLang === "zh"
@@ -1278,7 +1318,10 @@
               "*想預約的服務：*",
               selectedText,
               "",
-              "*預計總額：GBP* " + totalGbp + " | *HKD* " + totalHkd,
+              "*預計總額：* " +
+(currentCurrency === "GBP"
+  ? "£" + totalGbp
+  : "HK$" + totalHkd),
               "*希望預約日期及時間：* " + preferredTime,
               note ? "*想解決的問題 / 備註：* " + note : "",
               "",
@@ -1287,13 +1330,16 @@
           : [
               "Hello, I would like to make an Estarot booking enquiry.",
               "",
-              "My name: " + name,
-              "Selected service(s):",
+              "*My name: *" + name,
+              "*Selected service(s): *",
               selectedText,
               "",
-              "Estimated total: GBP " + totalGbp + " | HKD " + totalHkd,
-              "Preferred date and time: " + preferredTime,
-              note ? "Question / Note: " + note : "",
+            "*Estimated total: GBP * " +
+(currentCurrency === "GBP"
+  ? "£" + totalGbp
+  : "HK$" + totalHkd),
+              "*Preferred date and time: *" + preferredTime,
+              note ? "*Question / Note: *" + note : "",
               "",
               "I understand the time needs to be arranged mutually and confirmed by Estarot."
             ].filter(Boolean).join("\n");

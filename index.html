@@ -747,6 +747,31 @@
       .draw-section, .services-section { padding: 34px 16px 40px; }
       .dropdown-menu { right: -4px; }
     }
+
+    /* Currency Toggle */
+
+.currency-toggle{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:20px 0 30px;
+}
+
+.currency-btn{
+  border:none;
+  padding:10px 20px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:700;
+  background:#f4dfbd;
+  color:var(--plum);
+  font-family:inherit;
+}
+
+.currency-btn.active{
+  background:var(--plum);
+  color:white;
+}
   </style>
 </head>
 
@@ -822,6 +847,10 @@ data-en="Card interpretation: £5 / HKD50 per card">
 
       <section id="services" class="services-section" aria-label="服務詳情及收費">
         <h2 data-zh="服務詳情及收費" data-en="Services & Pricing">服務詳情及收費</h2>
+        <div class="currency-toggle">
+    <button class="currency-btn active" data-currency="GBP">GBP</button>
+    <button class="currency-btn" data-currency="HKD">HKD</button>
+</div>
         <p class="section-copy services-intro" data-zh="如果你想知道剛才抽到的牌對你現況、感情、事業或人生方向有甚麼訊息，可以參考以下服務，選擇最適合你的解讀方式。" data-en="If you would like to understand what your drawn card means for your current situation, love life, career, or life direction, you can explore the services below and choose the reading that best supports you.">如果你想知道剛才抽到的牌對你現況、感情、事業或人生方向有甚麼訊息，可以參考以下服務，選擇最適合你的解讀方式。</p>
 
         <div class="service-grid">
@@ -852,23 +881,141 @@ data-en="Card interpretation: £5 / HKD50 per card">
 
         <div class="price-list">
           <div class="price-card">
-            <h3 data-zh="塔羅占卜｜價目表" data-en="Tarot Reading | Price List">塔羅占卜｜價目表</h3>
-            <div class="price-row"><span data-zh="皇牌戀情分析" data-en="Love Analysis"></span><strong>GBP 40 | HKD 400</strong></div>
-            <div class="price-row"><span data-zh="事業分析" data-en="Career Analysis"></span><strong>GBP 40 | HKD 400</strong></div>
-            <div class="price-row"><span data-zh="二選一方向分析" data-en="Choose One Direction between Two Analysis"></span><strong>GBP 30 | HKD 300</strong></div>
-            <div class="price-row"><span data-zh="15分鐘" data-en="15 mins"></span><strong>GBP 30 | HKD 300</strong></div>
-            <div class="price-row"><span data-zh="30分鐘" data-en="30 mins"></span><strong>GBP 50 | HKD 500</strong></div>
-            <div class="price-row"><span data-zh="45分鐘" data-en="45 mins"></span><strong>GBP 70 | HKD 700</strong></div>
-            <div class="price-row"><span data-zh="60分鐘" data-en="60 mins"></span><strong>GBP 90 | HKD 900</strong></div>
-          </div>
+
+<h3 data-zh="塔羅占卜｜價目表"
+data-en="Tarot Reading | Price List">
+塔羅占卜｜價目表
+</h3>
+
+<h4>主題占卜</h4>
+
+<div class="price-row">
+<span>皇牌戀情分析（線下）</span>
+<strong class="price" data-gbp="20" data-hkd="200">£20</strong>
+</div>
+
+<div class="price-row">
+<span>皇牌戀情分析（線上）</span>
+<strong class="price" data-gbp="28" data-hkd="280">£28</strong>
+</div>
+
+<div class="price-row">
+<span>皇牌戀情分析（面對面）</span>
+<strong class="price" data-gbp="35" data-hkd="350">£35</strong>
+</div>
+
+<div class="price-row">
+<span>事業分析（線下）</span>
+<strong class="price" data-gbp="20" data-hkd="200">£20</strong>
+</div>
+
+<div class="price-row">
+<span>事業分析（線上）</span>
+<strong class="price" data-gbp="28" data-hkd="280">£28</strong>
+</div>
+
+<div class="price-row">
+<span>事業分析（面對面）</span>
+<strong class="price" data-gbp="35" data-hkd="350">£35</strong>
+</div>
+
+<div class="price-row">
+<span>二選一方向分析（線下）</span>
+<strong class="price" data-gbp="15" data-hkd="150">£15</strong>
+</div>
+
+<div class="price-row">
+<span>二選一方向分析（線上）</span>
+<strong class="price" data-gbp="20" data-hkd="200">£20</strong>
+</div>
+
+<div class="price-row">
+<span>二選一方向分析（面對面）</span>
+<strong class="price" data-gbp="28" data-hkd="280">£28</strong>
+</div>
+
+<h4 style="margin-top:20px;">計時占卜</h4>
+
+<div class="price-row">
+<span>15分鐘（線上）</span>
+<strong class="price" data-gbp="20" data-hkd="200">£20</strong>
+</div>
+
+<div class="price-row">
+<span>15分鐘（面對面）</span>
+<strong class="price" data-gbp="28" data-hkd="280">£28</strong>
+</div>
+
+<div class="price-row">
+<span>30分鐘（線上）</span>
+<strong class="price" data-gbp="38" data-hkd="380">£38</strong>
+</div>
+
+<div class="price-row">
+<span>30分鐘（面對面）</span>
+<strong class="price" data-gbp="45" data-hkd="450">£45</strong>
+</div>
+
+<div class="price-row">
+<span>45分鐘（線上）</span>
+<strong class="price" data-gbp="55" data-hkd="550">£55</strong>
+</div>
+
+<div class="price-row">
+<span>45分鐘（面對面）</span>
+<strong class="price" data-gbp="60" data-hkd="600">£60</strong>
+</div>
+
+<div class="price-row">
+<span>60分鐘（線上）</span>
+<strong class="price" data-gbp="70" data-hkd="700">£70</strong>
+</div>
+
+<div class="price-row">
+<span>60分鐘（面對面）</span>
+<strong class="price" data-gbp="78" data-hkd="780">£78</strong>
+</div>
+
+<p style="margin-top:20px;">
+線下占卜：付款後提供問題，確認方向後48小時內以文字回覆。<br><br>
+線上占卜：電話或 WhatsApp Call 即時進行。<br><br>
+面對面占卜：預約實體見面進行。
+</p>
+
+</div>
 
           <div class="price-card">
-            <h3 data-zh="靈性回應療法 (SRT)" data-en="Spiritual Response Therapy (SRT)">靈性回應療法 (SRT)</h3>
-            <div class="price-row"><span data-zh="全面清理（約1.5小時）<br />→ 建議首次體驗者或希望深入清理多個層面人士。" data-en="Full Clearing (approx. 1.5 hrs)<br />→ Recommended for first-time clients or those wanting to clear multiple layers."></span><strong data-zh="<span class='limited-offer-price'>限時特價 GBP 99 | HKD 990</span><br /><span class='original-price'>原價 GBP 120 | HKD 1200</span>" data-en="<span class='limited-offer-price'>Limited Offer GBP 99 | HKD 990</span><br /><span class='original-price'>Original Price GBP 120 | HKD 1200</span>"></strong></div>
-            <div class="price-row"><span data-zh="主題療癒（約45分鐘）<br />→ 集中處理一個核心議題（例如金錢阻塞、人際業力、自我價值等）。" data-en="Thematic Healing (approx. 45 mins)<br />→ Focused session for one core issue (e.g. money blocks, relationship karma, self-worth)."></span><strong>GBP 55 | HKD 550</strong></div>
-            <div class="price-row"><span data-zh="詳細報告（可加購）<br />→ 一份完整記錄，詳列清理內容、療程中接收到嘅訊息與感受，並提供個人化整合建議。" data-en="Detailed Written Report (optional add-on)<br />→ A comprehensive report outlining what was cleared, intuitive impressions during the session, and personalised guidance for integration."></span><strong>+ GBP 20 | + HKD 200</strong></div>
-            <p data-zh="* 所有療癒客戶均會獲得簡易報告摘要。" data-en="* A brief summary will still be provided for all clients.">* 所有療癒客戶均會獲得簡易報告摘要。</p>
-          </div>
+
+<h3>靈性回應療法 (SRT)</h3>
+
+<div class="price-row">
+<span>全面清理（約1.5小時）</span>
+<strong class="price" data-gbp="88" data-hkd="880">£88</strong>
+</div>
+
+<p>
+建議首次體驗者或希望深入清理多個層面人士。
+</p>
+
+<div class="price-row">
+<span>主題療癒（約45分鐘）</span>
+<strong class="price" data-gbp="50" data-hkd="500">£50</strong>
+</div>
+
+<p>
+集中處理一個核心議題（例如金錢阻塞、人際業力、自我價值等）。
+</p>
+
+<div class="price-row">
+<span>詳細報告（可加購）</span>
+<strong class="price" data-gbp="20" data-hkd="200">£20</strong>
+</div>
+
+<p>
+所有療癒客戶均會獲得簡易報告摘要。
+</p>
+
+</div>
 
           <div class="price-card">
             <h3 data-zh="靈擺調頻" data-en="Pendulum Energy Alignment">靈擺調頻</h3>
@@ -1245,7 +1392,64 @@ Card drawn: ${selectedCard.en} / ${selectedCard.zh}`;
       applyLanguage(currentLang);
       initialiseCookiePreferences();
       setInterval(updatePageState, 1000);
+
+
+      
+      let currentCurrency = "GBP";
+
+      document.querySelectorAll(".currency-btn").forEach(btn => {
+
+        btn.addEventListener("click", () => {
+
+          currentCurrency = btn.dataset.currency;
+
+          document
+            .querySelectorAll(".currency-btn")
+            .forEach(b => b.classList.remove("active"));
+
+          btn.classList.add("active");
+
+          document.querySelectorAll(".price").forEach(price => {
+
+            if(currentCurrency === "GBP"){
+
+              price.innerHTML =
+                `£${price.dataset.gbp}`;
+
+            }else{
+
+              price.innerHTML =
+                `HK$${price.dataset.hkd}`;
+
+            }
+
+          });
+
+          localStorage.setItem(
+            "currency",
+            currentCurrency
+          );
+
+        });
+
+      });
+
+      const savedCurrency =
+        localStorage.getItem("currency");
+
+      if(savedCurrency){
+
+        document
+          .querySelector(
+            `[data-currency="${savedCurrency}"]`
+          )
+          ?.click();
+
+      }
     });
+
+    
+    
   </script>
 </body>
 </html>

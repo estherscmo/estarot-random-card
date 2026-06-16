@@ -1333,16 +1333,16 @@ return (index + 1) +
           : [
               "Hello, I would like to make an Estarot booking enquiry.",
               "",
-              "*My name:*" + "" + name,
-              "*Selected service(s):*" + "",
+              "*My name:*" + " " + name,
+              "*Selected service(s):*" + " ",
               selectedText,
               "",
-            "*Estimated total:*" + "" +
+            "*Estimated total:*" + " " +
 (currentCurrency === "GBP"
   ? "£" + totalGbp
   : "HK$" + totalHkd),
-              "*Preferred date and time:*" + "" + preferredTime,
-              note ? "*Question / Note:*" + "" + note : "",
+              "*Preferred date and time:*" + " " + preferredTime,
+              note ? "*Question / Note:*" + " " + note : " ",
               "",
               "I understand the time needs to be arranged mutually and confirmed by Estarot."
             ].filter(Boolean).join("\n");

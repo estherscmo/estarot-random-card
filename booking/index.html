@@ -1175,7 +1175,10 @@
           list.appendChild(row);
         });
 
-        const totalAmount =
+const total = document.createElement("div");
+total.className = "total-box";
+
+const totalAmount =
   currentCurrency === "GBP"
     ? `£${totalGbp}`
     : `HK$${totalHkd}`;
@@ -1334,7 +1337,7 @@ return (index + 1) +
               "*Selected service(s): *",
               selectedText,
               "",
-            "*Estimated total: GBP * " +
+            "*Estimated total:* " +
 (currentCurrency === "GBP"
   ? "£" + totalGbp
   : "HK$" + totalHkd),

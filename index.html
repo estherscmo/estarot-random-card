@@ -914,7 +914,7 @@ data-zh-suffix="起"
 data-en-prefix="From ">
 £20 起
   </span>
-            <p data-zh="我們提供直覺式嘅寵物溝通服務，幫助你了解你嘅寵物需要嘅東西、佢哋嘅感受，甚至係佢哋想傳達俾你嘅訊息。呢項服務能夠加深你同寵物之間嘅聯繫，並帶來更多清晰同和諧。" data-en="We offer intuitive communication with your pets to understand their needs, feelings, and messages they may have for you. This service helps strengthen the bond between you and your pet, bringing clarity and peace to your relationship.">我們提供直覺式嘅寵物溝通服務，幫助你了解你嘅寵物需要嘅東西、佢哋嘅感受，甚至係佢哋想傳達俾你嘅訊息。呢項服務能夠加深你同寵物之間嘅聯繫，並帶來更多清晰同和諧。</p>
+            <p data-zh="我們提供直覺式寵物溝通服務，幫助你了解你的寵物需要的東西、牠們的感受，甚至係牠們想傳達給你的訊息。這項服務能夠加深你和寵物之間的聯繫，並帶來更多清晰及和諧。" data-en="We offer intuitive communication with your pets to understand their needs, feelings, and messages they may have for you. This service helps strengthen the bond between you and your pet, bringing clarity and peace to your relationship.">我們提供直覺式嘅寵物溝通服務，幫助你了解你嘅寵物需要嘅東西、佢哋嘅感受，甚至係佢哋想傳達俾你嘅訊息。呢項服務能夠加深你同寵物之間嘅聯繫，並帶來更多清晰同和諧。</p>
           </article>
         </div>
 
@@ -1622,22 +1622,25 @@ Card drawn: ${selectedCard.en} / ${selectedCard.zh}`;
             }
 
           });
-
-          document.querySelectorAll(".service-card-price").forEach(price => {
+document.querySelectorAll(".service-card-price").forEach(price => {
 
     if(currentCurrency === "GBP"){
 
         price.innerHTML =
-            `£${price.dataset.gbp} 起`;
+            currentLang === "zh"
+            ? `£${price.dataset.gbp} 起`
+            : `From £${price.dataset.gbp}`;
 
     }else{
 
         price.innerHTML =
-            `HK$${price.dataset.hkd} 起`;
+            currentLang === "zh"
+            ? `HK$${price.dataset.hkd} 起`
+            : `From HK$${price.dataset.hkd}`;
 
     }
 
-})；
+});
 
           localStorage.setItem(
             "currency",

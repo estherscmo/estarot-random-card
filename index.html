@@ -867,25 +867,50 @@ data-en="Card interpretation: £5 / HKD50 per card">
         <div class="service-grid">
           <article class="service-card">
             <h3 data-zh="塔羅占卜" data-en="Tarot Reading">塔羅占卜</h3>
-            <span class="service-price" data-zh="From GBP 30 | HKD 300 起" data-en="From GBP 30 | HKD 300">From GBP 30 | HKD 300 起</span>
+           <span
+class="service-price service-card-price"
+data-gbp="15"
+data-hkd="150"
+data-zh-suffix="起"
+data-en-prefix="From ">
+£15 起
+</span>
             <p data-zh="塔羅占卜可以為你提供指引，幫助你作出更明智嘅決定。無論係感情、事業，定係人生中重要問題，我哋嘅塔羅占卜將令你對目前嘅道路有更深入嘅了解。" data-en="Tarot readings provide insights and guidance to help you make informed decisions. Whether you need clarity in love, career, or life’s big questions, our tarot readings offer a deeper understanding of your current path.">塔羅占卜可以為你提供指引，幫助你作出更明智嘅決定。無論係感情、事業，定係人生中重要問題，我哋嘅塔羅占卜將令你對目前嘅道路有更深入嘅了解。</p>
           </article>
 
           <article class="service-card">
             <h3 data-zh="靈性回應療法 (SRT)" data-en="Spiritual Response Therapy (SRT)">靈性回應療法 (SRT)</h3>
-            <span class="service-price" data-zh="From GBP 55 | HKD 550 起" data-en="From GBP 55 | HKD 550">From GBP 55 | HKD 550 起</span>
+<span
+class="service-price service-card-price"
+data-gbp="50"
+data-hkd="500"
+data-zh-suffix="起"
+data-en-prefix="From ">
+£50 起
             <p data-zh="靈性回應療法幫助釋放你靈性同情感生活中嘅障礙同限制性信念。透過靈性溝通嘅過程，我哋可以識別同清除任何負面模式或未解決嘅問題，幫助你走出困境。" data-en="SRT helps release blocks and limiting beliefs in your spiritual and emotional life. Through a process of spiritual communication, we identify and clear any negative patterns or unresolved issues that may be affecting your life.">靈性回應療法幫助釋放你靈性同情感生活中嘅障礙同限制性信念。透過靈性溝通嘅過程，我哋可以識別同清除任何負面模式或未解決嘅問題，幫助你走出困境。</p>
           </article>
 
           <article class="service-card">
             <h3 data-zh="靈擺調頻" data-en="Pendulum Alignment">靈擺調頻</h3>
-            <span class="service-price" data-zh="From GBP 30 | HKD 300 起" data-en="From GBP 30 | HKD 300">From GBP 30 | HKD 300 起</span>
+<span
+class="service-price service-card-price"
+data-gbp="40"
+data-hkd="400"
+data-zh-suffix="起"
+data-en-prefix="From ">
+£40 起
             <p data-zh="靈擺調頻幫助你與高我連接，調整你的能量頻率。透過改變你的頻率，你可以吸引到合適嘅人、機會同情境，幫助你達成目標。" data-en="Pendulum energy alignment helps you connect with your higher self to adjust your frequency. By shifting your energy, you can attract the right people, opportunities, and circumstances to help you achieve your goals.">靈擺調頻幫助你與高我連接，調整你的能量頻率。透過改變你的頻率，你可以吸引到合適嘅人、機會同情境，幫助你達成目標。</p>
           </article>
 
           <article class="service-card">
             <h3 data-zh="寵物傳心" data-en="Pet Communication">寵物傳心</h3>
-            <span class="service-price" data-zh="From GBP 20 | HKD 200 起" data-en="From GBP 20 | HKD 200">From GBP 20 | HKD 200 起</span>
+<span
+class="service-price service-card-price"
+data-gbp="20"
+data-hkd="200"
+data-zh-suffix="起"
+data-en-prefix="From ">
+£20 起
             <p data-zh="我們提供直覺式嘅寵物溝通服務，幫助你了解你嘅寵物需要嘅東西、佢哋嘅感受，甚至係佢哋想傳達俾你嘅訊息。呢項服務能夠加深你同寵物之間嘅聯繫，並帶來更多清晰同和諧。" data-en="We offer intuitive communication with your pets to understand their needs, feelings, and messages they may have for you. This service helps strengthen the bond between you and your pet, bringing clarity and peace to your relationship.">我們提供直覺式嘅寵物溝通服務，幫助你了解你嘅寵物需要嘅東西、佢哋嘅感受，甚至係佢哋想傳達俾你嘅訊息。呢項服務能夠加深你同寵物之間嘅聯繫，並帶來更多清晰同和諧。</p>
           </article>
         </div>
@@ -1592,6 +1617,22 @@ Card drawn: ${selectedCard.en} / ${selectedCard.zh}`;
             }
 
           });
+
+          document.querySelectorAll(".service-card-price").forEach(price => {
+
+    if(currentCurrency === "GBP"){
+
+        price.innerHTML =
+            `£${price.dataset.gbp} 起`;
+
+    }else{
+
+        price.innerHTML =
+            `HK$${price.dataset.hkd} 起`;
+
+    }
+
+})；
 
           localStorage.setItem(
             "currency",

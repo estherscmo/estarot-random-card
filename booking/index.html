@@ -985,6 +985,7 @@
       const rejectCookies = document.getElementById("rejectCookies");
 
       let currentLang = safeGetItem(LANG_KEY) || "zh";
+      let currentCurrency = "GBP";
       let selectedServices = {};
 
       function safeGetItem(key) {
@@ -1056,21 +1057,11 @@
 
             const priceBox = document.createElement("div");
             priceBox.className = "price";
-
-            if (service.offer) {
-              const offer = document.createElement("div");
-              offer.className = "offer-price";
-              offer.textContent = service.price;
-              priceBox.appendChild(offer);
-
-              const original = document.createElement("div");
-              original.className = "original-price";
-              original.textContent = currentLang === "zh" ? service.original : service.originalEn;
-              priceBox.appendChild(original);
-            } else {
-              priceBox.textContent = service.price;
-            }
-
+            priceBox.textContent =
+            currentCurrency === "GBP"
+            ? `£${service.gbp}`
+            : `HK$${service.hkd}`;
+            
             const addButton = document.createElement("button");
             addButton.type = "button";
             addButton.className = "add-btn";

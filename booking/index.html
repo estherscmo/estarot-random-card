@@ -609,6 +609,27 @@
       .details-card, .notice-card, .cart-card { padding: 18px; }
       .primary-link { width: 100%; }
     }
+    .currency-toggle{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:15px 0 25px;
+}
+
+.currency-btn{
+  border:none;
+  border-radius:999px;
+  padding:8px 18px;
+  cursor:pointer;
+  font-weight:700;
+  background:#f4dfbd;
+  color:var(--plum);
+}
+
+.currency-btn.active{
+  background:var(--plum);
+  color:white;
+}
   </style>
 </head>
 
@@ -633,6 +654,10 @@
 
       <section class="booking-section" aria-label="Service selection">
         <h2 data-zh="選擇服務" data-en="Choose Your Service">選擇服務</h2>
+        <div class="currency-toggle">
+  <button class="currency-btn active" data-currency="GBP">GBP</button>
+  <button class="currency-btn" data-currency="HKD">HKD</button>
+</div>
         <p class="section-copy" data-zh="按下每項服務旁邊的「＋」加入查詢清單。你可以一次選擇多項服務，並在查詢清單調整數量。" data-en="Tap the “+” next to a service to add it to your enquiry list. You can select multiple services and adjust the quantity in the enquiry list.">按下每項服務旁邊的「＋」加入查詢清單。你可以一次選擇多項服務，並在查詢清單調整數量。</p>
 
         <div class="service-layout">
@@ -713,50 +738,225 @@
           badgeZh: "感情・事業・個人問題",
           badgeEn: "Love · Career · Personal Questions",
           services: [
-            { id: "tarot-love-premium", zh: "皇牌戀情分析", en: "Signature Love Analysis", price: "GBP 40 | HKD 400", gbp: 40, hkd: 400 },
-            { id: "tarot-career", zh: "事業分析", en: "Career Analysis", price: "GBP 40 | HKD 400", gbp: 40, hkd: 400 },
-            { id: "tarot-choice", zh: "二選一", en: "Two-Option Reading", price: "GBP 30 | HKD 300", gbp: 30, hkd: 300 },
-            { id: "tarot-15", zh: "15分鐘塔羅占卜", en: "15-min Tarot Reading", price: "GBP 30 | HKD 300", gbp: 30, hkd: 300 },
-            { id: "tarot-30", zh: "30分鐘塔羅占卜", en: "30-min Tarot Reading", price: "GBP 50 | HKD 500", gbp: 50, hkd: 500 },
-            { id: "tarot-45", zh: "45分鐘塔羅占卜", en: "45-min Tarot Reading", price: "GBP 70 | HKD 700", gbp: 70, hkd: 700 },
-            { id: "tarot-60", zh: "60分鐘塔羅占卜", en: "60-min Tarot Reading", price: "GBP 90 | HKD 900", gbp: 90, hkd: 900 }
-          ]
-        },
-        {
-          zh: "SRT 靈性反應療癒",
-          en: "SRT Spiritual Response Therapy",
-          badgeZh: "清理限制信念・能量模式",
-          badgeEn: "Clearing limiting beliefs & energy patterns",
-          services: [
-            { id: "srt-complete", zh: "全面清理", en: "Complete Clearing", price: "GBP 99 | HKD 990", original: "原價 GBP 120 | HKD 1200", originalEn: "Original Price GBP 120 | HKD 1200", gbp: 99, hkd: 990, offer: true },
-            { id: "srt-theme", zh: "主題療癒", en: "Themed Healing", price: "GBP 55 | HKD 550", gbp: 55, hkd: 550 },
-            { id: "srt-report", zh: "可加購詳細報告", en: "Detailed Report Add-on", price: "+ GBP 20 | + HKD 200", gbp: 20, hkd: 200 }
-          ]
-        },
-        {
-          zh: "靈擺調頻",
-          en: "Pendulum Energy Alignment",
-          badgeZh: "調整頻率・吸引合適機會",
-          badgeEn: "Frequency alignment & attracting opportunities",
-          services: [
-            { id: "pendulum-6", zh: "自選6個項目調頻", en: "6 Selected Alignment Items", price: "GBP 40 | HKD 400", gbp: 40, hkd: 400, subZh: "可自選6個範疇作頻率調整", subEn: "Choose 6 areas for frequency alignment" },
-            { id: "pendulum-package-3", zh: "靈擺調頻套餐（3次）", en: "Pendulum Energy Alignment Package (3 sessions)", price: "GBP 100 | HKD 1,000", gbp: 100, hkd: 1000 },
-            { id: "pendulum-package-5", zh: "靈擺調頻套餐（5次）", en: "Pendulum Energy Alignment Package (5 sessions)", price: "GBP 150 | HKD 1,500", gbp: 150, hkd: 1500 },
-            { id: "pendulum-extra", zh: "額外調頻項目", en: "Extra Alignment Item", price: "+ GBP 5 | + HKD 50", gbp: 5, hkd: 50 }
-          ]
-        },
-        {
-          zh: "寵物傳心（只限貓犬）",
-          en: "Pet Communication (Cats & Dogs Only)",
-          badgeZh: "了解寵物情緒・需要・訊息",
-          badgeEn: "Understand your pet’s feelings, needs & messages",
-          services: [
-            { id: "pet-2", zh: "2個問題", en: "2 Questions", price: "GBP 20 | HKD 200", gbp: 20, hkd: 200 },
-            { id: "pet-5", zh: "5個問題", en: "5 Questions", price: "GBP 40 | HKD 400", gbp: 40, hkd: 400 },
-            { id: "pet-12", zh: "12個問題", en: "12 Questions", price: "GBP 80 | HKD 800", gbp: 80, hkd: 800 }
-          ]
-        }
-      ];
+            {
+  id: "tarot-love-offline",
+  zh: "皇牌戀情分析（線下）",
+  en: "Signature Love Reading (Offline)",
+  gbp: 20,
+  hkd: 200
+}
+            {
+  id: "tarot-love-online",
+  zh: "皇牌戀情分析（線上）",
+  en: "Signature Love Reading (Online)",
+  gbp: 28,
+  hkd: 280
+}
+            {
+  id: "tarot-love-face",
+  zh: "皇牌戀情分析（面對面）",
+  en: "Signature Love Reading (In Person)",
+  gbp: 35,
+  hkd: 350
+}
+           {
+  id: "tarot-career-offline",
+  zh: "事業分析（線下）",
+  en: "Career Reading (Offline)",
+  gbp: 20,
+  hkd: 200
+},
+
+{
+  id: "tarot-career-online",
+  zh: "事業分析（線上）",
+  en: "Career Reading (Online)",
+  gbp: 28,
+  hkd: 280
+},
+
+{
+  id: "tarot-career-face",
+  zh: "事業分析（面對面）",
+  en: "Career Reading (In Person)",
+  gbp: 35,
+  hkd: 350
+},
+
+{
+  id: "tarot-choice-offline",
+  zh: "二選一方向分析（線下）",
+  en: "Two-Choice Reading (Offline)",
+  gbp: 15,
+  hkd: 150
+},
+
+{
+  id: "tarot-choice-online",
+  zh: "二選一方向分析（線上）",
+  en: "Two-Choice Reading (Online)",
+  gbp: 20,
+  hkd: 200
+},
+
+{
+  id: "tarot-choice-face",
+  zh: "二選一方向分析（面對面）",
+  en: "Two-Choice Reading (In Person)",
+  gbp: 28,
+  hkd: 280
+},
+
+{
+  id: "tarot-15-online",
+  zh: "15分鐘塔羅占卜（線上）",
+  en: "15-Min Tarot Reading (Online)",
+  gbp: 20,
+  hkd: 200
+},
+
+{
+  id: "tarot-15-face",
+  zh: "15分鐘塔羅占卜（面對面）",
+  en: "15-Min Tarot Reading (In Person)",
+  gbp: 28,
+  hkd: 280
+},
+
+{
+  id: "tarot-30-online",
+  zh: "30分鐘塔羅占卜（線上）",
+  en: "30-Min Tarot Reading (Online)",
+  gbp: 38,
+  hkd: 380
+},
+
+{
+  id: "tarot-30-face",
+  zh: "30分鐘塔羅占卜（面對面）",
+  en: "30-Min Tarot Reading (In Person)",
+  gbp: 45,
+  hkd: 450
+},
+
+{
+  id: "tarot-45-online",
+  zh: "45分鐘塔羅占卜（線上）",
+  en: "45-Min Tarot Reading (Online)",
+  gbp: 55,
+  hkd: 550
+},
+
+{
+  id: "tarot-45-face",
+  zh: "45分鐘塔羅占卜（面對面）",
+  en: "45-Min Tarot Reading (In Person)",
+  gbp: 60,
+  hkd: 600
+},
+
+{
+  id: "tarot-60-online",
+  zh: "60分鐘塔羅占卜（線上）",
+  en: "60-Min Tarot Reading (Online)",
+  gbp: 70,
+  hkd: 700
+},
+
+{
+  id: "tarot-60-face",
+  zh: "60分鐘塔羅占卜（面對面）",
+  en: "60-Min Tarot Reading (In Person)",
+  gbp: 78,
+  hkd: 780
+}
+{
+  zh: "靈性回應療法 (SRT)",
+  en: "Spiritual Response Therapy (SRT)",
+  badgeZh: "清理限制信念・能量模式",
+  badgeEn: "Clearing Limiting Beliefs & Energy Patterns",
+  services: [
+
+    {
+      id: "srt-full",
+      zh: "全面清理（約1.5小時）",
+      en: "Full Clearing (Approx. 1.5 Hours)",
+      gbp: 88,
+      hkd: 880
+    },
+
+    {
+      id: "srt-focused",
+      zh: "主題療癒（約45分鐘）",
+      en: "Focused Healing (Approx. 45 Minutes)",
+      gbp: 50,
+      hkd: 500
+    },
+
+    {
+      id: "srt-report",
+      zh: "詳細報告（加購）",
+      en: "Detailed Report (Optional Add-on)",
+      gbp: 20,
+      hkd: 200
+    }
+
+  ]
+},
+services: [
+
+  {
+    id: "pendulum-single",
+    zh: "單次調頻",
+    en: "Single Session",
+    gbp: 40,
+    hkd: 400
+  },
+
+  {
+    id: "pendulum-3",
+    zh: "3次套票",
+    en: "3-Session Package",
+    gbp: 100,
+    hkd: 1000
+  },
+
+  {
+    id: "pendulum-5",
+    zh: "5次套票",
+    en: "5-Session Package",
+    gbp: 150,
+    hkd: 1500
+  }
+
+]
+services: [
+
+  {
+    id: "pet-2",
+    zh: "2個問題",
+    en: "2 Questions",
+    gbp: 20,
+    hkd: 200
+  },
+
+  {
+    id: "pet-5",
+    zh: "5個問題",
+    en: "5 Questions",
+    gbp: 40,
+    hkd: 400
+  },
+
+  {
+    id: "pet-12",
+    zh: "12個問題",
+    en: "12 Questions",
+    gbp: 80,
+    hkd: 800
+  }
+
+]
 
       const langButtons = document.querySelectorAll("[data-set-lang]");
       const serviceGroupsEl = document.getElementById("serviceGroups");

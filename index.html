@@ -1990,8 +1990,21 @@ if(savedCard){
         }
 
         resultArea.classList.remove("show");
-        whatsappLink.classList.remove("show");
-        shuffleArea.classList.add("show");
+threeCardArea.classList.remove("show");
+
+cardImage.style.display = "";
+cardName.style.display = "";
+
+const cardPosition =
+document.getElementById("cardPosition");
+
+if(cardPosition){
+    cardPosition.style.display = "";
+}
+
+whatsappLink.classList.remove("show");
+shuffleArea.classList.add("show");
+        
         drawButton.disabled = true;
         drawButton.textContent = drawButton.getAttribute(currentLang === "zh" ? "data-shuffle-zh" : "data-shuffle-en");
         countdown.textContent = "";

@@ -2218,6 +2218,84 @@ copyPromptBtn.addEventListener("click", () => {
 
   if(currentLang === "zh"){
 
+    if(Array.isArray(currentCard)){
+
+  let prompt;
+
+  if(currentLang==="zh"){
+
+    prompt = `你是一位經驗豐富的專業塔羅師。
+
+我的問題：
+
+${userQuestion || "未有輸入"}
+
+我抽到三張牌：
+
+過去：
+${currentCard[0].zh}
+${currentCard[0].reversed ? "逆位" : "正位"}
+
+現在：
+${currentCard[1].zh}
+${currentCard[1].reversed ? "逆位" : "正位"}
+
+未來：
+${currentCard[2].zh}
+${currentCard[2].reversed ? "逆位" : "正位"}
+
+請分析：
+
+1. 過去
+2. 現在
+3. 未來
+4. 三張牌之間的連結
+5. 建議`;
+
+  }else{
+
+    prompt = `You are an experienced Tarot reader.
+
+My question:
+
+${userQuestion || "No question entered"}
+
+Three cards drawn:
+
+Past:
+${currentCard[0].en}
+${currentCard[0].reversed ? "Reversed":"Upright"}
+
+Present:
+${currentCard[1].en}
+${currentCard[1].reversed ? "Reversed":"Upright"}
+
+Future:
+${currentCard[2].en}
+${currentCard[2].reversed ? "Reversed":"Upright"}
+
+Please analyse:
+
+1. Past
+2. Present
+3. Future
+4. Relationship between the cards
+5. Advice`;
+
+  }
+
+  navigator.clipboard.writeText(prompt);
+
+  alert(
+    currentLang==="zh"
+      ? "AI Prompt 已複製"
+      : "AI Prompt copied."
+  );
+
+  return;
+
+}
+
     prompt = `你是一位經驗豐富的專業塔羅師。
 
 我的問題是：

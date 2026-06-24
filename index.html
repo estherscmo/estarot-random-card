@@ -1682,6 +1682,35 @@ document.querySelectorAll(".spread-btn");
 
 const spreadDescription =
 document.getElementById("spreadDescription");
+const threeCardArea =
+document.getElementById("threeCardArea");
+
+const cardImage1 =
+document.getElementById("cardImage1");
+
+const cardImage2 =
+document.getElementById("cardImage2");
+
+const cardImage3 =
+document.getElementById("cardImage3");
+
+const cardName1 =
+document.getElementById("cardName1");
+
+const cardName2 =
+document.getElementById("cardName2");
+
+const cardName3 =
+document.getElementById("cardName3");
+
+const cardPosition1 =
+document.getElementById("cardPosition1");
+
+const cardPosition2 =
+document.getElementById("cardPosition2");
+
+const cardPosition3 =
+document.getElementById("cardPosition3");
 console.log("spreadDescription =", spreadDescription);
       let currentLang = safeGetItem(LANG_KEY) || "zh";
 
@@ -1801,7 +1830,60 @@ if(aiDisclaimer){
         return currentLang === "zh" ? card.en + " " + card.zh : card.en;
       }
 
+function showThreeCards(cards){
+
+  threeCardArea.classList.add("show");
+
+  resultArea.classList.add("show");
+
+  const images = [
+    cardImage1,
+    cardImage2,
+    cardImage3
+  ];
+
+  const names = [
+    cardName1,
+    cardName2,
+    cardName3
+  ];
+
+  const positions = [
+    cardPosition1,
+    cardPosition2,
+    cardPosition3
+  ];
+
+  cards.forEach((card,index)=>{
+
+    images[index].src = card.img;
+
+    images[index].style.transform =
+      card.reversed
+        ? "rotate(180deg)"
+        : "rotate(0deg)";
+
+    names[index].textContent =
+      getCardDisplayName(card);
+
+    positions[index].textContent =
+      card.reversed
+        ? (currentLang==="zh"?"逆位":"Reversed")
+        : (currentLang==="zh"?"正位":"Upright");
+
+  });
+
+}
+
 function showCard(card) {
+
+if(Array.isArray(card)){
+
+  showThreeCards(card);
+
+  return;
+
+}
 
   if (!card || !card.img) return;
 
@@ -1887,22 +1969,40 @@ function showCard(card) {
 
         setTimeout(function () {
           console.log("Deck size:", tarotDeck.length);
-const randomCard =
-  tarotDeck[
-    Math.floor(
-      Math.random() * tarotDeck.length
-    )
-  ];
+let selectedCard;
 
-console.log("Random card:", randomCard);
+if(currentSpread === "single"){
 
-const selectedCard = {
-  ...randomCard,
-  reversed: Math.random() < 0.5
-};
+  const randomCard =
+    tarotDeck[
+      Math.floor(
+        Math.random() * tarotDeck.length
+      )
+    ];
+
+  selectedCard = {
+    ...randomCard,
+    reversed: Math.random() < 0.5
+  };
+
+}else{
+
+  const shuffledDeck =
+    [...tarotDeck].sort(
+      () => Math.random() - 0.5
+    );
+
+  selectedCard =
+    shuffledDeck
+      .slice(0,3)
+      .map(card => ({
+        ...card,
+        reversed: Math.random() < 0.5
+      }));
+
+}
 
 currentCard = selectedCard;
-
 console.log("Selected card:", selectedCard);
           const userQuestion = tarotQuestion.value.trim();
           tarotQuestion.disabled = true;

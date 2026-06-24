@@ -840,11 +840,24 @@ data-placeholder-en="Enter your question here..."
         </div>
 
         <div id="resultArea" class="result-area">
-          <div class="tarot-result-card">
-            <img id="cardImage" src="" alt="抽到的塔羅卡" />
-          </div>
-          <div id="cardName" class="card-name"></div>
-        </div>
+  <div class="tarot-result-card">
+    <img id="cardImage" src="" alt="抽到的塔羅卡" />
+  </div>
+
+  <div id="cardName" class="card-name"></div>
+
+  <div
+    id="cardPosition"
+    style="
+      color:#7b637f;
+      font-size:1rem;
+      margin-top:-5px;
+      margin-bottom:15px;
+      font-weight:700;
+    ">
+  </div>
+
+</div>
 
         <a id="whatsappLink" class="whatsapp-link" href="https://api.whatsapp.com/send?phone=447585548525&text=%E9%9A%A8%E6%A9%9F%E5%A1%94%E7%BE%85%E7%89%8C%E8%A7%A3%E8%AE%80" target="_blank" rel="noopener" data-phone="447585548525" data-text-zh="隨機塔羅牌解讀" data-text-en="Random tarot card reading" data-zh="WhatsApp 查詢詳細解讀" data-en="WhatsApp for a Detailed Reading">WhatsApp 查詢詳細解讀</a>
         <p id="readingFeeNote"
@@ -1491,15 +1504,45 @@ if (tarotQuestion) {
         return currentLang === "zh" ? card.en + " " + card.zh : card.en;
       }
 
-      function showCard(card) {
-        if (!card || !card.img) return;
-        cardImage.src = card.img;
-        cardImage.alt = getCardDisplayName(card);
-        cardName.textContent = getCardDisplayName(card);
-        resultArea.classList.add("show");
-        whatsappLink.classList.add("show");
-        readingFeeNote.classList.remove("hidden");
-      }
+function showCard(card) {
+
+  if (!card || !card.img) return;
+
+  cardImage.src = card.img;
+  cardImage.alt = getCardDisplayName(card);
+
+  cardName.textContent =
+    getCardDisplayName(card);
+
+  const cardPosition =
+    document.getElementById("cardPosition");
+
+  if (card.reversed) {
+
+    cardImage.style.transform =
+      "rotate(180deg)";
+
+    cardPosition.textContent =
+      currentLang === "zh"
+      ? "逆位"
+      : "Reversed";
+
+  } else {
+
+    cardImage.style.transform =
+      "rotate(0deg)";
+
+    cardPosition.textContent =
+      currentLang === "zh"
+      ? "正位"
+      : "Upright";
+
+  }
+
+  resultArea.classList.add("show");
+  whatsappLink.classList.add("show");
+  readingFeeNote.classList.remove("hidden");
+}
 
       function updateButtonText() {
         if (getRemainingTime() > 0) {
@@ -1546,11 +1589,17 @@ if (tarotQuestion) {
         countdown.textContent = "";
 
         setTimeout(function () {
-          const selectedCard = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
-          safeSetItem(STORAGE_KEY, String(Date.now()));
-          safeSetItem(CARD_KEY, JSON.stringify(selectedCard));
-          shuffleArea.classList.remove("show");
-          showCard(selectedCard);
+const randomCard =
+tarotDeck[
+  Math.floor(
+    Math.random() * tarotDeck.length
+  )
+];
+
+const selectedCard = {
+  ...randomCard,
+  reversed: Math.random() < 0.5
+};
           const userQuestion = tarotQuestion.value.trim();
           tarotQuestion.disabled = true;
           const whatsappMessage =

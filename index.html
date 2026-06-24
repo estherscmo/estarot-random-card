@@ -1591,6 +1591,7 @@ document.querySelectorAll(".spread-btn");
 
 const spreadDescription =
 document.querySelector(".spread-description");
+console.log("spreadDescription =", spreadDescription);
       let currentLang = safeGetItem(LANG_KEY) || "zh";
 
       function safeGetItem(key) { try { return localStorage.getItem(key); } catch (error) { return null; } }

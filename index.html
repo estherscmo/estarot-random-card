@@ -2146,10 +2146,11 @@ ${selectedCard[2].reversed ? "(Reversed)" : "(Upright)"}`;
 
 }
 
-         
+         console.log(whatsappMessage);
           whatsappLink.href =
   "https://api.whatsapp.com/send?phone=447585548525&text=" +
   encodeURIComponent(whatsappMessage);
+          
 shuffleArea.classList.remove("show");
 
 showCard(selectedCard);

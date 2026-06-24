@@ -828,31 +828,64 @@
 
 }
 
-.spread-option{
+.spread-selector{
+  text-align:center;
+  margin:30px auto;
+}
 
-  display:flex;
+.spread-toggle{
 
-  align-items:center;
+  display:inline-flex;
 
-  gap:10px;
+  background:#f2d6df;
+
+  border-radius:999px;
+
+  padding:5px;
+
+  gap:4px;
+
+  margin-top:10px;
+
+}
+
+.spread-btn{
+
+  border:none;
+
+  background:transparent;
+
+  padding:10px 22px;
+
+  border-radius:999px;
+
+  cursor:pointer;
+
+  color:#4f315e;
 
   font-weight:700;
 
-  color:#7b637f;
+  transition:.3s;
 
-  margin-top:15px;
+}
+
+.spread-btn.active{
+
+  background:white;
+
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
 
 }
 
 .spread-description{
 
-  margin:5px 0 15px 30px;
+  max-width:650px;
 
-  color:#666;
+  margin:15px auto 0;
 
-  font-size:.95rem;
+  color:#7b637f;
 
-  line-height:1.5;
+  line-height:1.6;
 
 }
   </style>
@@ -905,23 +938,61 @@
     選擇抽牌方式
   </h3>
 
-  <label class="spread-option">
+  <div class="spread-selector">
 
-    <input
-      type="radio"
-      name="spreadType"
-      value="single"
-      checked>
+  <h3
+    data-zh="選擇抽牌方式"
+    data-en="Choose Your Reading">
+    選擇抽牌方式
+  </h3>
 
-    <span
-      data-zh="單牌解讀"
-      data-en="Single Card Reading">
+  <div class="spread-toggle">
 
-      單牌解讀
+    <button
+      type="button"
+      class="spread-btn active"
+      data-spread="single">
 
-    </span>
+      <span
+        data-zh="單牌解讀"
+        data-en="Single Card">
 
-  </label>
+        單牌解讀
+
+      </span>
+
+    </button>
+
+    <button
+      type="button"
+      class="spread-btn"
+      data-spread="three">
+
+      <span
+        data-zh="三牌解讀"
+        data-en="Three Cards">
+
+        三牌解讀
+
+      </span>
+
+    </button>
+
+  </div>
+
+  <p
+    id="spreadDescription"
+    class="spread-description"
+    data-zh-single="適合快速指引、是非題、今日運勢及當下建議。"
+    data-en-single="Ideal for quick guidance, daily insights, yes/no situations and immediate advice."
+    data-zh-three="適合感情、事業及較複雜問題，可了解問題全貌。"
+    data-en-three="Best for love, career and complex situations, providing a broader understanding of the issue.">
+
+    適合快速指引、是非題、今日運勢及當下建議。
+
+  </p>
+
+</div>
 
   <p
     class="spread-description"
@@ -1588,6 +1659,7 @@ data-hkd="800">
       }
 
 let currentCard = null;
+let currentSpread = "single";
       
       function applyLanguage(lang) {
         currentLang = lang;

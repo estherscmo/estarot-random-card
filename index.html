@@ -1618,6 +1618,30 @@ ${selectedCard.reversed ? "(Reversed)" : "(Upright)"}`;
           whatsappLink.href =
           "https://api.whatsapp.com/send?phone=447585548525&text=" +
           encodeURIComponent(whatsappMessage);
+          whatsappLink.href =
+  "https://api.whatsapp.com/send?phone=447585548525&text=" +
+  encodeURIComponent(whatsappMessage);
+
+// 關閉洗牌動畫
+shuffleArea.classList.remove("show");
+
+// 顯示抽到嘅牌
+showCard(selectedCard);
+
+// 儲存抽牌結果
+safeSetItem(
+  CARD_KEY,
+  JSON.stringify(selectedCard)
+);
+
+// 儲存抽牌時間
+safeSetItem(
+  DRAW_KEY,
+  Date.now().toString()
+);
+
+// 更新頁面
+updatePageState();
           updatePageState();
         }, 1600);
       });

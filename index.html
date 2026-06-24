@@ -817,6 +817,44 @@
   transform: translateY(-2px);
 
 }
+
+    .spread-selector{
+
+  text-align:left;
+
+  max-width:700px;
+
+  margin:30px auto;
+
+}
+
+.spread-option{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  font-weight:700;
+
+  color:#7b637f;
+
+  margin-top:15px;
+
+}
+
+.spread-description{
+
+  margin:5px 0 15px 30px;
+
+  color:#666;
+
+  font-size:.95rem;
+
+  line-height:1.5;
+
+}
   </style>
 </head>
 
@@ -859,6 +897,69 @@
         <h2 data-zh="請抽一張塔羅牌" data-en="Draw One Tarot Card">請抽一張塔羅牌</h2>
         <p class="section-copy" data-zh="這裡只會顯示你抽到的塔羅卡，不提供即時解讀。若你想知道卡牌背後的訊息，可以直接 WhatsApp 查詢詳細解讀。" data-en="This page only shows the tarot card you draw and does not provide an instant reading. If you would like to understand the message behind your card, please contact me on WhatsApp for a detailed reading.">這裡只會顯示你抽到的塔羅卡，不提供即時解讀。若你想知道卡牌背後的訊息，可以直接 WhatsApp 查詢詳細解讀。</p>
 
+<div class="spread-selector">
+
+  <h3
+    data-zh="選擇抽牌方式"
+    data-en="Choose Your Reading">
+    選擇抽牌方式
+  </h3>
+
+  <label class="spread-option">
+
+    <input
+      type="radio"
+      name="spreadType"
+      value="single"
+      checked>
+
+    <span
+      data-zh="單牌解讀"
+      data-en="Single Card Reading">
+
+      單牌解讀
+
+    </span>
+
+  </label>
+
+  <p
+    class="spread-description"
+    data-zh="適合快速指引、是非題、今日運勢及當下建議。"
+    data-en="Ideal for quick guidance, daily insights, yes/no situations and immediate advice.">
+
+    適合快速指引、是非題、今日運勢及當下建議。
+
+  </p>
+
+  <label class="spread-option">
+
+    <input
+      type="radio"
+      name="spreadType"
+      value="three">
+
+    <span
+      data-zh="三牌解讀"
+      data-en="Three Card Reading">
+
+      三牌解讀
+
+    </span>
+
+  </label>
+
+  <p
+    class="spread-description"
+    data-zh="適合感情、事業及較複雜問題，可了解問題全貌。"
+    data-en="Best for love, career and more complex situations, providing a broader understanding of the issue.">
+
+    適合感情、事業及較複雜問題，可了解問題全貌。
+
+  </p>
+
+</div>
+        
         <textarea
 id="tarotQuestion"
 class="tarot-question-input"

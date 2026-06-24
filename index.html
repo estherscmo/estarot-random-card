@@ -1589,17 +1589,22 @@ function showCard(card) {
         countdown.textContent = "";
 
         setTimeout(function () {
+          console.log("Deck size:", tarotDeck.length);
 const randomCard =
-tarotDeck[
-  Math.floor(
-    Math.random() * tarotDeck.length
-  )
-];
+  tarotDeck[
+    Math.floor(
+      Math.random() * tarotDeck.length
+    )
+  ];
+
+console.log("Random card:", randomCard);
 
 const selectedCard = {
   ...randomCard,
   reversed: Math.random() < 0.5
 };
+
+console.log("Selected card:", selectedCard);
           const userQuestion = tarotQuestion.value.trim();
           tarotQuestion.disabled = true;
       const whatsappMessage =
@@ -1616,33 +1621,24 @@ const selectedCard = {
       ${selectedCard.en}
       ${selectedCard.reversed ? "(Reversed)" : "(Upright)"}`;
 
-          whatsappLink.href =
-          "https://api.whatsapp.com/send?phone=447585548525&text=" +
-          encodeURIComponent(whatsappMessage);
+         
           whatsappLink.href =
   "https://api.whatsapp.com/send?phone=447585548525&text=" +
   encodeURIComponent(whatsappMessage);
-
-// 關閉洗牌動畫
 shuffleArea.classList.remove("show");
 
-// 顯示抽到嘅牌
 showCard(selectedCard);
 
-// 儲存抽牌結果
 safeSetItem(
   CARD_KEY,
   JSON.stringify(selectedCard)
 );
 
-// 儲存抽牌時間
 safeSetItem(
-  DRAW_KEY,
-  Date.now().toString()
+  STORAGE_KEY,
+  String(Date.now())
 );
 
-// 更新頁面
-updatePageState();
           updatePageState();
         }, 1600);
       });

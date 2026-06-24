@@ -1954,46 +1954,29 @@ threeCardArea.classList.remove("show");
           countdown.textContent = "";
         }
 
-        if (
-const isThree =
-localStorage.getItem("selectedSpread")==="three";
+if (savedCard) {
 
-if(savedCard){
+    try {
 
-    try{
+        const parsedCard = JSON.parse(savedCard);
 
-        const parsed=JSON.parse(savedCard);
+        if (Array.isArray(parsedCard)) {
 
-        if(isThree){
+            showThreeCards(parsedCard);
 
-            showThreeCards(parsed);
+        } else {
 
-        }else{
+            showCard(parsedCard);
 
-            showCard(parsed);
+            cardName.textContent =
+                getCardDisplayName(parsedCard);
 
         }
 
-    }catch(e){}
+    } catch (error) {}
 
 }
-
-  try {
-
-    const parsedCard =
-      JSON.parse(savedCard);
-
-    if(!Array.isArray(parsedCard)){
-
-      cardName.textContent =
-        getCardDisplayName(parsedCard);
-
-    }
-
-  } catch (error) {}
-
-}
-        ｝
+      }
 
       drawButton.addEventListener("click", function () {
         if (getRemainingTime() > 0) {

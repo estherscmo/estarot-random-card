@@ -966,7 +966,8 @@
 
 
   <p
-    class="spread-description"
+  id="spreadDescription"
+  class="spread-description"
     data-zh="適合感情、事業及較複雜問題，可了解問題全貌。"
     data-en="Best for love, career and more complex situations, providing a broader understanding of the issue.">
 
@@ -1590,7 +1591,7 @@ const spreadButtons =
 document.querySelectorAll(".spread-btn");
 
 const spreadDescription =
-document.querySelector(".spread-description");
+document.getElementById("spreadDescription");
 console.log("spreadDescription =", spreadDescription);
       let currentLang = safeGetItem(LANG_KEY) || "zh";
 
@@ -1872,6 +1873,8 @@ safeSetItem(
 spreadButtons.forEach(button => {
 
   button.addEventListener("click", () => {
+
+    alert("Toggle Working");
 
     console.log("TOGGLE CLICKED");
 

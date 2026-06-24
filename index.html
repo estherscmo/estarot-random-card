@@ -381,6 +381,48 @@
       flex-direction: column;
     }
 
+.three-card-area{
+  display:none;
+  margin-top:30px;
+}
+
+.three-card-area.show{
+  display:block;
+}
+
+.three-card-item{
+  margin-bottom:40px;
+  text-align:center;
+}
+
+.three-card-label{
+  font-size:1.2rem;
+  font-weight:700;
+  color:#4d355f;
+  margin-bottom:15px;
+}
+
+.three-card-image{
+  width:180px;
+  max-width:100%;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+#cardName1,
+#cardName2,
+#cardName3{
+  margin-top:12px;
+  font-weight:700;
+}
+
+#cardPosition1,
+#cardPosition2,
+#cardPosition3{
+  color:#7b637f;
+  margin-top:5px;
+}
+
     .result-area.show { display: flex; }
 
     .tarot-result-card {
@@ -1007,7 +1049,55 @@ data-placeholder-en="Enter your question here..."
       margin-bottom:15px;
       font-weight:700;
     ">
+    
+    <div id="threeCardArea" class="three-card-area">
+
+  <div class="three-card-item">
+    <div class="three-card-label"
+         data-zh="過去"
+         data-en="Past">
+      過去
+    </div>
+
+    <img id="cardImage1" class="three-card-image">
+
+    <div id="cardName1"></div>
+
+    <div id="cardPosition1"></div>
   </div>
+
+  <div class="three-card-item">
+    <div class="three-card-label"
+         data-zh="現在"
+         data-en="Present">
+      現在
+    </div>
+
+    <img id="cardImage2" class="three-card-image">
+
+    <div id="cardName2"></div>
+
+    <div id="cardPosition2"></div>
+  </div>
+
+  <div class="three-card-item">
+    <div class="three-card-label"
+         data-zh="未來"
+         data-en="Future">
+      未來
+    </div>
+
+    <img id="cardImage3" class="three-card-image">
+
+    <div id="cardName3"></div>
+
+    <div id="cardPosition3"></div>
+  </div>
+
+</div>
+  </div>
+
+
 
   <!-- AI Prompt Button -->
   <div style="margin-top:20px;">

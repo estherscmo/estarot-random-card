@@ -1904,13 +1904,16 @@ function showCard(card){
 
   }
 
-  threeCardArea.classList.remove("show");
+threeCardArea.classList.remove("show");
 
-  cardImage.style.display="";
-  cardName.style.display="";
-  cardPosition.style.display="";
+  cardName.style.display = "";
+  cardImage.style.display = "";
 
-  ...
+  const cardPosition =
+  document.getElementById("cardPosition");
+
+  if(cardPosition){
+    cardPosition.style.display = "";
 }
 
       function updateButtonText() {

@@ -1777,6 +1777,18 @@ if (tarotQuestion) {
 
         if(currentCard){
   showCard(currentCard);
+          if(Array.isArray(currentCard)){
+
+  document.querySelectorAll(".three-card-label")[0].textContent =
+    currentLang==="zh" ? "過去" : "Past";
+
+  document.querySelectorAll(".three-card-label")[1].textContent =
+    currentLang==="zh" ? "現在" : "Present";
+
+  document.querySelectorAll(".three-card-label")[2].textContent =
+    currentLang==="zh" ? "未來" : "Future";
+
+}
 }
 
         if(copyPromptBtn){

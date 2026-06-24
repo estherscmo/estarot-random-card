@@ -1886,62 +1886,31 @@ if(cardPosition){
 
 }
 
-function showCard(card) {
+function showCard(card){
+
+  const threeCardArea=document.getElementById("threeCardArea");
 
   if(Array.isArray(card)){
 
-    showThreeCards(card);
+      cardImage.style.display="none";
+      cardName.style.display="none";
+      cardPosition.style.display="none";
 
-    return;
+      threeCardArea.classList.add("show");
 
-}
+      showThreeCards(card);
 
-  
-cardName.style.display = "";
-cardImage.style.display = "";
-
-const cardPosition =
-document.getElementById("cardPosition");
-
-if(cardPosition){
-  cardPosition.style.display = "";
-}
-
-  if (!card || !card.img) return;
-
-  cardImage.src = card.img;
-  cardImage.alt = getCardDisplayName(card);
-
-  cardName.textContent =
-    getCardDisplayName(card);
-
-  
-
-  if (card.reversed) {
-
-    cardImage.style.transform =
-      "rotate(180deg)";
-
-    cardPosition.textContent =
-      currentLang === "zh"
-      ? "逆位"
-      : "Reversed";
-
-  } else {
-
-    cardImage.style.transform =
-      "rotate(0deg)";
-
-    cardPosition.textContent =
-      currentLang === "zh"
-      ? "正位"
-      : "Upright";
+      return;
 
   }
 
-  resultArea.classList.add("show");
-  whatsappLink.classList.add("show");
-  readingFeeNote.classList.remove("hidden");
+  threeCardArea.classList.remove("show");
+
+  cardImage.style.display="";
+  cardName.style.display="";
+  cardPosition.style.display="";
+
+  ...
 }
 
       function updateButtonText() {
@@ -1971,9 +1940,28 @@ if(cardPosition){
         }
 
         if (
-  savedCard &&
-  resultArea.classList.contains("show")
-) {
+const isThree =
+localStorage.getItem("selectedSpread")==="three";
+
+if(savedCard){
+
+    try{
+
+        const parsed=JSON.parse(savedCard);
+
+        if(isThree){
+
+            showThreeCards(parsed);
+
+        }else{
+
+            showCard(parsed);
+
+        }
+
+    }catch(e){}
+
+}
 
   try {
 
@@ -2044,19 +2032,67 @@ currentCard = selectedCard;
 console.log("Selected card:", selectedCard);
           const userQuestion = tarotQuestion.value.trim();
           tarotQuestion.disabled = true;
-      const whatsappMessage =
-      currentLang === "zh"
-      ? `*隨機抽塔羅牌解讀*
-      問題：${userQuestion || "未有輸入"}
+     let whatsappMessage;
 
-      抽到的牌：
-      ${selectedCard.zh}
-      ${selectedCard.reversed ? "（逆位）" : "（正位）"}`
-        : `*Random Tarot Card Reading*
-      Question: ${userQuestion || "No question entered"}
-      Card Drawn:
-      ${selectedCard.en}
-      ${selectedCard.reversed ? "(Reversed)" : "(Upright)"}`;
+if(currentSpread === "single"){
+
+  whatsappMessage =
+    currentLang === "zh"
+      ? `*隨機塔羅牌解讀*
+
+問題：
+${userQuestion || "未有輸入"}
+
+抽到的牌：
+${selectedCard.zh}
+${selectedCard.reversed ? "（逆位）" : "（正位）"}`
+      : `*Random Tarot Reading*
+
+Question:
+${userQuestion || "No question entered"}
+
+Card:
+${selectedCard.en}
+${selectedCard.reversed ? "(Reversed)" : "(Upright)"}`;
+
+}else{
+
+  whatsappMessage =
+    currentLang === "zh"
+      ? `*三牌塔羅牌解讀*
+
+問題：
+${userQuestion || "未有輸入"}
+
+過去：
+${selectedCard[0].zh}
+${selectedCard[0].reversed ? "（逆位）" : "（正位）"}
+
+現在：
+${selectedCard[1].zh}
+${selectedCard[1].reversed ? "（逆位）" : "（正位）"}
+
+未來：
+${selectedCard[2].zh}
+${selectedCard[2].reversed ? "（逆位）" : "（正位）"}`
+      : `*Three Card Tarot Reading*
+
+Question:
+${userQuestion || "No question entered"}
+
+Past:
+${selectedCard[0].en}
+${selectedCard[0].reversed ? "(Reversed)" : "(Upright)"}
+
+Present:
+${selectedCard[1].en}
+${selectedCard[1].reversed ? "(Reversed)" : "(Upright)"}
+
+Future:
+${selectedCard[2].en}
+${selectedCard[2].reversed ? "(Reversed)" : "(Upright)"}`;
+
+}
 
          
           whatsappLink.href =

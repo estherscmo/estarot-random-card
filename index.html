@@ -783,6 +783,40 @@
   background:var(--plum);
   color:white;
 }
+
+    .ai-prompt-btn {
+
+  background: transparent;
+
+  border: 1px solid rgba(123,99,127,.25);
+
+  color: #7b637f;
+
+  padding: 12px 22px;
+
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  font-size: 0.95rem;
+
+  font-weight: 600;
+
+  transition: all .3s ease;
+
+  margin-top: 10px;
+
+}
+
+.ai-prompt-btn:hover {
+
+  background: #7b637f;
+
+  color: white;
+
+  transform: translateY(-2px);
+
+}
   </style>
 </head>
 
@@ -859,9 +893,9 @@ data-placeholder-en="Enter your question here..."
 
   <!-- AI Prompt Button -->
   <div style="margin-top:20px;">
-    <button id="copyPromptBtn" class="cta-btn">
-      📋 複製 AI 解牌 Prompt
-    </button>
+   <button id="copyPromptBtn" class="ai-prompt-btn">
+  📋 複製 AI 解牌 Prompt
+</button>
   </div>
 
   <!-- AI Disclaimer -->

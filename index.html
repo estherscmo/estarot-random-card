@@ -1832,6 +1832,16 @@ if(aiDisclaimer){
 
 function showThreeCards(cards){
 
+cardName.style.display = "none";
+cardImage.style.display = "none";
+
+const cardPosition =
+document.getElementById("cardPosition");
+
+if(cardPosition){
+  cardPosition.style.display = "none";
+}
+  
   threeCardArea.classList.add("show");
 
   resultArea.classList.add("show");
@@ -1883,6 +1893,16 @@ if(Array.isArray(card)){
 
   return;
 
+}
+
+cardName.style.display = "";
+cardImage.style.display = "";
+
+const cardPosition =
+document.getElementById("cardPosition");
+
+if(cardPosition){
+  cardPosition.style.display = "";
 }
 
   if (!card || !card.img) return;

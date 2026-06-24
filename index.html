@@ -1877,13 +1877,25 @@ function showThreeCards(cards){
 
 function showCard(card) {
 
-if(Array.isArray(card)){
+  if(Array.isArray(card)){
 
-  showThreeCards(card);
+    document.getElementById("cardName").style.display = "none";
 
-  return;
+    document.getElementById("cardImage").style.display = "none";
 
-}
+    document.getElementById("cardPosition").style.display = "none";
+
+    showThreeCards(card);
+
+    return;
+
+  }
+
+  document.getElementById("cardName").style.display = "";
+
+  document.getElementById("cardImage").style.display = "";
+
+  document.getElementById("cardPosition").style.display = "";
 
 cardName.style.display = "";
 cardImage.style.display = "";

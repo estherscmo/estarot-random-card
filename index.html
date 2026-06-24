@@ -2211,8 +2211,6 @@ copyPromptBtn.addEventListener("click", () => {
 
   let prompt = "";
 
-  if(currentLang === "zh"){
-
     if(Array.isArray(currentCard)){
 
   let prompt;
@@ -2290,7 +2288,7 @@ Please analyse:
   return;
 
 }
-
+if(currentLang === "zh"){
     prompt = `你是一位經驗豐富的專業塔羅師。
 
 我的問題是：

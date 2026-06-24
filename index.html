@@ -1584,6 +1584,13 @@ data-hkd="800">
       const LANG_KEY = "estarot_language";
       const COOKIE_KEY = "estarot_cookie_preference";
       const ONE_HOUR = 60 * 60 * 1000;
+      let currentSpread = "single";
+
+const spreadButtons =
+document.querySelectorAll(".spread-btn");
+
+const spreadDescription =
+document.querySelector(".spread-description");
       let currentLang = safeGetItem(LANG_KEY) || "zh";
 
       function safeGetItem(key) { try { return localStorage.getItem(key); } catch (error) { return null; } }
@@ -1861,6 +1868,39 @@ safeSetItem(
         button.addEventListener("click", function () { applyLanguage(button.getAttribute("data-set-lang")); });
       });
 
+spreadButtons.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    spreadButtons.forEach(btn =>
+      btn.classList.remove("active")
+    );
+
+    button.classList.add("active");
+
+    currentSpread =
+      button.dataset.spread;
+
+    if(currentLang === "zh"){
+
+      spreadDescription.textContent =
+        currentSpread === "single"
+        ? "適合快速獲得一個重點訊息或今日指引。"
+        : "適合感情、事業及較複雜問題，可了解問題全貌。";
+
+    }else{
+
+      spreadDescription.textContent =
+        currentSpread === "single"
+        ? "Best for quick guidance or a single key message."
+        : "Best for love, career and more complex situations, providing a broader understanding of the issue.";
+
+    }
+
+  });
+
+});
+      
 applyLanguage(currentLang);
 initialiseCookiePreferences();
 setInterval(updatePageState, 1000);

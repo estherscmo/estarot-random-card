@@ -1855,6 +1855,7 @@ if(cardPosition){
   cardPosition.style.display = "none";
 }
   
+  
   threeCardArea.classList.add("show");
 
   resultArea.classList.add("show");
@@ -1901,12 +1902,17 @@ if(cardPosition){
 function showCard(card){
 
   const threeCardArea=document.getElementById("threeCardArea");
+const cardPosition =
+    document.getElementById("cardPosition");
 
-  if(Array.isArray(card)){
+if(Array.isArray(card)){
 
       cardImage.style.display="none";
       cardName.style.display="none";
-      cardPosition.style.display="none";
+
+      if(cardPosition){
+          cardPosition.style.display="none";
+      }
 
       threeCardArea.classList.add("show");
 
@@ -1926,6 +1932,39 @@ threeCardArea.classList.remove("show");
 
   if(cardPosition){
     cardPosition.style.display = "";
+}
+  if (!card || !card.img) return;
+
+cardImage.src = card.img;
+cardImage.alt = getCardDisplayName(card);
+
+cardName.textContent =
+    getCardDisplayName(card);
+
+if(card.reversed){
+
+    cardImage.style.transform = "rotate(180deg)";
+
+    cardPosition.textContent =
+        currentLang === "zh"
+            ? "逆位"
+            : "Reversed";
+
+}else{
+
+    cardImage.style.transform = "rotate(0deg)";
+
+    cardPosition.textContent =
+        currentLang === "zh"
+            ? "正位"
+            : "Upright";
+
+}
+
+resultArea.classList.add("show");
+whatsappLink.classList.add("show");
+readingFeeNote.classList.remove("hidden");
+
 }
 
       function updateButtonText() {
@@ -2199,21 +2238,9 @@ copyPromptBtn.addEventListener("click", () => {
   const userQuestion =
     tarotQuestion.value.trim();
 
-  const positionZh =
-    currentCard.reversed
-      ? "逆位"
-      : "正位";
-
-  const positionEn =
-    currentCard.reversed
-      ? "Reversed"
-      : "Upright";
-
   let prompt = "";
 
     if(Array.isArray(currentCard)){
-
-  let prompt;
 
   if(currentLang==="zh"){
 
@@ -2288,6 +2315,18 @@ Please analyse:
   return;
 
 }
+
+
+  const positionZh =
+    currentCard.reversed
+      ? "逆位"
+      : "正位";
+
+  const positionEn =
+    currentCard.reversed
+      ? "Reversed"
+      : "Upright";
+  
 if(currentLang === "zh"){
     prompt = `你是一位經驗豐富的專業塔羅師。
 

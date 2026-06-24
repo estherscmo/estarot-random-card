@@ -1833,6 +1833,16 @@ if(aiDisclaimer){
 
 function showThreeCards(cards){
   
+  cardImage.style.display = "none";
+cardName.style.display = "none";
+
+const cardPosition =
+document.getElementById("cardPosition");
+
+if(cardPosition){
+  cardPosition.style.display = "none";
+}
+  
   threeCardArea.classList.add("show");
 
   resultArea.classList.add("show");
@@ -1960,10 +1970,26 @@ if(cardPosition){
           countdown.textContent = "";
         }
 
-        if (savedCard && resultArea.classList.contains("show")) {
-          try { cardName.textContent = getCardDisplayName(JSON.parse(savedCard)); } catch (error) {}
-        }
-      }
+        if (
+  savedCard &&
+  resultArea.classList.contains("show")
+) {
+
+  try {
+
+    const parsedCard =
+      JSON.parse(savedCard);
+
+    if(!Array.isArray(parsedCard)){
+
+      cardName.textContent =
+        getCardDisplayName(parsedCard);
+
+    }
+
+  } catch (error) {}
+
+}
 
       drawButton.addEventListener("click", function () {
         if (getRemainingTime() > 0) {

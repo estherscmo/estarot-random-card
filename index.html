@@ -839,7 +839,7 @@ data-placeholder-en="Enter your question here..."
           <div class="mini-card"></div><div class="mini-card"></div><div class="mini-card"></div>
         </div>
 
-        <div id="resultArea" class="result-area">
+<div id="resultArea" class="result-area">
   <div class="tarot-result-card">
     <img id="cardImage" src="" alt="抽到的塔羅卡" />
   </div>
@@ -856,6 +856,26 @@ data-placeholder-en="Enter your question here..."
       font-weight:700;
     ">
   </div>
+
+  <!-- AI Prompt Button -->
+  <div style="margin-top:20px;">
+    <button id="copyPromptBtn" class="cta-btn">
+      📋 複製 AI 解牌 Prompt
+    </button>
+  </div>
+
+  <!-- AI Disclaimer -->
+  <p
+    id="aiDisclaimer"
+    style="
+      margin-top:15px;
+      font-size:0.9rem;
+      line-height:1.6;
+      color:#666;
+    ">
+    AI 解讀只供參考，未能完全了解你的實際情況與能量狀態。
+    如需深入個人化分析，歡迎預約 Esther 專業塔羅解讀。
+  </p>
 
 </div>
 
@@ -1405,6 +1425,8 @@ data-hkd="800">
       const cookieBanner = document.getElementById("cookieBanner");
       const acceptCookies = document.getElementById("acceptCookies");
       const rejectCookies = document.getElementById("rejectCookies");
+      const copyPromptBtn = document.getElementById("copyPromptBtn");
+      const aiDisclaimer = document.getElementById("aiDisclaimer");
 
       const STORAGE_KEY = "estarot_random_tarot_last_draw";
       const CARD_KEY = "estarot_random_tarot_last_card";
@@ -1430,6 +1452,8 @@ data-hkd="800">
         return minutes + (currentLang === "zh" ? "分" : "m ") + String(seconds).padStart(2, "0") + (currentLang === "zh" ? "秒" : "s");
       }
 
+let currentCard = null;
+      
       function applyLanguage(lang) {
         currentLang = lang;
         safeSetItem(LANG_KEY, lang);
@@ -1469,6 +1493,28 @@ if (tarotQuestion) {
 
         updateButtonText();
         updatePageState();
+
+        if(currentCard){
+  showCard(currentCard);
+}
+
+        if(copyPromptBtn){
+
+  copyPromptBtn.textContent =
+    lang === "zh"
+      ? "📋 複製 AI 解牌 Prompt"
+      : "📋 Copy AI Reading Prompt";
+
+}
+
+if(aiDisclaimer){
+
+  aiDisclaimer.textContent =
+    lang === "zh"
+      ? "AI 解讀只供參考，未能完全了解你的實際情況、背景及能量狀態。如需深入個人化分析，歡迎預約 Esther 專業塔羅解讀。"
+      : "AI-generated readings are for general guidance only. AI does not know your personal circumstances, emotions, background, or energy. For a personalised and professional Tarot reading, please book a session with Esther.";
+
+}
       }
 
       function initialiseCookiePreferences() {
@@ -1604,6 +1650,8 @@ const selectedCard = {
   reversed: Math.random() < 0.5
 };
 
+currentCard = selectedCard;
+
 console.log("Selected card:", selectedCard);
           const userQuestion = tarotQuestion.value.trim();
           tarotQuestion.disabled = true;
@@ -1661,9 +1709,107 @@ safeSetItem(
         button.addEventListener("click", function () { applyLanguage(button.getAttribute("data-set-lang")); });
       });
 
-      applyLanguage(currentLang);
-      initialiseCookiePreferences();
-      setInterval(updatePageState, 1000);
+applyLanguage(currentLang);
+initialiseCookiePreferences();
+setInterval(updatePageState, 1000);
+
+copyPromptBtn.addEventListener("click", () => {
+
+  if(!currentCard){
+
+    alert(
+      currentLang === "zh"
+        ? "請先抽牌"
+        : "Please draw a card first"
+    );
+
+    return;
+  }
+
+  const userQuestion =
+    tarotQuestion.value.trim();
+
+  const positionZh =
+    currentCard.reversed
+      ? "逆位"
+      : "正位";
+
+  const positionEn =
+    currentCard.reversed
+      ? "Reversed"
+      : "Upright";
+
+  let prompt = "";
+
+  if(currentLang === "zh"){
+
+    prompt = `你是一位經驗豐富的專業塔羅師。
+
+我的問題是：
+
+${userQuestion || "未有輸入問題"}
+
+我抽到的牌是：
+
+${currentCard.zh}
+${positionZh}
+
+請從以下角度進行詳細分析：
+
+1. 這張牌的核心訊息
+2. 正位／逆位的含義
+3. 目前狀況反映了甚麼
+4. 潛在機會
+5. 潛在挑戰
+6. 建議採取的行動
+7. 未來三個月發展趨勢
+
+請使用繁體中文回答。
+
+請保持客觀、溫和、有同理心及具建設性。
+
+避免過度神化或宿命論。`;
+
+  } else {
+
+    prompt = `You are an experienced professional Tarot reader.
+
+My question is:
+
+${userQuestion || "No question entered"}
+
+The card I drew is:
+
+${currentCard.en}
+${positionEn}
+
+Please provide a detailed interpretation covering:
+
+1. Core message of the card
+2. Upright/Reversed meaning
+3. What my current situation may reflect
+4. Potential opportunities
+5. Potential challenges
+6. Recommended actions
+7. Likely developments over the next three months
+
+Please answer in English.
+
+Keep the reading balanced, supportive, practical, and constructive.
+
+Avoid deterministic or overly mystical predictions.`;
+
+  }
+
+  navigator.clipboard.writeText(prompt);
+
+  alert(
+    currentLang === "zh"
+      ? "AI Prompt 已複製，可貼到 ChatGPT、Claude 或 Gemini"
+      : "AI Prompt copied. Paste it into ChatGPT, Claude, or Gemini."
+  );
+
+});
 
 
       
